@@ -72,6 +72,7 @@
     var dots = Array.prototype.slice.call(slider.querySelectorAll('.slider-dot'));
     var prev = slider.querySelector('[data-prev]');
     var next = slider.querySelector('[data-next]');
+    var count = slider.querySelector('[data-count]');
     var ms = parseInt(slider.getAttribute('data-interval') || '7000', 10);
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var index = 0, timer = null, paused = false, visible = true;
@@ -86,6 +87,7 @@
     };
     var mark = function () {
       dots.forEach(function (d, j) { d.setAttribute('aria-current', j === index ? 'true' : 'false'); });
+      if (count) count.textContent = (index + 1) + ' / ' + slides.length;
     };
     var stop = function () { clearTimeout(timer); timer = null; slider.classList.remove('is-playing'); };
     var restart = function () {

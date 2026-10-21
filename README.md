@@ -1,32 +1,78 @@
-# Doptiva website
+# doptiva.com
 
-Static HTML, CSS and vanilla JavaScript website extracted from `Doptiva splet.zip`. No React, Next.js or other application framework is used. The actual website lives in `public/`; the archive's outer redirect/preview launcher is intentionally not the homepage. The original Slovenian/English pages, responsive styles, branding, embedded fonts, theme switcher, navigation and slider are retained.
+Spletna stran Doptive. Statična, dvojezična (slovenščina na `/`, angleščina na `/en/`), brez ogrodja in brez zunanjih odvisnosti v produkciji. Gradi se z enim ukazom, gosti na Vercelu.
 
-## Local development
+## Kaj je v mapi
 
-Requires Node.js 24. There are no npm dependencies.
+| Pot | Vsebina |
+| --- | --- |
+| `site.config.mjs` | e-naslov, pravni podatki, avtor člankov, analitika |
+| `content/sl.mjs`, `content/en.mjs` | vsa besedila strani |
+| `content/blog/sl/*.md`, `content/blog/en/*.md` | članki |
+| `content/legal/` | politika zasebnosti, piškotki, pravno obvestilo |
+| `public/` | slike, pisave, CSS, JS, ikone (kopira se v `dist/`) |
+| `api/contact.js` | funkcija, ki povpraševanje pošlje na tvoj e-naslov (Resend) |
+| `build.mjs` | generator strani |
+| `vercel.json` | nastavitve gostovanja in varnostne glave |
+| `docs/` | navodila za zagon, DNS, SEO in fotografije |
 
-```sh
-npm run build
-npm test
-npm run dev
+## Ukazi
+
+```bash
+node build.mjs            # zgradi stran v dist/
+node build.mjs --preview  # predogled z relativnimi povezavami v preview/site/
+npm install --no-save playwright@1.48.2 && node scripts/og.mjs   # ponovno ustvari slike za deljenje (po novem članku)
 ```
 
-The development command serves `dist/` on port 3000 using Python 3. The build recreates `dist/` from `public/`, adds the missing web manifest and bilingual RSS feeds, removes references to the absent ICO (the supplied SVG favicon remains), and uses the supplied logo instead of nonexistent social preview images. It does not change the site's visual design or scripts.
+Potrebuješ Node.js 24 (enako kot Vercel). `npm test` zgradi stran in preveri povezave, SEO glave, sitemap in strukturirane podatke.
 
-## Vercel deployment
+## Pred objavo izpolni
 
-Import this GitHub repository, use branch `main`, and leave Root Directory at the repository root. `vercel.json` configures:
+V `site.config.mjs` zamenjaj vse vrednosti v [oglatih oklepajih]:
 
-- Framework Preset: Other (static site)
-- Build Command: `npm run build`
-- Output Directory: `dist`
-- Node.js: 24.x, as pinned in `package.json`
+- polno ime s.p. kot v AJPES, ulica, matična in davčna številka,
+- ponudnik e-poštnega predala in lokacija strežnikov (navedeno v politiki zasebnosti),
+- preveri e-naslov (`info@doptiva.com`) in ime avtorice člankov.
 
-No environment variables or external packages are required for the existing preview functionality. Directory routes such as `/projekti/`, `/en/` and `/en/contact/` serve their corresponding HTML pages; existing `index.html` links continue to work. `404.html` supplies the not-found page. Do not configure an SPA catch-all rewrite: this is a multipage site.
+## Objava na Vercelu
 
-## Existing launch limitations
+Repozitorij je povezan z Vercelom (projekt `doptiva`). Vercel ob vsaki spremembi na veji `main` zažene `npm run build` in objavi mapo `dist`. Vsaka druga veja dobi svoj predogledni naslov.
 
-The supplied website explicitly has `data-preview` on its HTML pages. Its form validates input and displays a preview message, and the direct `info@doptiva.com` mail links work. The ZIP contains no `/api/contact` implementation, so preview mode is deliberately preserved rather than claiming enquiries are sent. A working mail backend and verified delivery are needed before removing that attribute.
+Da bo kontaktni obrazec pošiljal povpraševanja, v Vercelu (**Settings → Environment Variables**) dodaj:
 
-Company/legal placeholders and the preview notice/placeholder slide artwork are part of the supplied content and remain unchanged. Complete them before production launch. This repository configuration does not itself create a Vercel project, attach a domain, or establish a successful production deployment.
+- `RESEND_API_KEY`: ključ iz resend.com
+- `CONTACT_TO`: kam pridejo povpraševanja, npr. `info@doptiva.com`
+- `CONTACT_FROM`: npr. `Doptiva obrazec <obrazec@doptiva.com>` (domena mora biti potrjena v Resendu)
+- `ANALYTICS=1`: samo če vklopiš Vercel Web Analytics
+
+Dokler spremenljivk ni, obrazec obiskovalcu pokaže e-naslov za neposreden stik. Po nastavitvi pošlji testno povpraševanje. Navodila za DNS, e-pošto in iskalnike so v `docs/ZAGON-SEO-DNS.md`.
+
+## Fotografije
+
+Drsnik ima zdaj nadomestne ilustracije. Ko dodaš fotografijo z istim imenom in končnico `.webp` ali `.jpg` v `public/assets/img/slides/`, jo generator uporabi namesto ilustracije. Navodila in predlogi so v `docs/FOTOGRAFIJE.md`.
+
+## Nov članek
+
+1. Ustvari `content/blog/sl/ime-clanka.md` (in po želji angleški prevod v `content/blog/en/`).
+2. Na vrh dodaj:
+   ```
+   ---
+   title: Naslov članka
+   description: Opis za Google, do 155 znakov.
+   date: 2026-11-04
+   key: kratek-kljuc
+   ---
+   ```
+   Isti `key` v obeh jezikih poveže prevoda.
+3. Zaženi `node build.mjs` in `node scripts/og.mjs`. Članek se samodejno doda v blog, sitemap, RSS in llms.txt.
+
+## Kaj stran že ima
+
+- ločene strani in naslovi za vsak jezik, `hreflang`, kanonični URL-ji, sitemap.xml, robots.txt, RSS
+- strukturirani podatki (organizacija, storitve, pogosta vprašanja, članki, drobtinice, produkta)
+- `llms.txt` in dovoljen dostop AI-iskalnikom (ChatGPT, Claude, Perplexity, Google AI) za vidnost v AI-odgovorih
+- slike za deljenje na družbenih omrežjih za vsako stran in članek
+- pisave gostovane na lastnem strežniku (ni prenosa IP-naslova Googlu), brez piškotkov za sledenje, zato ni potrebna pasica za privolitev
+- svetla in temna tema, prilagojeno za telefone; Lighthouse: 100 za dostopnost, dobre prakse in SEO, 95 za hitrost (lokalno, brez stiskanja)
+- varnostne glave (HSTS, CSP, X-Frame-Options), `/.well-known/security.txt`
+- kontaktni obrazec z zaščito pred neželeno pošto (skrito polje, časovna zaščita)
