@@ -65,74 +65,98 @@
     });
   }
 
-  // drsnik fotografij
-  document.querySelectorAll('[data-slider]').forEach(function (slider) {
-    var track = slider.querySelector('.slider-track');
-    var slides = Array.prototype.slice.call(track.children);
-    var dots = Array.prototype.slice.call(slider.querySelectorAll('.slider-dot'));
-    var prev = slider.querySelector('[data-prev]');
-    var next = slider.querySelector('[data-next]');
-    var count = slider.querySelector('[data-count]');
-    var ms = parseInt(slider.getAttribute('data-interval') || '7000', 10);
-    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var index = 0, timer = null, paused = false, visible = true;
-    slider.style.setProperty('--slide-ms', ms + 'ms');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    var go = function (i, user) {
-      index = (i + slides.length) % slides.length;
-      var left = slides[index].offsetLeft - track.offsetLeft;
-      track.scrollTo({ left: left, behavior: reduce ? 'auto' : 'smooth' });
-      mark();
-      if (user) restart();
-    };
-    var mark = function () {
-      dots.forEach(function (d, j) { d.setAttribute('aria-current', j === index ? 'true' : 'false'); });
-      if (count) count.textContent = (index + 1) + ' / ' + slides.length;
-    };
-    var stop = function () { clearTimeout(timer); timer = null; slider.classList.remove('is-playing'); };
-    var restart = function () {
-      stop();
-      if (reduce || paused || !visible || slides.length < 2) return;
-      mark();
-      void slider.offsetWidth; // ponovno zaženi animacijo napredka
-      slider.classList.add('is-playing');
-      timer = setTimeout(function () { go(index + 1); restart(); }, ms);
-    };
+  // opazovanje vidnosti: animacije tečejo le, ko je element na zaslonu
+  function watch(el, onChange) {
+    if (!('IntersectionObserver' in window)) { onChange(true); return; }
+    new IntersectionObserver(function (entries) { onChange(entries[0].isIntersecting); }, { threshold: 0.25 }).observe(el);
+  }
+  document.querySelectorAll('[data-animate]').forEach(function (el) {
+    watch(el, function (v) { if (v) el.classList.add('is-visible'); });
+  });
 
-    // sinhronizacija ob ročnem drsenju (dotik, sledilna ploščica)
-    var scrollTimer;
-    track.addEventListener('scroll', function () {
-      clearTimeout(scrollTimer);
-      scrollTimer = setTimeout(function () {
-        var best = 0, dist = Infinity;
-        slides.forEach(function (s, j) {
-          var d = Math.abs(s.offsetLeft - track.offsetLeft - track.scrollLeft);
-          if (d < dist) { dist = d; best = j; }
-        });
-        if (best !== index) { index = best; mark(); restart(); }
-      }, 120);
-    }, { passive: true });
-
-    dots.forEach(function (d, j) { d.addEventListener('click', function () { go(j, true); }); });
-    if (prev) prev.addEventListener('click', function () { go(index - 1, true); });
-    if (next) next.addEventListener('click', function () { go(index + 1, true); });
-    slider.addEventListener('mouseenter', function () { paused = true; stop(); });
-    slider.addEventListener('mouseleave', function () { paused = false; restart(); });
-    slider.addEventListener('focusin', function () { paused = true; stop(); });
-    slider.addEventListener('focusout', function () { paused = false; restart(); });
-    track.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowRight') { e.preventDefault(); go(index + 1, true); }
-      if (e.key === 'ArrowLeft') { e.preventDefault(); go(index - 1, true); }
+  // trak ploščic, ki se sam premika
+  document.querySelectorAll('[data-marquee]').forEach(function (m) {
+    if (reduce) return;
+    var track = m.querySelector('.marquee-track');
+    var originals = Array.prototype.slice.call(track.children);
+    originals.forEach(function (n) {
+      var c = n.cloneNode(true);
+      c.setAttribute('aria-hidden', 'true');
+      c.querySelectorAll('a, button').forEach(function (a) { a.setAttribute('tabindex', '-1'); });
+      c.querySelectorAll('img').forEach(function (img) { img.setAttribute('alt', ''); });
+      track.appendChild(c);
     });
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (entries) {
-        visible = entries[0].isIntersecting;
-        visible ? restart() : stop();
-      }, { threshold: 0.3 }).observe(slider);
+    var setSpeed = function () {
+      var half = track.scrollWidth / 2;
+      m.style.setProperty('--marquee-duration', Math.max(30, Math.round(half / 38)) + 's');
+    };
+    setSpeed();
+    window.addEventListener('resize', setSpeed);
+    m.classList.add('is-running');
+    var section = m.closest('section');
+    var btn = section && section.querySelector('[data-marquee-toggle]');
+    var userPaused = false;
+    if (btn) {
+      btn.hidden = false;
+      btn.addEventListener('click', function () {
+        userPaused = !userPaused;
+        btn.setAttribute('aria-pressed', String(userPaused));
+        btn.querySelector('[data-label-pause]').hidden = userPaused;
+        btn.querySelector('[data-label-play]').hidden = !userPaused;
+        m.classList.toggle('is-paused', userPaused);
+      });
     }
-    document.addEventListener('visibilitychange', function () { document.hidden ? stop() : restart(); });
-    mark();
-    restart();
+    watch(m, function (v) { m.classList.toggle('is-paused', userPaused || !v); });
+  });
+
+  // ponavljajoče se tihe animacije (koraki, Refilo, Terto)
+  function loop(el, ms, tick) {
+    if (reduce) return;
+    var timer = null;
+    watch(el, function (v) {
+      clearInterval(timer); timer = null;
+      if (v && !document.hidden) { tick(); timer = setInterval(tick, ms); }
+    });
+  }
+
+  document.querySelectorAll('[data-steps]').forEach(function (ol) {
+    var items = ol.querySelectorAll('.step'), i = -1;
+    loop(ol, 2600, function () {
+      if (items[i]) items[i].classList.remove('is-active');
+      i = (i + 1) % items.length;
+      items[i].classList.add('is-active');
+    });
+  });
+
+  document.querySelectorAll('[data-refilo]').forEach(function (ui) {
+    var chip = ui.querySelector('[data-cycle]');
+    var row = ui.querySelector('[data-cycle-row]');
+    var flow = ui.querySelectorAll('.ui-flow span');
+    if (!chip) return;
+    var states = JSON.parse(chip.getAttribute('data-cycle')), i = 0;
+    loop(ui, 2200, function () {
+      i = (i + 1) % states.length;
+      chip.textContent = states[i][0];
+      chip.className = 'st st-' + states[i][1];
+      flow.forEach(function (f, k) { f.classList.toggle('is-current', k === i); });
+      row.classList.add('is-changing');
+      setTimeout(function () { row.classList.remove('is-changing'); }, 700);
+    });
+  });
+
+  document.querySelectorAll('[data-terto]').forEach(function (ui) {
+    var steps = ui.querySelectorAll('[data-tstep]'), i = -1;
+    var btn = ui.querySelector('[data-sent]');
+    var label = btn ? btn.textContent : '';
+    loop(ui, 1400, function () {
+      if (steps[i]) steps[i].classList.remove('is-focus');
+      if (btn) { btn.classList.remove('is-sent'); btn.textContent = label; }
+      i = (i + 1) % (steps.length + 1);
+      if (i === steps.length) { if (btn) { btn.classList.add('is-sent'); btn.textContent = btn.getAttribute('data-sent') + ' \u2713'; } return; }
+      steps[i].classList.add('is-focus');
+    });
   });
 
   // kopiranje e-naslova

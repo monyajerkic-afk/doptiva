@@ -24,6 +24,8 @@ export default {
     preview: 'Site preview. Slider photos are placeholders.',
     previewLogo: 'Logo options',
     copy: 'Copy',
+    pause: 'Pause',
+    play: 'Play',
     footer: {
       tagline: 'Digitalisation, automation and artificial intelligence for small and medium-sized businesses.',
       pages: 'Pages',
@@ -150,10 +152,11 @@ export default {
       flow: ['Open', 'Pending approval', 'Approved', 'Ordered', 'Delivered'],
     },
     tertoUi: {
-      app: 'Terto', title: 'New order', customerLabel: 'Customer', customer: 'Breg Shop, Kočevje',
-      items: [['Apple juice, 1 l', '24'], ['Water, 0.5 l', '48'], ['Iced tea, 0.5 l', '12']],
+      app: 'Terto', title: 'New order', customerLabel: 'Customer', customer: 'Breg Ltd, Kočevje',
+      itemsLabel: 'Items', items: [['Item 1042', '6 pcs'], ['Item 2210', '12 pcs'], ['Item 3307', '2 packs']],
+      dateLabel: 'Delivery', date: '28 Oct 2026',
       noteLabel: 'Note', note: 'Deliver Friday morning',
-      button: 'Send order',
+      button: 'Send to office', sent: 'Sent to office',
     },
   },
 

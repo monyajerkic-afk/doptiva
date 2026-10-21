@@ -207,6 +207,8 @@ const ICON = {
   left: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>',
   right: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>',
   ne: '<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M5 3h6v6"/></svg>',
+  pause: '<svg class="i-pause" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true"><rect x="3" y="2" width="3" height="10"/><rect x="8" y="2" width="3" height="10"/></svg>',
+  play: '<svg class="i-play" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true"><path d="M4 2l8 5-8 5z"/></svg>',
   down: '<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 2v10M3 8l4 4 4-4"/></svg>',
 };
 // ročno narisane puščice (opombe)
@@ -334,12 +336,8 @@ function header(page) {
     const active = page.section === k;
     return `<a class="nav-link" href="${href(p, R(k))}"${active ? ' aria-current="page"' : ''}>${label}</a>`;
   }).join('\n      ');
-  const previewNote = PREVIEW
-    ? `<div class="preview-note">${esc(t.preview)} <a href="${href(p, '/logo.html')}">${esc(t.previewLogo)}</a></div>`
-    : '';
   return `<body>
 <a class="skip-link" href="#main">${t.skip}</a>
-${previewNote}
 <header class="site-header">
   <div class="wrap header-inner">
     <a class="logo" href="${href(p, R('home'))}" aria-label="Doptiva, ${esc(t.home.toLowerCase())}">${LOGO_SVG}</a>
@@ -417,7 +415,7 @@ function ctaBlock(lang, p) {
     <p>${esc(c.text)}</p>
     <a class="btn btn-primary" href="${href(p, ROUTES.contact[lang])}">${esc(c.button)} ${ICON.ne}</a>
   </div>
-  ${SKETCH.arrowUp}
+  <div class="cta-sketch" data-animate>${SKETCH.arrowUp}</div>
 </section>`;
 }
 
@@ -458,19 +456,15 @@ function renderHome(lang, posts) {
     { '@type': 'WebPage', '@id': abs(p) + '#webpage', url: abs(p), name: h.title, description: h.description, inLanguage: lang, isPartOf: { '@id': abs('/#website') }, about: { '@id': abs('/#organization') } },
     { '@type': 'FAQPage', '@id': abs(p) + '#faq', inLanguage: lang, mainEntity: h.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a.join(' ') } })) },
   ];
-  const n = h.slides.length;
-  const slides = h.slides.map((s, i) => `
-        <div class="slide" role="group" aria-roledescription="${lang === 'sl' ? 'fotografija' : 'slide'}" aria-label="${i + 1} / ${n}">
-          <figure>
-            <div class="slide-media"><img src="${href(p, slideImage(s.img))}" alt="${esc(s.alt)}" width="1600" height="700"${i === 0 ? ' fetchpriority="high"' : ' loading="lazy"'} decoding="async"></div>
-            <figcaption>
-              <h3>${esc(s.title)}</h3>
-              <p>${esc(s.text)}</p>
-              <a class="text-link" href="${s.href}">${esc(s.link)} ${ICON.down}</a>
-            </figcaption>
-          </figure>
-        </div>`).join('');
-  const dots = h.slides.map((s, i) => `<button class="slider-dot" type="button" aria-label="${esc(t.ui.goTo)} ${i + 1}" aria-current="${i === 0}"></button>`).join('');
+  const tiles = h.slides.map((s, i) => `
+        <figure class="tile">
+          <div class="tile-media"><img src="${href(p, slideImage(s.img))}" alt="${esc(s.alt)}" width="720" height="540" loading="${i < 4 ? 'eager' : 'lazy'}" decoding="async"></div>
+          <figcaption>
+            <h3>${esc(s.title)}</h3>
+            <p>${esc(s.text)}</p>
+            <a class="text-link" href="${s.href}">${esc(s.link)} ${ICON.down}</a>
+          </figcaption>
+        </figure>`).join('');
 
   const notes = h.services.map((s, i) => `
         <article class="note" id="${s.id}">
@@ -503,7 +497,7 @@ function renderHome(lang, posts) {
   <div class="wrap hero-grid">
     <div class="hero-main">
       <div><span class="label">${esc(h.kicker)}</span></div>
-      <h1>${esc(h.h1a)} <em>${esc(h.h1b)}</em></h1>
+      <h1>${esc(h.h1a)} <em class="scribble">${esc(h.h1b)}</em></h1>
       <p class="hero-lede">${esc(h.lede)} ${esc(h.lede2)}</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="${href(p, ROUTES.contact[lang])}">${esc(h.cta1)} ${ICON.ne}</a>
@@ -529,22 +523,15 @@ function renderHome(lang, posts) {
   </div>
 </section>
 
-<section class="section" aria-labelledby="slider-title">
+<section class="section section-marquee" aria-labelledby="slider-title">
   <div class="wrap">
     <div class="slider-head">
       <div><span class="label">${esc(h.sliderLabel)}</span><h2 id="slider-title">${esc(h.sliderTitle)}</h2></div>
+      <button class="marquee-toggle" type="button" data-marquee-toggle aria-pressed="false" hidden>${ICON.pause}${ICON.play}<span data-label-pause>${esc(t.ui.pause)}</span><span data-label-play hidden>${esc(t.ui.play)}</span></button>
     </div>
-    <div class="slider" data-slider data-interval="7000" role="region" aria-roledescription="carousel" aria-label="${esc(t.ui.sliderLabel)}">
-      <div class="slider-track" tabindex="0">${slides}
-      </div>
-      <div class="slider-bar">
-        <span class="slider-count" data-count aria-hidden="true">1 / ${n}</span>
-        <div class="slider-dots">${dots}</div>
-        <div class="slider-nav">
-          <button type="button" data-prev aria-label="${esc(t.ui.prev)}">${ICON.left}</button>
-          <button type="button" data-next aria-label="${esc(t.ui.next)}">${ICON.right}</button>
-        </div>
-      </div>
+  </div>
+  <div class="marquee" data-marquee role="region" aria-label="${esc(t.ui.sliderLabel)}">
+    <div class="marquee-track">${tiles}
     </div>
   </div>
 </section>
@@ -572,7 +559,7 @@ function renderHome(lang, posts) {
       <h2 id="steps-title">${esc(h.stepsTitle)}</h2>
       <p>${esc(h.stepsIntro)}</p>
     </div>
-    <ol class="steps">
+    <ol class="steps" data-steps>
           ${steps}
     </ol>
   </div>
@@ -604,28 +591,30 @@ ${ctaBlock(lang, p)}`;
 }
 
 function refiloUi(u) {
-  return `<div class="ui" aria-hidden="true">
+  const states = JSON.stringify(u.flow.map((f, k) => [f, ['open', 'wait', 'ok', 'ordered', 'ok'][k]]));
+  return `<div class="ui" aria-hidden="true" data-refilo>
   <div class="ui-top"><span></span><span></span><span></span><b>${esc(u.app)}</b></div>
   <div class="ui-body">
     <div class="ui-title"><strong>${esc(u.title)}</strong><span class="ui-chip">${esc(u.chip)}</span></div>
     <div class="ui-scroll"><table class="ui-table">
       <thead><tr>${u.cols.map((c, i) => `<th${i === 2 ? ' class="num"' : ''}>${esc(c)}</th>`).join('')}</tr></thead>
-      <tbody>${u.rows.map((r) => `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td class="num">${esc(r[2])}</td><td><span class="st st-${r[4]}">${esc(r[3])}</span></td></tr>`).join('')}</tbody>
+      <tbody>${u.rows.map((r, k) => `<tr${k === 0 ? ' data-cycle-row' : ''}><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td class="num">${esc(r[2])}</td><td><span class="st st-${r[4]}"${k === 0 ? ` data-cycle="${esc(states)}"` : ''}>${esc(r[3])}</span></td></tr>`).join('')}</tbody>
     </table></div>
-    <div class="ui-flow">${u.flow.map((f) => `<span>${esc(f)}</span>`).join('<i>/</i>')}</div>
+    <div class="ui-flow">${u.flow.map((f, k) => `<span${k === 0 ? ' class="is-current"' : ''}>${esc(f)}</span>`).join('<i>/</i>')}</div>
   </div>
 </div>`;
 }
 
 function tertoUi(u) {
-  return `<div class="phone" aria-hidden="true"><div class="phone-screen">
+  return `<div class="phone" aria-hidden="true" data-terto><div class="phone-screen">
   <div class="ui-top"><b>${esc(u.app)}</b></div>
   <div class="ui-body">
     <strong>${esc(u.title)}</strong>
-    <div class="field"><small>${esc(u.customerLabel)}</small><div>${esc(u.customer)}</div></div>
-    <div>${u.items.map((it) => `<div class="qty"><span>${esc(it[0])}</span><span><em>−</em>${esc(it[1])}<em>+</em></span></div>`).join('')}</div>
-    <div class="field"><small>${esc(u.noteLabel)}</small><div>${esc(u.note)}</div></div>
-    <div class="ui-btn">${esc(u.button)}</div>
+    <div class="field" data-tstep><small>${esc(u.customerLabel)}</small><div>${esc(u.customer)}</div></div>
+    <div class="field"><small>${esc(u.itemsLabel)}</small>${u.items.map((it) => `<div class="qty" data-tstep><span>${esc(it[0])}</span><span><em>−</em>${esc(it[1])}<em>+</em></span></div>`).join('')}</div>
+    <div class="field" data-tstep><small>${esc(u.dateLabel)}</small><div>${esc(u.date)}</div></div>
+    <div class="field" data-tstep><small>${esc(u.noteLabel)}</small><div>${esc(u.note)}</div></div>
+    <div class="ui-btn" data-tstep data-sent="${esc(u.sent)}">${esc(u.button)}</div>
   </div>
 </div></div>`;
 }
@@ -873,35 +862,6 @@ function render404() {
   return { page, html: layout(page, main) };
 }
 
-// ---------- predogled: možnosti logotipa (ni del objavljene strani) ----------
-function writeLogoSheet() {
-  const p = '/logo.html';
-  const page = { lang: 'sl', path: p, section: null, title: 'Logotip | Doptiva', description: 'Besedni znak DOptiva.', noindex: true };
-  const svgFile = (f) => fs.readFileSync(path.join(ROOT, 'public/assets/brand', f), 'utf8').replace(/<title>.*?<\/title>/, '');
-  const main = `
-${pageHead('sl', p, [{ name: 'Domov', path: '/' }, { name: 'Logotip', path: p }], 'Predogled', 'Logotip DOptiva', 'Besedni znak je izrisan iz pisave Newsreader, ki je tudi pisava naslovov na strani, zato se logotip in naslovi ujemata. Velika D in O ohranjata vašo zamisel DOptiva, zeleni O je edini barvni poudarek.')}
-<section class="section">
-  <div class="wrap split">
-    <div class="split-head"><h2>Na svetli in temni podlagi</h2><p>Svetla različica: temno modra in zelena. Temna različica: svetlo besedilo in mentolni O.</p></div>
-    <div class="stack">
-      <div class="index-card">${svgFile('doptiva-logo-light.svg')}</div>
-      <div class="index-card logo-dark-card">${svgFile('doptiva-logo-dark.svg')}</div>
-    </div>
-  </div>
-</section>
-<section class="section section-alt">
-  <div class="wrap split">
-    <div class="split-head"><h2>Monogram</h2><p>DO za ikono zavihka, aplikacije in profilne slike.</p></div>
-    <div class="actions">
-      <img src="${href(p, '/icon-192.png')}" width="120" height="120" alt="Monogram DO, velik">
-      <img src="${href(p, '/apple-touch-icon.png')}" width="64" height="64" alt="Monogram DO, srednji">
-      <img src="${href(p, '/favicon.svg')}" width="32" height="32" alt="Monogram DO, ikona zavihka">
-    </div>
-  </div>
-</section>`;
-  write('logo.html', layout(page, main).replace('</head>', '<style>.index-card svg{width:100%;max-width:420px;height:auto}.logo-dark-card{background:#12191A}</style>\n</head>'));
-}
-
 // ---------- pisanje ----------
 function write(rel, content) {
   let file = path.join(OUT, rel);
@@ -1030,7 +990,6 @@ ${[...posts.sl, ...posts.en].map((x) => `- [${x.title}](${abs(x.path)}): ${x.des
   ];
   fs.writeFileSync(path.join(ROOT, 'scripts/og-jobs.json'), JSON.stringify(jobs, null, 2));
 
-  if (PREVIEW) writeLogoSheet();
   console.log(`Zgrajeno: ${pages.length + 1} strani -> ${path.relative(ROOT, OUT)}`);
 }
 

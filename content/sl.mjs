@@ -24,6 +24,8 @@ export default {
     preview: 'Predogled strani. Fotografije v drsniku so nadomestne.',
     previewLogo: 'Možnosti logotipa',
     copy: 'Kopiraj',
+    pause: 'Ustavi',
+    play: 'Nadaljuj',
     footer: {
       tagline: 'Digitalizacija, avtomatizacija in umetna inteligenca za mala in srednja podjetja.',
       pages: 'Strani',
@@ -150,10 +152,11 @@ export default {
       flow: ['Odprto', 'V potrjevanju', 'Potrjeno', 'Naročeno', 'Dostavljeno'],
     },
     tertoUi: {
-      app: 'Terto', title: 'Novo naročilo', customerLabel: 'Stranka', customer: 'Trgovina Breg, Kočevje',
-      items: [['Jabolčni sok, 1 l', '24'], ['Voda, 0,5 l', '48'], ['Ledeni čaj, 0,5 l', '12']],
+      app: 'Terto', title: 'Novo naročilo', customerLabel: 'Stranka', customer: 'Breg d.o.o., Kočevje',
+      itemsLabel: 'Artikli', items: [['Art. 1042', '6 kos'], ['Art. 2210', '12 kos'], ['Art. 3307', '2 pak.']],
+      dateLabel: 'Dobava', date: '28. 10. 2026',
       noteLabel: 'Opomba', note: 'Dostava v petek dopoldne',
-      button: 'Pošlji naročilo',
+      button: 'Pošlji v pisarno', sent: 'Poslano v pisarno',
     },
   },
 
