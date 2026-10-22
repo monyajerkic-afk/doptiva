@@ -503,14 +503,12 @@ function renderHome(lang, posts) {
         <a class="text-link" href="#${servicesId}">${esc(h.cta2)} ${ICON.down}</a>
       </div>
     </div>
-    <div class="hero-aside">
-      <div class="hero-demo">
-        <span class="hero-demo-eyebrow">${esc(h.heroDemoLabel)}</span>
-        ${refiloUi(t.projectsPage.refiloUi)}
-        <p class="hero-demo-caption">${esc(h.heroNote)}</p>
-      </div>
-    </div>
   </div>
+</section>
+
+<!-- Fotografski prehod prek celotne širine, namenoma brez marketinškega besedila. -->
+<section class="photo-divider" aria-hidden="true">
+  <div class="photo-divider-image"></div>
 </section>
 
 <section class="band" aria-label="${esc(h.bandLabel)}">
