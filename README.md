@@ -33,6 +33,8 @@ V `site.config.mjs` zamenjaj vse vrednosti v [oglatih oklepajih]:
 - polno ime s.p. kot v AJPES, ulica, matična in davčna številka,
 - preveri e-naslov (`info@doptiva.com`) in ime avtorice člankov.
 
+Ti podatki niso izpisani v nogi ali na kontaktni strani. Prikazani so samo v pravnem obvestilu (`/pravno/pravno-obvestilo/`) in kot upravljavec v politiki zasebnosti. Do pravnega obvestila vodi povezava v nogi vsake strani in v osnovnih podatkih na strani O nas, kar zadošča 5. členu ZEPT (dostop prek povezave z domače strani).
+
 ## Objava na Vercelu
 
 Repozitorij je povezan z Vercelom (projekt `doptiva`). Vercel ob vsaki spremembi na veji `main` zažene `npm run build` in objavi mapo `dist`. Vsaka druga veja dobi svoj predogledni naslov.
