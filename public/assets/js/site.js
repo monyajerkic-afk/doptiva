@@ -69,6 +69,38 @@
 
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // Parallax široke fotografije: neodvisen od CSS scroll-timeline podpore.
+  // Na ozkih zaslonih in pri reduced motion ostane fotografija statična.
+  (function () {
+    var photo = document.querySelector('.photo-divider');
+    var image = photo && photo.querySelector('.photo-divider-image');
+    if (!photo || !image || reduce || !window.requestAnimationFrame) return;
+    var desktop = window.matchMedia('(min-width: 821px)');
+    var ticking = false;
+    function updatePhoto() {
+      ticking = false;
+      if (!desktop.matches || document.hidden) {
+        image.style.setProperty('--parallax-y', '0px');
+        return;
+      }
+      var rect = photo.getBoundingClientRect();
+      var viewport = window.innerHeight || document.documentElement.clientHeight;
+      if (rect.top > viewport || rect.bottom < 0) return;
+      var progress = Math.max(0, Math.min(1, (viewport - rect.top) / (viewport + rect.height)));
+      // Meja +/- 36 px prepreči grobo premikanje ali razkritje robov.
+      image.style.setProperty('--parallax-y', ((progress - 0.5) * 72).toFixed(1) + 'px');
+    }
+    function schedule() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(updatePhoto);
+    }
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    if (desktop.addEventListener) desktop.addEventListener('change', schedule);
+    schedule();
+  }());
+
   // opazovanje vidnosti: animacije tečejo le, ko je element na zaslonu
   function watch(el, onChange) {
     if (!('IntersectionObserver' in window)) { onChange(true); return; }
