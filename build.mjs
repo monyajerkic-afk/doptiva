@@ -466,7 +466,7 @@ function renderHome(lang, posts) {
         </figure>`).join('');
 
   const notes = h.services.map((s, i) => `
-        <article class="note" id="${s.id}">
+        <article class="note note-${s.id}" id="${s.id}">
           <span class="note-num">${String(i + 1).padStart(2, '0')}</span>
           <h3>${esc(s.title)}</h3>
           <p>${esc(s.text)}</p>
@@ -477,11 +477,14 @@ function renderHome(lang, posts) {
   const steps = h.steps.map((s) => `<li class="step"><h3>${esc(s.title)}</h3><p>${esc(s.text)}</p></li>`).join('\n          ');
 
   const pr = t.projectsPage.items.map((it) => `
-      <article class="project-teaser">
+      <article class="project-teaser project-teaser-${it.id}">
+        <div class="project-media" aria-hidden="true"><div class="project-media-inner"><span class="project-monogram">${esc(it.name)}</span><span class="project-deco"><span></span><span></span><span></span></span></div></div>
+        <div class="project-teaser-body">
         <div class="project-head"><h3>${esc(it.name)}</h3><span class="stamp${it.statusType === 'mvp' ? ' stamp-mvp' : ''}">${esc(it.status)}</span></div>
         <p class="meta">${esc(it.meta)}</p>
         <p>${esc(it.summary)}</p>
         <p><a class="text-link" href="${href(p, ROUTES.projects[lang] + '#' + it.id)}">${lang === 'sl' ? 'Več o projektu' : 'More about'} ${esc(it.name)} ${ICON.ne}</a></p>
+        </div>
       </article>`).join('');
 
   const faq = h.faq.map((f) => `
@@ -560,10 +563,19 @@ function renderHome(lang, posts) {
   </div>
 </section>
 
+<section class="adoption-feature" aria-labelledby="adoption-title">
+  <div class="adoption-visual" aria-hidden="true"></div>
+  <div class="adoption-copy">
+    <span class="label">${esc(h.adoptionLabel)}</span>
+    <h2 id="adoption-title">${esc(h.adoptionTitle)}</h2>
+    <p>${esc(h.adoptionText)}</p>
+  </div>
+</section>
+
 <section class="section" aria-labelledby="projects-title">
   <div class="wrap">
     <div class="section-head"><div><span class="label">${esc(h.projectsLabel)}</span></div><h2 id="projects-title">${esc(h.projectsTitle)}</h2><p>${esc(h.projectsIntro)}</p></div>
-    <div class="projects-row">${pr}
+    <div class="projects-row projects-editorial">${pr}
     </div>
   </div>
 </section>
