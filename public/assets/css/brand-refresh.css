@@ -1,0 +1,185 @@
+/*
+ Doptiva — čist poslovni vizual po prvi idejni zasnovi.
+ Sloj nad site.css: ohrani obstoječe komponente, vedenje, tipografijo logotipa in dostopnost.
+*/
+:root {
+  --paper: #FAFBF8;
+  --paper-2: #F1F5F0;
+  --card: #FFFFFF;
+  --ink: #103A30;
+  --text: #263D36;
+  --muted: #597168;
+  --rule: transparent;
+  --line: rgba(16, 58, 48, .13);
+  --line-strong: rgba(16, 58, 48, .2);
+  --green: #0F674C;
+  --brand: #168267;
+  --mint: #E1F1E9;
+  --mint-ink: #145340;
+  --terracotta: #AF623F;
+  --terracotta-hover: #985339;
+  --on-terracotta: #FFF;
+  --annot: #AD6241;
+  --annot-strong: #AD6241;
+  --navy: #0C2822;
+  --navy-ink: #F8FBF8;
+  --navy-text: #D5E6DB;
+  --note-1: #F8FBF9;
+  --note-2: #F8F9F6;
+  --note-3: #F9FBF8;
+  --note-4: #F8F9F6;
+  --note-ink: #163A30;
+  --shadow-hard: 0 14px 32px rgba(7, 40, 30, .055);
+  --focus: #168267;
+  --serif: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  --section: clamp(4rem, 3rem + 4vw, 6.5rem);
+  --wrap: 1220px;
+}
+
+:root[data-theme="dark"] {
+  --paper: #0D1B18; --paper-2: #10231D; --card: #172B25;
+  --ink: #E8F5EB; --text: #D6E5DC; --muted: #ADC1B5;
+  --rule: transparent; --line: rgba(225,245,233,.14); --line-strong: rgba(225,245,233,.22);
+  --green: #A6E6C4; --brand: #84DABC; --mint: #24493A; --mint-ink: #E1F5E8;
+  --note-1: #172D27; --note-2: #182D28; --note-3: #172D27; --note-4: #182D28;
+  --note-ink: #E8F5EB; --navy: #071913; --navy-ink: #F4FCF6; --navy-text: #D0E3D6;
+  --shadow-hard: 0 14px 32px rgba(0,0,0,.2);
+}
+@media (prefers-color-scheme: dark) {
+ :root:not([data-theme="light"]) {
+  --paper: #0D1B18; --paper-2: #10231D; --card: #172B25;
+  --ink: #E8F5EB; --text: #D6E5DC; --muted: #ADC1B5;
+  --rule: transparent; --line: rgba(225,245,233,.14); --line-strong: rgba(225,245,233,.22);
+  --green: #A6E6C4; --brand: #84DABC; --mint: #24493A; --mint-ink: #E1F5E8;
+  --note-1: #172D27; --note-2: #182D28; --note-3: #172D27; --note-4: #182D28;
+  --note-ink: #E8F5EB; --navy: #071913; --navy-ink: #F4FCF6; --navy-text: #D0E3D6;
+  --shadow-hard: 0 14px 32px rgba(0,0,0,.2);
+ }
+}
+
+/* Ravne poslovne površine namesto listkov, črt in markerjev. */
+body { line-height: 1.65; }
+h1,h2,h3,h4 { font-weight: 680; line-height: 1.16; letter-spacing: -.035em; }
+h2 { font-size: clamp(2rem, 1.5rem + 2.2vw, 3.25rem); }
+h3 { font-size: clamp(1.2rem, 1rem + .55vw, 1.6rem); }
+.ruled { background-image: none !important; }
+.label { background: transparent; color: var(--green); padding: 0; font-weight: 750; font-size: .7rem; letter-spacing: .12em; }
+.label + h1, .label + h2 { margin-top: .65rem; }
+.meta { letter-spacing: .065em; }
+.section + .section:not(.section-alt):not(.band):not(.ruled) { border-color: var(--line); }
+.section-head { max-width: 53rem; }
+.btn { border-radius: 3px; letter-spacing: .015em; font-size: .83rem; text-transform: none; font-weight: 700; padding: 15px 22px; }
+.btn-primary { background: #14593E; color: #FFF; }
+.btn-primary:hover { background: #0D4430; color: #FFF; }
+.btn-sm { padding: 12px 17px; }
+.btn-ghost { border-color: var(--line-strong); }
+.text-link { letter-spacing: .02em; text-transform: none; font-size: .85rem; font-weight: 650; padding-bottom: 2px; }
+
+/* Nav ostane funkcionalna, z bolj zadržanimi poudarki. */
+.site-header { background: var(--paper); border-bottom-color: var(--line); }
+.site-nav a.nav-link { letter-spacing: 0; text-transform: none; font-size: .82rem; }
+.site-nav a.nav-link[aria-current="page"] { border-bottom-color: var(--green); }
+.site-nav { gap: clamp(1rem, 2vw, 2rem); }
+.header-inner { gap: 1.4rem; }
+.logo svg { height: 28px; }
+
+/* Home hero: tri kratke izjave, desno prikaz prave zasnove produkta. */
+.hero { background: var(--paper); border-color: var(--line); }
+.hero-grid { grid-template-columns: minmax(0, 1.04fr) minmax(0, .96fr); align-items: stretch; }
+.hero-main { padding: clamp(4rem, 6vw, 6.3rem) clamp(1rem, 3vw, 3rem) clamp(4rem, 5vw, 5.5rem) 0; gap: 1.7rem; align-content: center; }
+.hero h1 { font-size: clamp(2.05rem, 3.1vw, 3.65rem); line-height: 1.21; letter-spacing: -.052em; max-width: 17ch; }
+.hero h1 span { display: block; }
+.hero .hero-emphasis { color: #0D7856; }
+.hero-lede { font-size: clamp(1rem, 1vw + .62rem, 1.17rem); line-height: 1.78; max-width: 36rem; }
+.hero-actions .meta { display: none; }
+.hero-aside { border: 0; display: flex; align-items: center; justify-content: center; padding: 2.5rem 0 2.5rem 2rem; }
+.hero-demo { display: grid; gap: 1.2rem; width: 100%; padding: clamp(1.25rem, 2.5vw, 2.5rem); background: linear-gradient(145deg,#EAF2EC 0%,#DDECE2 100%); border: 1px solid rgba(10,67,47,.12); min-height: 360px; align-content: center; }
+.hero-demo-eyebrow { font-size: .67rem; font-weight: 750; color: #2A7055; letter-spacing: .14em; text-transform: uppercase; }
+.hero-demo .ui { --card: #FFF; --paper: #F8FAF8; --paper-2: #EEF4F0; --ink: #12392F; --text: #253E34; --muted: #65796D; --note-1: #E5F4E8; --note-2: #FAEDE3; --note-3: #E8F0F8; --note-ink: #183A30; --line: rgba(16,58,48,.13); --line-strong: rgba(16,58,48,.21); background: #FFF; border: 1px solid rgba(15,70,50,.18); box-shadow: 0 22px 35px rgba(10,49,33,.15); transform: perspective(1300px) rotateY(-3deg) rotateX(2deg); }
+.hero-demo .ui-top { background: #F0F6F1; }
+.hero-demo .ui-body { background: #FFF; }
+.hero-demo-caption { font-size: .76rem; color: #476B59; }
+@media (max-width: 1000px) {
+  .hero h1 { font-size: clamp(2.05rem, 3.6vw, 3.35rem); }
+}
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-main { padding: 3.7rem 0 1.2rem; }
+  .hero h1 { max-width: 22ch; font-size: clamp(2.15rem, 5.5vw, 3.55rem); }
+  .hero-aside { padding: 0 0 3rem; }
+  .hero-demo { min-height: auto; }
+}
+@media (max-width: 520px) {
+  .hero-main { padding-block: 2.8rem 1.1rem; gap: 1.2rem; }
+  .hero h1 { font-size: clamp(1.9rem, 7.3vw, 2.65rem); }
+  .hero-demo { padding: 1rem; }
+  .hero-aside { padding-bottom: 2.25rem; }
+  .hero-demo .ui { transform: none; font-size: 11px; }
+}
+
+/* Zeleni pas kot pri prvi zasnovi: močan kontrast, brez ilustrativnih dodatkov. */
+.band { background: #0C2822; }
+.band .wrap { padding-block: clamp(3.3rem, 5vw, 5.4rem); }
+.band blockquote { font-family: var(--sans); font-size: clamp(1.7rem,2.1vw,2.7rem); font-weight: 650; max-width: 27ch; line-height: 1.3; }
+.band-side { font-size: .95rem; line-height: 1.7; }
+.band-side .meta { color: #89CEAC; }
+.band-grid { grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr); align-items: center; }
+
+/* Kompaktnejši, še vedno samodejno gibljiv karusel. */
+.section-marquee { background: var(--card); padding-block: clamp(3.5rem, 5vw, 5.5rem); }
+.slider-head { margin-bottom: 1.4rem; }
+.slider-head h2 { margin-top: .65rem; font-size: clamp(1.8rem, 2vw + .7rem, 2.75rem); }
+.marquee { --gap: 15px; }
+.tile { width: clamp(245px, 22vw, 290px); border-color: var(--line); box-shadow: none; }
+.tile-media { aspect-ratio: 16/9; border-color: var(--line); }
+.tile figcaption { padding: 15px 17px 18px; gap: .5rem; }
+.tile h3 { font-size: 1.08rem; line-height: 1.25; }
+.tile p { font-size: .8rem; }
+.tile:hover, .tile:focus-within { outline-color: var(--green); }
+.marquee-toggle { border-color: var(--line-strong); border-radius: 3px; font-size: .7rem; text-transform: none; letter-spacing: 0; }
+
+/* Storitve: čiste, enako poravnane kartice brez zasukanih listkov. */
+.notes { gap: 1rem; padding: 0; }
+.note,.note:nth-child(1),.note:nth-child(2),.note:nth-child(3),.note:nth-child(4) {
+  transform: none; margin-top: 0; background: var(--card); color: var(--text);
+  border: 1px solid var(--line); box-shadow: none; padding: 1.65rem 1.6rem;
+  gap: .75rem; transition: border-color .2s ease, background .2s ease;
+}
+.note:hover { border-color: var(--brand); background: var(--paper-2); }
+.note::before { display: none; }
+.note-num { color: var(--green); font-weight: 750; opacity: 1; }
+.note h3 { color: var(--ink); font-size: 1.32rem; }
+.note p,.ticks li { font-size: .85rem; }
+.note .annot { color: var(--green); font-family: var(--sans); font-style: normal; font-size: .75rem; font-weight: 700; transform: none; letter-spacing: .01em; }
+.partner-note { border-color: var(--line); }
+.section .arrow-sketch { display: none; }
+
+/* Koraki, projekti, kontakt, FAQ: jasne poslovne površine. */
+.step { grid-template-columns: 44px minmax(0,1fr); gap: 0 1rem; }
+.step::before { width: 34px; height: 34px; border-radius: 2px; border-color: var(--green); color: var(--green); font-family: var(--sans); font-size: .9rem; font-weight: 700; }
+.step h3 { font-size: 1.24rem; }
+.project-teaser { background: var(--card); border-color: var(--line); box-shadow: none; padding: clamp(1.5rem, 2.6vw, 2.25rem); }
+.project-teaser h3 { font-size: 2rem; }
+.stamp,.stamp-mvp { transform: none; font-size: .62rem; border: 1px solid var(--line-strong); padding: 5px 8px; }
+.faq summary { font-family: var(--sans); font-weight: 650; font-size: 1.13rem; line-height: 1.5; }
+.faq summary::before { font-weight: 750; }
+.faq .annot { font-family: var(--sans); font-style: normal; font-size: .9rem; font-weight: 600; }
+.page-head { background: var(--paper); border-color: var(--line); }
+.page-head h1 { max-width: 25ch; }
+.index-card,.form-card,.ui { box-shadow: 0 8px 22px rgba(10,49,33,.045); border-color: var(--line); }
+.form-field input,.form-field textarea,.form-field select { border-color: var(--line-strong); }
+.form-field .hint { font-family: var(--sans); font-style: normal; font-size: .88rem; }
+.check input { accent-color: var(--green); }
+.footer-brand p { font-family: var(--sans); font-style: normal; font-size: .95rem; font-weight: 500; color: var(--muted); }
+.site-footer { background: var(--paper); border-color: var(--line); }
+.cta-band { background: #0B2922; }
+.cta-band h2 { font-size: clamp(2.15rem,3vw,3.7rem); font-weight: 650; }
+.cta-band h2 em { color: #A5D8B7; font-style: normal; }
+.cta-band .label { color: #A5D8B7; background: transparent; }
+.cta-band .arrow-sketch,.cta-sketch { display: none; }
+@media (max-width: 640px) {
+  .notes { grid-template-columns: 1fr; }
+  .band-grid { grid-template-columns: 1fr; }
+  .project-teaser { padding: 1.5rem; }
+}
+/* Existing reduced-motion preference rules and controls remain in site.css. */
