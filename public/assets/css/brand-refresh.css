@@ -215,3 +215,70 @@ h3 { font-size: clamp(1.2rem, 1rem + .55vw, 1.6rem); }
  .photo-divider { height: 280px; }
  .photo-divider-image { inset: -7% 0; will-change: auto; }
 }
+
+/* Doptiva editorial depth — barvne spremenljivke ostanejo nespremenjene. */
+.section { position: relative; }
+.section-head { margin-bottom: clamp(2rem,4vw,3.8rem); }
+.section-head h2, .split-head h2 { max-width: 18ch; }
+.section-alt { background: var(--paper-2); }
+.section-marquee { position: relative; z-index: 1; }
+/* Fotografija je vizualno nadaljevanje drugega dela, ne novo sporočilo. */
+.photo-divider { z-index: 0; }
+.photo-divider::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg,rgba(10,45,34,.06),transparent 55%); pointer-events: none; }
+.photo-divider-image { filter: blur(2px) saturate(.62); }
+/* Naraven ritem velikosti brez rotacij, ikonografskega okrasja ali novih barv. */
+.notes { grid-template-columns: repeat(6,minmax(0,1fr)); align-items: stretch; }
+.note,.note:nth-child(1),.note:nth-child(2),.note:nth-child(3),.note:nth-child(4) { grid-column: span 3; padding: clamp(1.6rem,2.1vw,2.4rem); min-height: 270px; }
+.note:nth-child(1),.note:nth-child(4) { grid-column: span 4; }
+.note:nth-child(2),.note:nth-child(3) { grid-column: span 2; }
+.note h3 { max-width: 19ch; }
+.note::after { content: ""; position: absolute; width: 42px; height: 2px; background: var(--green); top: 0; left: clamp(1.6rem,2.1vw,2.4rem); opacity: .55; }
+.note .annot { justify-self: start; }
+/* Fotografija se dotakne robov vsebine, besedilo se rahlo prekriva z njo. */
+.adoption-feature { display: grid; grid-template-columns: minmax(0,1.15fr) minmax(0,.85fr); align-items: center; min-height: 480px; position: relative; padding: clamp(3.5rem,6vw,6.5rem) var(--gutter); background: var(--paper-2); overflow: hidden; isolation: isolate; }
+.adoption-visual { position: absolute; inset: 0 37% 0 0; background: linear-gradient(90deg,rgba(10,40,32,.05),rgba(10,40,32,.10)), url("https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1600&q=76") center / cover no-repeat; filter: saturate(.55) blur(1.5px); z-index: -1; }
+.adoption-copy { grid-column: 2; background: var(--card); border: 1px solid var(--line); box-shadow: 0 28px 60px rgba(11,39,30,.09); padding: clamp(2rem,4vw,4rem); transform: translateX(-9%); max-width: 580px; display: grid; gap: 1.3rem; }
+.adoption-copy h2 { max-width: 20ch; font-size: clamp(1.8rem,2.6vw,3.2rem); }
+.adoption-copy p { max-width: 33rem; font-size: 1rem; line-height: 1.8; }
+/* Projekti: vizualni motivi so namensko abstraktni, ne izmišljeni screenshoti. */
+.projects-editorial { gap: clamp(1.2rem,2vw,2.4rem); align-items: start; }
+.projects-editorial .project-teaser { overflow: hidden; padding: 0; display: grid; gap: 0; border: 1px solid var(--line); }
+.projects-editorial .project-teaser:nth-child(2) { margin-top: clamp(0px,4vw,70px); }
+.project-media { height: clamp(200px,20vw,325px); background: var(--paper-2); padding: clamp(1.2rem,3vw,2.4rem); display: grid; place-items: center; overflow: hidden; }
+.project-media-inner { width: 100%; height: 100%; position: relative; background: #0C2822; color: #F8FBF8; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.project-teaser-terto .project-media-inner { background: #1D5544; }
+.project-media-inner::before,.project-media-inner::after { content: ""; position: absolute; width: 72%; aspect-ratio: 1; border: 1px solid rgba(240,250,244,.22); border-radius: 50%; transform: translate(-28%,28%); }
+.project-media-inner::after { transform: translate(41%,-33%); }
+.project-monogram { font-family: var(--sans); font-size: clamp(2.4rem,5vw,5rem); font-weight: 700; letter-spacing: -.06em; z-index: 1; }
+.project-deco { position: absolute; inset: auto 9% 12% auto; display: flex; gap: 6px; }
+.project-deco span { width: 24px; height: 4px; background: rgba(244,255,250,.25); }
+.project-teaser-body { padding: clamp(1.5rem,2.5vw,2.3rem); display: grid; gap: 1rem; }
+.project-teaser-body .meta { margin: 0; }
+.project-teaser-body h3 { margin: 0; }
+/* Subtilno razkrivanje samo ob podpori, brez izginjanja vsebine ob odpovedi JS. */
+@media (hover:hover) and (prefers-reduced-motion:no-preference) {
+ .project-media-inner { transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+ .project-teaser:hover .project-media-inner { transform: scale(1.025); }
+ .project-teaser { transition: border-color .3s ease; }
+ .project-teaser:hover { border-color: var(--brand); }
+ .adoption-copy { transition: box-shadow .35s ease; }
+ .adoption-copy:hover { box-shadow: 0 30px 65px rgba(11,39,30,.12); }
+}
+@media(max-width:900px) {
+ .notes { grid-template-columns: 1fr 1fr; }
+ .note,.note:nth-child(1),.note:nth-child(2),.note:nth-child(3),.note:nth-child(4) { grid-column: span 1; min-height: 0; }
+ .adoption-feature { min-height: 0; grid-template-columns: 1fr; padding: 250px var(--gutter) 3rem; }
+ .adoption-visual { inset: 0 0 auto; height: 340px; }
+ .adoption-copy { grid-column: 1; transform: none; width: min(650px,100%); margin: 0 auto; z-index: 1; }
+ .projects-editorial .project-teaser:nth-child(2) { margin-top: 0; }
+}
+@media(max-width:640px) {
+ .notes,.projects-editorial { grid-template-columns: 1fr; }
+ .adoption-feature { padding-top: 205px; }
+ .adoption-visual { height: 265px; }
+ .adoption-copy { padding: 1.7rem; }
+ .project-media { height: 225px; }
+}
+@media(prefers-reduced-motion:reduce) {
+ .project-media-inner,.project-teaser,.adoption-copy { transition: none !important; }
+}
