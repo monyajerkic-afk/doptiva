@@ -33,8 +33,11 @@ export default async function handler(req, res) {
 
   // Sprejmi samo zahteve z lastne domene.
   const origin = req.headers.origin || '';
-  const host = req.headers.host || '';
-  if (origin && !origin.endsWith('://' + host)) return res.status(403).json({ ok: false });
+  const hosts = [req.headers['x-forwarded-host'], req.headers.host].filter(Boolean);
+  if (origin && !hosts.some((h) => origin === 'https://' + h || origin === 'http://' + h)) {
+    console.warn('contact: origin rejected', { origin, hosts });
+    return res.status(403).json({ ok: false, error: 'origin' });
+  }
 
   const b = await readBody(req);
   const isForm = !(req.headers['content-type'] || '').includes('application/json');
@@ -56,13 +59,19 @@ export default async function handler(req, res) {
     lang: b.lang === 'en' ? 'en' : 'sl',
   };
   if (!data.name || !EMAIL_RE.test(data.email) || data.message.length < 5 || !data.consent) {
+    console.warn('contact: invalid input', {
+      name: !!data.name, email: EMAIL_RE.test(data.email), message: data.message.length >= 5, consent: data.consent,
+    });
     return res.status(422).json({ ok: false, error: 'invalid' });
   }
 
   const key = process.env.RESEND_API_KEY;
   const to = process.env.CONTACT_TO;
   const from = process.env.CONTACT_FROM;
-  if (!key || !to || !from) return res.status(500).json({ ok: false, error: 'not_configured' });
+  if (!key || !to || !from) {
+    console.error('contact: missing env', { RESEND_API_KEY: !!key, CONTACT_TO: !!to, CONTACT_FROM: !!from });
+    return res.status(500).json({ ok: false, error: 'not_configured' });
+  }
 
   const lines = [
     `Ime: ${data.name}`,
@@ -78,20 +87,32 @@ export default async function handler(req, res) {
     `Privolitev v obdelavo podatkov: da (${new Date().toISOString()})`,
   ];
 
-  const r = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      from,
-      to: [to],
-      reply_to: data.email,
-      subject: `Novo povpraševanje: ${data.name}${data.company ? ' (' + data.company + ')' : ''}`,
-      text: lines.join('\n'),
-      html: `<pre style="font:14px/1.5 system-ui,sans-serif;white-space:pre-wrap">${escHtml(lines.join('\n'))}</pre>`,
-    }),
-  });
+  let r;
+  try {
+    r = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        from,
+        to: [to],
+        reply_to: data.email,
+        subject: `Novo povpraševanje: ${data.name}${data.company ? ' (' + data.company + ')' : ''}`,
+        text: lines.join('\n'),
+        html: `<pre style="font:14px/1.5 system-ui,sans-serif;white-space:pre-wrap">${escHtml(lines.join('\n'))}</pre>`,
+      }),
+    });
+  } catch (err) {
+    console.error('contact: resend request failed', String(err && err.message || err));
+    return res.status(502).json({ ok: false, error: 'send_failed' });
+  }
 
-  if (!r.ok) return res.status(502).json({ ok: false, error: 'send_failed' });
+  if (!r.ok) {
+    // Resend vrne JSON z razlogom (npr. nepotrjena domena, neveljaven ključ). Ključa in vsebine sporočila ne izpišemo.
+    const detail = await r.text().catch(() => '');
+    console.error('contact: resend rejected', r.status, detail.slice(0, 500));
+    return res.status(502).json({ ok: false, error: 'send_failed' });
+  }
+  console.log('contact: sent', r.status);
   if (isForm) return res.redirect(303, data.lang === 'en' ? '/en/contact/?sent=1' : '/kontakt/?poslano=1');
   return res.status(200).json({ ok: true });
 }
