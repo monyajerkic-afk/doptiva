@@ -273,7 +273,7 @@ function jsonld(nodes) {
 }
 
 // ---------- predloge ----------
-let CSS_V = '', JS_V = '';
+let CSS_V = '', BRAND_V = '', JS_V = '';
 
 function head(page) {
   const t = C[page.lang];
@@ -315,6 +315,7 @@ ${page.article ? `<meta property="article:published_time" content="${page.articl
 <link rel="manifest" href="${href(p, '/site.webmanifest')}">
 ${PREVIEW ? '' : '<link rel="preload" href="/assets/fonts/newsreader-display.woff2" as="font" type="font/woff2" crossorigin>\n<link rel="preload" href="/assets/fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>'}
 <link rel="stylesheet" href="${href(p, '/assets/css/site.css')}?v=${CSS_V}">
+<link rel="stylesheet" href="${href(p, '/assets/css/brand-refresh.css')}?v=${BRAND_V}">
 <script src="${href(p, '/assets/js/theme-init.js')}"></script>
 <script src="${href(p, '/assets/js/site.js')}?v=${JS_V}" defer></script>
 ${config.analytics && !PREVIEW ? '<script src="/_vercel/insights/script.js" defer></script>' : ''}
@@ -387,7 +388,6 @@ function footer(page) {
         <h2>${t.footer.contact}</h2>
         <ul>
           <li><a href="mailto:${config.email}">${config.email}</a></li>
-          <li>${t.footer.location}</li>
           <li>${t.footer.remote}</li>
         </ul>
       </div>
@@ -492,24 +492,22 @@ function renderHome(lang, posts) {
 
   const servicesId = lang === 'sl' ? 'storitve' : 'services';
   const main = `
-<section class="hero ruled">
+<section class="hero">
   <div class="wrap hero-grid">
     <div class="hero-main">
       <div><span class="label">${esc(h.kicker)}</span></div>
-      <h1>${esc(h.h1a)} <em class="scribble">${esc(h.h1b)}</em></h1>
+      <h1><span>${esc(h.h1a)}</span><span>${esc(h.h1b)}</span><span class="hero-emphasis">${esc(h.h1c)}</span></h1>
       <p class="hero-lede">${esc(h.lede)} ${esc(h.lede2)}</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="${href(p, ROUTES.contact[lang])}">${esc(h.cta1)} ${ICON.ne}</a>
         <a class="text-link" href="#${servicesId}">${esc(h.cta2)} ${ICON.down}</a>
-        <span class="meta">${esc(h.heroMeta)}</span>
       </div>
     </div>
-    <div class="hero-aside" aria-hidden="true">
-      <p class="sticky-note">${esc(h.heroNote)}</p>
-      <div class="sketch-wrap">
-        ${SKETCH.hero}
-        <span class="annot sketch-note n1">${esc(h.heroAnnot1)}</span>
-        <span class="annot sketch-note n2">${esc(h.heroAnnot2)}</span>
+    <div class="hero-aside">
+      <div class="hero-demo">
+        <span class="hero-demo-eyebrow">${esc(h.heroDemoLabel)}</span>
+        ${refiloUi(t.projectsPage.refiloUi)}
+        <p class="hero-demo-caption">${esc(h.heroNote)}</p>
       </div>
     </div>
   </div>
@@ -892,6 +890,7 @@ function build() {
     fs.writeFileSync(cssPath, css);
   }
   CSS_V = fileHash(cssPath);
+  BRAND_V = fileHash(path.join(OUT, 'assets/css/brand-refresh.css'));
   JS_V = fileHash(path.join(OUT, 'assets/js/site.js'));
 
   const posts = loadPosts();
