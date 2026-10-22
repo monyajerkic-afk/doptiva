@@ -10,6 +10,7 @@
       ok: 'Hvala. Povpraševanje je poslano. Odgovorimo v dveh delovnih dneh na e-naslov, ki ste ga vpisali.',
       invalid: 'Preverite označena polja: potrebni so ime, veljaven e-naslov, kratek opis in strinjanje z obdelavo podatkov.',
       fail: 'Povpraševanja ni bilo mogoče poslati. Pišite nam neposredno na ',
+      tooFast: 'Obrazec je bil oddan prehitro, zato ga nismo poslali. Počakajte nekaj sekund in kliknite znova.',
       preview: 'To je predogled, zato se obrazec ne pošlje. Na objavljeni strani bo povpraševanje prišlo na ',
       slide: 'Fotografija'
     },
@@ -20,6 +21,7 @@
       ok: 'Thank you. Your enquiry has been sent. We reply within two working days to the address you entered.',
       invalid: 'Please check the highlighted fields: name, a valid email, a short description and consent are required.',
       fail: 'The enquiry could not be sent. Please email us directly at ',
+      tooFast: 'The form was submitted too quickly, so it was not sent. Please wait a few seconds and click again.',
       preview: 'This is a preview, so the form is not sent. On the live site your enquiry will reach ',
       slide: 'Photo'
     }
@@ -179,8 +181,8 @@
   var form = document.getElementById('contact-form');
   if (form) {
     var status = document.getElementById('form-status');
-    var started = form.querySelector('[name="started"]');
-    if (started) started.value = String(Date.now());
+    var openedAt = Date.now();
+    var elapsedField = form.querySelector('[name="elapsed"]');
     var email = form.getAttribute('data-email');
     var show = function (state, msg, withEmail) {
       status.hidden = false;
@@ -214,6 +216,7 @@
       var btn = form.querySelector('button[type="submit"]');
       var label = btn.textContent;
       btn.disabled = true; btn.textContent = T.sending;
+      if (elapsedField) elapsedField.value = String(Date.now() - openedAt);
       var data = {};
       new FormData(form).forEach(function (v, k) { data[k] = typeof v === 'string' ? v : ''; });
       data.lang = lang;
@@ -222,9 +225,11 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       }).then(function (res) {
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        form.reset();
-        show('ok', T.ok);
+        if (res.ok) { form.reset(); openedAt = Date.now(); show('ok', T.ok); return; }
+        return res.json().catch(function () { return {}; }).then(function (j) {
+          if (j && j.error === 'too_fast') show('error', T.tooFast);
+          else show('error', T.fail, true);
+        });
       }).catch(function () {
         show('error', T.fail, true);
       }).finally(function () {

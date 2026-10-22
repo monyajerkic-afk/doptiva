@@ -728,7 +728,7 @@ ${pageHead(lang, p, crumbs, K.label, K.h1, K.lede)}
         <span class="hint" id="f-message-hint">${esc(F.messageHint)}</span>
       </div>
       <div class="hp" aria-hidden="true"><label for="f-website">${esc(F.honeypot)}</label><input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
-      <input type="hidden" name="started" value="">
+      <input type="hidden" name="elapsed" value="">
       <label class="check"><input id="f-consent" name="consent" type="checkbox" value="yes" required><span>${esc(F.consentBefore)}<a href="${href(p, ROUTES.privacy[lang])}">${esc(F.consentLink)}</a>.</span></label>
       <div><button class="btn btn-primary" type="submit">${esc(F.submit)}</button></div>
       <p id="form-status" class="form-status" role="status" tabindex="-1" hidden></p>

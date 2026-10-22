@@ -43,9 +43,13 @@ export default async function handler(req, res) {
   const isForm = !(req.headers['content-type'] || '').includes('application/json');
 
   // Zaščita pred neželeno pošto: skrito polje in prehitro oddan obrazec.
-  const started = Number(b.started || 0);
-  if (b.website || (started && Date.now() - started < 3000)) {
-    return isForm ? res.redirect(303, b.lang === 'en' ? '/en/contact/?sent=1' : '/kontakt/?poslano=1') : res.status(200).json({ ok: true });
+  // Čas meri brskalnik sam (od odprtja strani do oddaje), zato razlika med uro obiskovalca in strežnika ne vpliva.
+  // Sumljivo oddajo zavrnemo z napako, nikoli z lažnim uspehom: če se zmotimo pri človeku, vidi, da sporočilo ni šlo.
+  const elapsed = b.elapsed === undefined || b.elapsed === '' ? NaN : Number(b.elapsed);
+  const reason = b.website ? 'honeypot' : (Number.isFinite(elapsed) && elapsed < 3000 ? 'too_fast' : '');
+  if (reason) {
+    console.warn('contact: blocked as spam', { reason, elapsed: Number.isFinite(elapsed) ? elapsed : null });
+    return res.status(400).json({ ok: false, error: reason === 'too_fast' ? 'too_fast' : 'rejected' });
   }
 
   const data = {
