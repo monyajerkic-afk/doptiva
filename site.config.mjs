@@ -20,8 +20,9 @@ export default {
     register: 'Poslovni register Slovenije (AJPES)',
     registerEn: 'Slovenian Business Register (AJPES)',
     // Kje imaš e-poštni predal (navedeno v politiki zasebnosti med obdelovalci).
-    mailProvider: '[ponudnik e-poštnega predala]',
-    mailProviderLocation: '[lokacija strežnikov, npr. EU]',
+    mailProvider: 'Google Workspace (Google Ireland Ltd.)',
+    mailProviderLocation: 'EU in ZDA; standardne pogodbene klavzule Evropske komisije',
+    mailProviderLocationEn: 'EU and USA; European Commission standard contractual clauses',
   },
 
   // Avtor člankov. Če ne želiš objaviti imena, napiši 'Ekipa Doptiva' / 'Doptiva team'.

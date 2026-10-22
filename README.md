@@ -31,7 +31,6 @@ Potrebuješ Node.js 24 (enako kot Vercel). `npm test` zgradi stran in preveri po
 V `site.config.mjs` zamenjaj vse vrednosti v [oglatih oklepajih]:
 
 - polno ime s.p. kot v AJPES, ulica, matična in davčna številka,
-- ponudnik e-poštnega predala in lokacija strežnikov (navedeno v politiki zasebnosti),
 - preveri e-naslov (`info@doptiva.com`) in ime avtorice člankov.
 
 ## Objava na Vercelu
@@ -42,7 +41,7 @@ Da bo kontaktni obrazec pošiljal povpraševanja, v Vercelu (**Settings → Envi
 
 - `RESEND_API_KEY`: ključ iz resend.com
 - `CONTACT_TO`: kam pridejo povpraševanja, npr. `info@doptiva.com`
-- `CONTACT_FROM`: npr. `Doptiva obrazec <obrazec@doptiva.com>` (domena mora biti potrjena v Resendu)
+- `CONTACT_FROM`: `Doptiva obrazec <obrazec@doptiva.com>` (domena doptiva.com je potrjena v Resendu)
 - `ANALYTICS=1`: samo če vklopiš Vercel Web Analytics
 
 Dokler spremenljivk ni, obrazec obiskovalcu pokaže e-naslov za neposreden stik. Po nastavitvi pošlji testno povpraševanje. Navodila za DNS, e-pošto in iskalnike so v `docs/ZAGON-SEO-DNS.md`.

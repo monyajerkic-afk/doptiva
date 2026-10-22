@@ -58,12 +58,12 @@ function fmtDate(iso, lang) {
   return lang === 'sl' ? `${d}. ${MONTHS_SL[m - 1]} ${y}` : `${d} ${MONTHS_EN[m - 1]} ${y}`;
 }
 
-function fill(text) {
+function fill(text, lang = 'sl') {
   const L = config.legal;
   const map = {
     company: L.company, owner: L.owner, street: L.street, postal: L.postal, city: L.city,
     registrationNo: L.registrationNo, taxNo: L.taxNo, email: config.email,
-    mailProvider: L.mailProvider, mailProviderLocation: L.mailProviderLocation,
+    mailProvider: L.mailProvider, mailProviderLocation: lang === 'en' ? (L.mailProviderLocationEn || L.mailProviderLocation) : L.mailProviderLocation,
   };
   return text.replace(/\{\{(\w+)\}\}/g, (m, k) => (k in map ? map[k] : m));
 }
@@ -831,7 +831,7 @@ function renderLegal(lang, kind) {
   const { data, body } = parseFront(src);
   const L = config.legal;
   const vatText = L.vatRegistered ? (lang === 'sl' ? 'Zavezanec za DDV' : 'VAT registered') : (lang === 'sl' ? 'Ni zavezanec za DDV' : 'Not registered for VAT');
-  const filled = fill(stripAnalytics(body)).replace(/\{\{vatText\}\}/g, vatText).replace(/\{\{register\}\}/g, lang === 'sl' ? L.register : L.registerEn);
+  const filled = fill(stripAnalytics(body), lang).replace(/\{\{vatText\}\}/g, vatText).replace(/\{\{register\}\}/g, lang === 'sl' ? L.register : L.registerEn);
   const { html } = md(filled, p);
   const page = { lang, path: p, section: null, title: `${data.title} | Doptiva`, description: data.description, alternates: ROUTES[kind] };
   const crumbs = [{ name: t.ui.home, path: ROUTES.home[lang] }, { name: data.title, path: p }];
