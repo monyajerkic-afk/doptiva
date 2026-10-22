@@ -394,7 +394,6 @@ function footer(page) {
     </div>
     <div class="footer-bottom">
       <span>© ${YEAR} Doptiva. ${t.footer.rights}</span>
-      <span>${esc(config.legal.company)}</span>
     </div>
   </div>
 </footer>
@@ -668,7 +667,12 @@ function renderAbout(lang) {
     { '@type': 'AboutPage', '@id': abs(p) + '#webpage', url: abs(p), name: A.title, description: A.description, inLanguage: lang, isPartOf: { '@id': abs('/#website') }, about: { '@id': abs('/#organization') }, breadcrumb: { '@id': abs(p) + '#breadcrumb' } },
     breadcrumb(page, crumbs),
   ];
-  const facts = [...A.facts, [lang === 'sl' ? 'Kontakt' : 'Contact', `<a href="mailto:${config.email}">${config.email}</a>`]];
+  // Pravni podatki s.p. niso izpisani na strani, ampak samo v pravnem obvestilu (ZEPT, 5. člen: dostop prek povezave).
+  const facts = [
+    ...A.facts,
+    [lang === 'sl' ? 'Kontakt' : 'Contact', `<a href="mailto:${config.email}">${config.email}</a>`],
+    [t.contactPage.companyTitle, `<a href="${href(p, ROUTES.imprint[lang])}">${esc(t.contactPage.companyLink)}</a>`],
+  ];
   const main = `
 ${pageHead(lang, p, crumbs, A.label, A.h1, A.lede)}
 <section class="section">
@@ -697,7 +701,6 @@ function renderContact(lang) {
   const t = C[lang], K = t.contactPage, F = K.form, p = ROUTES.contact[lang];
   const page = { lang, path: p, section: 'contact', title: K.title, description: K.description, alternates: ROUTES.contact };
   const crumbs = [{ name: t.ui.home, path: ROUTES.home[lang] }, { name: t.ui.nav.contact, path: p }];
-  const L = config.legal;
   page.jsonld = [
     ...orgGraph(),
     { '@type': 'ContactPage', '@id': abs(p) + '#webpage', url: abs(p), name: K.title, description: K.description, inLanguage: lang, isPartOf: { '@id': abs('/#website') }, about: { '@id': abs('/#organization') }, breadcrumb: { '@id': abs(p) + '#breadcrumb' } },
@@ -736,11 +739,6 @@ ${pageHead(lang, p, crumbs, K.label, K.h1, K.lede)}
       <div>
         <h2>${esc(K.emailTitle)}</h2>
         <p class="email-line"><a href="mailto:${config.email}">${config.email}</a><button class="copy-btn" type="button" data-copy="${config.email}">${esc(t.ui.copy)}</button></p>
-      </div>
-      <div>
-        <h2>${esc(K.companyTitle)}</h2>
-        <address>${esc(L.company)}<br>${esc(L.street)}<br>${esc(L.postal)} ${esc(L.city)}, ${esc(lang === 'sl' ? L.country : L.countryEn)}</address>
-        <p><a href="${href(p, ROUTES.imprint[lang])}">${esc(K.companyLink)}</a></p>
       </div>
     </aside>
   </div>
