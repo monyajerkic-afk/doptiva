@@ -181,7 +181,9 @@
   var form = document.getElementById('contact-form');
   if (form) {
     var status = document.getElementById('form-status');
-    var openedAt = Date.now();
+    // performance.now() je štoparica brskalnika: na njo ne vpliva premik ure (ročno ali ob uskladitvi časa).
+    var clock = function () { return window.performance && performance.now ? performance.now() : Date.now(); };
+    var openedAt = clock();
     var elapsedField = form.querySelector('[name="elapsed"]');
     var email = form.getAttribute('data-email');
     var show = function (state, msg, withEmail) {
@@ -216,7 +218,7 @@
       var btn = form.querySelector('button[type="submit"]');
       var label = btn.textContent;
       btn.disabled = true; btn.textContent = T.sending;
-      if (elapsedField) elapsedField.value = String(Date.now() - openedAt);
+      if (elapsedField) elapsedField.value = String(Math.round(clock() - openedAt));
       var data = {};
       new FormData(form).forEach(function (v, k) { data[k] = typeof v === 'string' ? v : ''; });
       data.lang = lang;
@@ -225,7 +227,7 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       }).then(function (res) {
-        if (res.ok) { form.reset(); openedAt = Date.now(); show('ok', T.ok); return; }
+        if (res.ok) { form.reset(); openedAt = clock(); show('ok', T.ok); return; }
         return res.json().catch(function () { return {}; }).then(function (j) {
           if (j && j.error === 'too_fast') show('error', T.tooFast);
           else show('error', T.fail, true);
