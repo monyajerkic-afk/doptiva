@@ -4,7 +4,7 @@ export default async function handler(req,res) {
   if(req.method!=='POST') {res.setHeader('Allow','POST');return res.status(405).json({ok:false});}
   const b=req.body||{};
   const email=String(b.email||'').trim().toLowerCase();
-  if(!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$/.test(email)||email.length>160||b.consent!=='yes')
+  if(!/^[^\s@]+@[^\s@]+\\.[^\s@]{2,}$/.test(email)||email.length>160||b.consent!=='yes')
     return res.status(422).json({ok:false,error:'invalid'});
   const key=process.env.RESEND_API_KEY;
   const secret=process.env.NEWSLETTER_SIGNING_SECRET;
