@@ -21,7 +21,10 @@ const PHOTOS = [
     // PikWizard: brezplačna komercialna uporaba. Vir in pogoji:
     // https://pikwizard.com/photo/two-businesswomen-collaborating-at-open-plan-office-with-digital-hud-data-analytics-overlay/830911fc68f57018f361c27e36d0fb89/
     name: 'human-centered-dashboard.jpg',
+    // Najprej prvotno izbran vizual; če ponudnik blokira gradnjo, uporabi
+    // prosto licencirano fotografijo dveh sodelavk ob računalniku (Unsplash).
     url: 'https://pikwizard.com/pw/medium/830911fc68f57018f361c27e36d0fb89.jpg',
+    fallbackUrl: 'https://images.unsplash.com/photo-1543269865-0a740d43b90c?auto=format&fit=crop&w=1600&q=79',
   },
   {
     // Vitaly Gariev — "Two businessmen in suits talking in a modern office."
@@ -34,18 +37,23 @@ const PHOTOS = [
 export async function cacheEditorialPhotos(out) {
   const target = path.join(out, 'assets', 'img', 'editorial');
   fs.mkdirSync(target, { recursive: true });
-  await Promise.all(PHOTOS.map(async ({ name, url }) => {
-    try {
-      const response = await fetch(url, { signal: AbortSignal.timeout(14000) });
-      if (!response.ok || !(response.headers.get('content-type') || '').startsWith('image/')) {
-        throw new Error(`unexpected photo response: ${response.status}`);
+  await Promise.all(PHOTOS.map(async ({ name, url, fallbackUrl }) => {
+    for (const candidate of [url, fallbackUrl].filter(Boolean)) {
+      try {
+        const response = await fetch(candidate, { signal: AbortSignal.timeout(9000) });
+        if (!response.ok || !(response.headers.get('content-type') || '').startsWith('image/')) {
+          throw new Error(`unexpected photo response: ${response.status}`);
+        }
+        const buf = Buffer.from(await response.arrayBuffer());
+        if (buf.length < 8000 || buf.length > 6_000_000) throw new Error('unexpected image size');
+        fs.writeFileSync(path.join(target, name), buf);
+        console.log(`Editorial photo cached: ${name} (${buf.length} bytes)`);
+        return;
+      } catch (err) {
+        console.warn(`Could not cache ${name} from ${new URL(candidate).host}: ${err.message}`);
       }
-      const buf = Buffer.from(await response.arrayBuffer());
-      if (buf.length < 8000 || buf.length > 6_000_000) throw new Error('unexpected image size');
-      fs.writeFileSync(path.join(target, name), buf);
-      console.log(`Editorial photo cached: ${name} (${buf.length} bytes)`);
-    } catch (err) {
-      console.warn(`Could not cache ${name}: ${err.message}. Photo will need recheck before release.`);
     }
+    // CSS ponudi še lokalno abstraktno ilustracijo; razdelek ne sme ostati prazen.
+    console.warn(`No source image for ${name}; local fallback stays visible.`);
   }));
 }
