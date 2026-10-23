@@ -365,7 +365,7 @@ h3 { font-size: clamp(1.2rem, 1rem + .55vw, 1.6rem); }
 .adoption-visual {
  background-image:
    linear-gradient(90deg,rgba(10,40,32,.07),rgba(10,40,32,.12)),
-   url('/assets/img/editorial/meeting-room.jpg');
+   url('/assets/img/slides/orodja.svg');
  background-color: #D5DFD9;
 }
 @media(max-width:900px) {
@@ -375,3 +375,9 @@ h3 { font-size: clamp(1.2rem, 1rem + .55vw, 1.6rem); }
 @media(max-width:640px) {
  .hero::before { opacity: .13; }
 }
+
+/* Abstraktni vizuali v karuselu so namenoma svetli in brez ilustrativnih ikon. */
+.section-marquee .tile-media { background: var(--paper-2); }
+.section-marquee .tile-media img { object-fit: cover; filter: none; }
+.adoption-visual { filter: saturate(.85) blur(.65px); }
+/* Zamegljena fotografija v herotu in širok fotografski parallax ostaneta nespremenjena. */
