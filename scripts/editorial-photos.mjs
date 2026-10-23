@@ -17,6 +17,13 @@ const PHOTOS = [
     url: 'https://images.unsplash.com/photo-1739733901481-a467cfb0076f?auto=format&fit=crop&w=2000&q=79',
   },
   {
+    // Podoben motiv tretji uporabničini referenci: sodelavki ob analitiki.
+    // PikWizard: brezplačna komercialna uporaba. Vir in pogoji:
+    // https://pikwizard.com/photo/two-businesswomen-collaborating-at-open-plan-office-with-digital-hud-data-analytics-overlay/830911fc68f57018f361c27e36d0fb89/
+    name: 'human-centered-dashboard.jpg',
+    url: 'https://pikwizard.com/pw/medium/830911fc68f57018f361c27e36d0fb89.jpg',
+  },
+  {
     // Vitaly Gariev — "Two businessmen in suits talking in a modern office."
     // Free Unsplash License: https://unsplash.com/photos/hqFPR1b2koc
     name: 'collaboration.jpg',
