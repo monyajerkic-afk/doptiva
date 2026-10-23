@@ -381,3 +381,32 @@ h3 { font-size: clamp(1.2rem, 1rem + .55vw, 1.6rem); }
 .section-marquee .tile-media img { object-fit: cover; filter: none; }
 .adoption-visual { filter: saturate(.85) blur(.65px); }
 /* Zamegljena fotografija v herotu in širok fotografski parallax ostaneta nespremenjena. */
+
+/* Izbrana smer: človeška silhueta za steklom, sproščena sodelovalna fotografija. */
+.photo-divider-image {
+ background-image: linear-gradient(90deg,rgba(15,44,32,.08),rgba(243,241,231,.12)),
+   url('/assets/img/editorial/frosted-people.jpg');
+ background-color: #D1D5CC;
+ background-position: center 46%;
+ filter: saturate(.70) blur(.7px);
+}
+.adoption-visual {
+ background-image: linear-gradient(90deg,rgba(14,42,31,.08),rgba(241,242,231,.10)),
+   url('/assets/img/editorial/collaboration.jpg');
+ background-color: #D4D9D2;
+ background-position: center 43%;
+ filter: saturate(.63) blur(1.1px);
+}
+.photo-divider { background: linear-gradient(120deg,#D3D7CB,#E8E8DA); }
+.adoption-feature { background: var(--paper-2); }
+/* Bolj realen stekleni vtis in svetloba na šestih različnih abstraktnih podobah. */
+.section-marquee .tile-media { position:relative; overflow:hidden; }
+.section-marquee .tile-media::after {
+ content:""; position:absolute; inset:0; pointer-events:none;
+ background: linear-gradient(138deg,rgba(255,255,255,.38),transparent 34%,rgba(255,255,255,.08) 63%,rgba(235,241,234,.18));
+ mix-blend-mode: screen;
+}
+@media (prefers-reduced-motion:no-preference) and (hover:hover) {
+ .section-marquee .tile img { transition: transform .65s cubic-bezier(.2,.7,.3,1); }
+ .section-marquee .tile:hover img { transform:scale(1.05); }
+}
