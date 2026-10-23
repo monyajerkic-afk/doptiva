@@ -340,3 +340,38 @@ h3 { font-size: clamp(1.2rem, 1rem + .55vw, 1.6rem); }
  :root:not([data-theme="light"]) .section-marquee .tile h3 { color: var(--ink); }
 }
 @media(max-width:640px){.section-marquee .tile figcaption{min-height:0}}
+
+/* V5 — fotografija v herotu 'skozi mlečno steklo', brez izgube kontrasta. */
+.hero { position: relative; isolation: isolate; overflow: hidden; }
+.hero::before {
+ content: ""; position: absolute; z-index: -2;
+ top: 0; right: 0; bottom: 0; width: 57%;
+ background: linear-gradient(90deg, var(--paper) 0%, rgba(250,251,248,.65) 28%, rgba(250,251,248,.2) 100%),
+   url('/assets/img/editorial/glass-corridor.jpg') center 48% / cover no-repeat;
+ opacity: .7; filter: saturate(.5) blur(3px);
+}
+.hero::after {
+ content:""; pointer-events:none; position:absolute; z-index:-1;
+ inset:0; background: linear-gradient(90deg,var(--paper) 18%,transparent 83%);
+}
+.hero-main { position:relative; z-index:1; }
+.hero-lede { max-width: 42rem; }
+.photo-divider-image {
+ background-image:
+   linear-gradient(90deg,rgba(18,50,42,.07),rgba(240,244,237,.05)),
+   url('/assets/img/editorial/glass-corridor.jpg');
+ background-color: #D5DFD9;
+}
+.adoption-visual {
+ background-image:
+   linear-gradient(90deg,rgba(10,40,32,.07),rgba(10,40,32,.12)),
+   url('/assets/img/editorial/meeting-room.jpg');
+ background-color: #D5DFD9;
+}
+@media(max-width:900px) {
+ .hero::before { width:100%; opacity:.2; }
+ .hero::after { background: linear-gradient(90deg,var(--paper) 5%,transparent 100%); }
+}
+@media(max-width:640px) {
+ .hero::before { opacity: .13; }
+}
