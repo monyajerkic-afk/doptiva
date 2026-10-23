@@ -410,3 +410,15 @@ h3 { font-size: clamp(1.2rem, 1rem + .55vw, 1.6rem); }
  .section-marquee .tile img { transition: transform .65s cubic-bezier(.2,.7,.3,1); }
  .section-marquee .tile:hover img { transform:scale(1.05); }
 }
+
+/* V7: pastelni karusel namesto temnih ikon; delo z ljudmi namesto opreme. */
+.section-marquee .tile-media { background: #F3F5F0; }
+.section-marquee .tile-media img { width:100%;height:100%;object-fit:cover; filter:none; }
+.adoption-visual {
+ background-image: linear-gradient(90deg,rgba(16,51,39,.06),rgba(235,240,231,.13)),
+ url('/assets/img/editorial/human-centered-dashboard.jpg');
+ background-color: #DCE3DC;
+ background-size: cover;
+ background-position: center center;
+ filter: saturate(.67) blur(.45px);
+}
