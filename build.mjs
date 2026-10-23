@@ -356,6 +356,27 @@ function header(page) {
 </header>`;
 }
 
+function newsletterSignup(page) {
+  const n = C[page.lang].newsletter;
+  const privacy = href(page.path, ROUTES.privacy[page.lang]);
+  return `<div id="newsletter-overlay" class="newsletter-overlay" hidden>
+    <section class="newsletter-dialog" role="dialog" aria-modal="true" aria-labelledby="newsletter-heading">
+      <button type="button" class="newsletter-close" data-newsletter-close aria-label="${esc(n.close)}">×</button>
+      <span class="label">${esc(n.kicker)}</span>
+      <h2 id="newsletter-heading">${esc(n.title)}</h2>
+      <p>${esc(n.text)}</p>
+      <form id="newsletter-form" novalidate>
+        <label for="newsletter-email">${esc(n.email)}</label>
+        <input id="newsletter-email" name="email" type="email" required maxlength="160" autocomplete="email" placeholder="${esc(n.placeholder)}">
+        <label class="newsletter-consent"><input type="checkbox" name="consent" value="yes" required><span>${esc(n.consentBefore)}<a href="${privacy}">${esc(n.consentLink)}</a>.</span></label>
+        <button type="submit" class="btn btn-primary">${esc(n.submit)}</button>
+        <p id="newsletter-status" role="status" hidden></p>
+      </form>
+      <button type="button" class="newsletter-dismiss" data-newsletter-close>${esc(n.dismiss)}</button>
+    </section>
+  </div>`;
+}
+
 function footer(page) {
   const t = C[page.lang].ui;
   const p = page.path;
@@ -394,10 +415,12 @@ function footer(page) {
       </div>
     </div>
     <div class="footer-bottom">
+      <button type="button" class="newsletter-footer-link" data-newsletter-open>${esc(C[page.lang].newsletter.footer)}</button>
       <span>© ${YEAR} Doptiva. ${t.footer.rights}</span>
     </div>
   </div>
 </footer>
+${newsletterSignup(page)}
 </body>
 </html>`;
 }
