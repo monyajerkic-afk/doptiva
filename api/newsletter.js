@@ -18,10 +18,15 @@ export default async function handler(req,res) {
     const signature=createHmac('sha256',secret).update(email+':'+expiry).digest('hex');
     // Production and preview confirmation links must point to the same environment
     // that initiated signup. Avoid relying on untrusted request Host headers.
-    const previewHost = process.env.VERCEL_BRANCH_URL || process.env.VERCEL_URL || '';
-    const safePreviewHost = /^[a-z0-9-]+\.vercel\.app$/.test(previewHost) ? previewHost : '';
-    const baseUrl = process.env.VERCEL_ENV === 'preview' && safePreviewHost
-      ? 'https://' + safePreviewHost : 'https://doptiva.com';
+    // The same Vercel project can have several preview aliases. Use the
+    // validated hostname of the signup page, not the production domain.
+    const requestHost = String(host || '').toLowerCase();
+    const fromPreview = /^doptiva-[a-z0-9-]+\.vercel\.app$/.test(requestHost);
+    const vercelHost = String(process.env.VERCEL_BRANCH_URL || process.env.VERCEL_URL || '').toLowerCase();
+    const safeVercelHost = /^doptiva-[a-z0-9-]+\.vercel\.app$/.test(vercelHost) ? vercelHost : '';
+    const baseUrl = fromPreview ? 'https://' + requestHost
+      : process.env.VERCEL_ENV === 'preview' && safeVercelHost
+        ? 'https://' + safeVercelHost : 'https://doptiva.com';
     const link = baseUrl + '/api/newsletter-confirm?' + new URLSearchParams({
       email, expiry: String(expiry), signature, lang: b.lang === 'en' ? 'en' : 'sl'
     });
