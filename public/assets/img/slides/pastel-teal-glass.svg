@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid slice">
+<defs>
+<linearGradient id="bg" x1="0" y1=".2" x2="1" y2=".95"><stop stop-color="#D8EEE6"/><stop offset=".43" stop-color="#F2FAEE"/><stop offset=".75" stop-color="#A4D2C3"/><stop offset="1" stop-color="#43877E"/></linearGradient>
+<linearGradient id="pane" x1=".1" y1="0" x2=".85" y2="1"><stop stop-color="#FDFFF8" stop-opacity=".88"/><stop offset=".30" stop-color="#E1FAED" stop-opacity=".92"/><stop offset=".66" stop-color="#7DBDB3" stop-opacity=".42"/><stop offset="1" stop-color="#1F615B" stop-opacity=".7"/></linearGradient>
+<linearGradient id="shine" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FEFFFF" stop-opacity=".94"/><stop offset=".5" stop-color="#F3FFF8" stop-opacity=".35"/><stop offset="1" stop-color="#D8FFF1" stop-opacity="0"/></linearGradient>
+<filter id="blur"><feGaussianBlur stdDeviation="40"/></filter><filter id="mist"><feGaussianBlur stdDeviation="13"/></filter>
+</defs>
+<rect width="1200" height="720" fill="url(#bg)"/>
+<ellipse cx="790" cy="510" rx="410" ry="350" fill="#0C514D" opacity=".38" filter="url(#blur)"/>
+<path d="M-210 500 L500 -220 L1030 -180 L330 830 Z" fill="url(#pane)" opacity=".83" filter="url(#mist)"/>
+<path d="M110 -90 L745 -120 L1200 330 L520 790 L280 720 L755 275 Z" fill="url(#shine)" opacity=".72" filter="url(#mist)"/>
+<path d="M0 565 Q365 340 680 60 T1370 -195" fill="none" stroke="#FCFFF6" stroke-width="29" opacity=".68" filter="url(#mist)"/>
+<path d="M250 795 Q570 540 780 315 T1360 -45" fill="none" stroke="#0A514B" stroke-width="190" opacity=".22" filter="url(#blur)"/>
+<ellipse cx="410" cy="220" rx="330" ry="210" fill="#F6FFF9" opacity=".37" filter="url(#blur)"/>
+</svg>
