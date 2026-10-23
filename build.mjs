@@ -437,6 +437,16 @@ function breadcrumbsHtml(lang, p, items) {
 
 // ---------- slike drsnika ----------
 function slideImage(key) {
+  // Four original soft pastel glass motifs, distributed among six challenge cards.
+  const pastel = {
+    narocila: 'pastel-sage-glass.svg',
+    excel: 'pastel-teal-glass.svg',
+    teren: 'pastel-peach-mist.svg',
+    ponudbe: 'pastel-mauve-haze.svg',
+    orodja: 'pastel-sage-glass.svg',
+    ai: 'pastel-teal-glass.svg',
+  };
+  if (pastel[key]) return '/assets/img/slides/' + pastel[key];
   const dir = path.join(ROOT, 'public/assets/img/slides');
   for (const ext of ['webp', 'jpg', 'jpeg', 'png']) {
     if (fs.existsSync(path.join(dir, `${key}.${ext}`))) return `/assets/img/slides/${key}.${ext}`;
