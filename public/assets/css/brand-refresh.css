@@ -422,3 +422,18 @@ h3 { font-size: clamp(1.2rem, 1rem + .55vw, 1.6rem); }
  background-position: center center;
  filter: saturate(.67) blur(.45px);
 }
+
+/* Fix: adoption image was behind the section background (negative stacking).
+   Keep photograph visible with local visual fallback if remote download fails. */
+.adoption-feature { isolation:isolate; }
+.adoption-visual {
+ z-index:0;
+ background-color:#DBE6DA;
+ background-image:
+  linear-gradient(90deg,rgba(15,45,32,.11),rgba(241,245,237,.10)),
+  url('/assets/img/editorial/human-centered-dashboard.jpg'),
+  url('/assets/img/slides/pastel-sage-glass.svg');
+ background-size:cover,cover,cover;
+ background-position:center,center,center;
+}
+.adoption-copy { position:relative; z-index:1; }
