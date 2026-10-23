@@ -437,3 +437,58 @@ h3 { font-size: clamp(1.2rem, 1rem + .55vw, 1.6rem); }
  background-position:center,center,center;
 }
 .adoption-copy { position:relative; z-index:1; }
+
+/* V8: umirjen prehod pod herotom; marelična izvedba razdelka o uporabi.
+   Šest kartic karusela in njihovi štirje pastelni vizuali ostanejo nedotaknjeni. */
+.photo-divider {
+  height: clamp(230px, 28vw, 365px);
+  background: linear-gradient(115deg, #E3E7DF, #F0F1EA);
+}
+.photo-divider-image {
+  opacity: .59;
+  filter: blur(2.4px) saturate(.48) brightness(1.12);
+  background-position: center 46%;
+}
+.photo-divider::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(90deg, rgba(245,247,241,.27), rgba(248,248,241,.16));
+  pointer-events: none;
+}
+
+/* Marelična je površina in vizual, ne črkovna barva. */
+.adoption-feature {
+  background: #F6E9DD;
+}
+.adoption-visual {
+  background-color: #F7E5D8;
+  background-image:
+    linear-gradient(90deg, rgba(249,234,222,.05), rgba(248,232,215,.12)),
+    url('/assets/img/slides/pastel-peach-mist.svg');
+  background-size: cover, cover;
+  background-position: center, center;
+  filter: none;
+  z-index: 0;
+}
+.adoption-copy {
+  background: #FFF;
+  color: #2B3430;
+  border-color: rgba(113,78,54,.13);
+}
+.adoption-copy h2 {
+  color: #192320;
+}
+@media (max-width: 820px) {
+  .photo-divider { height: clamp(190px, 39vw, 270px); }
+  .photo-divider-image { opacity: .62; filter: blur(1.8px) saturate(.5) brightness(1.09); }
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .adoption-feature { background: #F6E9DD; }
+  :root:not([data-theme="light"]) .adoption-copy { background: #FFF; color: #2B3430; }
+  :root:not([data-theme="light"]) .adoption-copy h2 { color: #192320; }
+}
+:root[data-theme="dark"] .adoption-feature { background: #F6E9DD; }
+:root[data-theme="dark"] .adoption-copy { background: #FFF; color: #2B3430; }
+:root[data-theme="dark"] .adoption-copy h2 { color: #192320; }
