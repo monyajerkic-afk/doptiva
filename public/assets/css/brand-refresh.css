@@ -629,3 +629,24 @@ body.site-projects .cta-band .btn-primary:hover {
   color: #112C3A;
 }
 body.site-projects .cta-band .btn-primary:focus-visible { outline: 3px solid #FFFFFF; outline-offset: 3px; }
+
+/* Newsletter: restrained modal, available in both languages. */
+.newsletter-overlay[hidden] {display:none!important}
+.newsletter-overlay {position:fixed;inset:0;z-index:10000;background:rgba(13,35,28,.68);display:grid;place-items:center;padding:16px}
+body.newsletter-open {overflow:hidden}
+.newsletter-dialog {position:relative;display:grid;gap:14px;width:min(100%,500px);max-height:95dvh;overflow:auto;padding:clamp(25px,4vw,45px);background:#FAFBF8;color:#192320;border-top:6px solid #AF623F;box-shadow:0 24px 80px rgba(0,0,0,.22)}
+.newsletter-dialog h2 {font-size:clamp(1.9rem,3vw,2.5rem);color:#192320}
+.newsletter-dialog p {font-size:.92rem;color:#48574D}
+.newsletter-dialog form {display:grid;gap:12px}
+.newsletter-dialog form>label {font-size:.82rem;font-weight:600}
+.newsletter-dialog input[type=email] {width:100%;padding:11px;min-height:46px;border:1px solid #AAB9AE;border-radius:3px;background:white;color:#192320;font:inherit}
+.newsletter-dialog .newsletter-consent {display:flex;gap:10px;align-items:flex-start;font-size:.8rem;line-height:1.55;font-weight:400}
+.newsletter-consent input {flex:none;margin-top:4px;accent-color:#0F674C}
+.newsletter-consent a {color:#0F674C;text-decoration:underline}
+.newsletter-close {position:absolute;top:10px;right:14px;width:42px;height:42px;border:0;background:transparent;color:#192320;font:30px system-ui;cursor:pointer}
+.newsletter-dismiss,.newsletter-footer-link {padding:5px 0;border:0;background:transparent;text-decoration:underline;cursor:pointer;font:inherit;color:var(--green)}
+.newsletter-dismiss {justify-self:start;color:#56675C;font-size:.82rem}
+.newsletter-dialog .btn-primary {justify-self:start}
+.newsletter-dialog :is(button,input,a):focus-visible {outline:3px solid #168267;outline-offset:3px}
+#newsletter-status {padding:10px;background:#EDF3E9}
+.about-mission .about-mission-secondary {margin-top:clamp(2rem,4vw,4rem)}
