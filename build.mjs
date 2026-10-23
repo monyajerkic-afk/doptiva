@@ -338,7 +338,7 @@ function header(page) {
     const active = page.section === k;
     return `<a class="nav-link" href="${href(p, R(k))}"${active ? ' aria-current="page"' : ''}>${label}</a>`;
   }).join('\n      ');
-  return `<body>
+  return `<body${page.section === 'blog' ? ' class="site-blog"' : ''}>
 <a class="skip-link" href="#main">${t.skip}</a>
 <header class="site-header">
   <div class="wrap header-inner">
