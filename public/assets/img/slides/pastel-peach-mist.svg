@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid slice">
+<defs>
+<linearGradient id="b" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#F9F3E9"/><stop offset=".42" stop-color="#FFECE0"/><stop offset=".74" stop-color="#E4A28B"/><stop offset="1" stop-color="#F7DCCB"/></linearGradient>
+<radialGradient id="g1"><stop stop-color="#E79F81" stop-opacity=".83"/><stop offset=".42" stop-color="#F6CEB7" stop-opacity=".56"/><stop offset="1" stop-color="#F6D3BD" stop-opacity="0"/></radialGradient>
+<radialGradient id="g2"><stop stop-color="#FFFFFF" stop-opacity=".9"/><stop offset=".44" stop-color="#FFF6E8" stop-opacity=".7"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient>
+<filter id="haze"><feGaussianBlur stdDeviation="41"/></filter>
+</defs>
+<rect width="1200" height="720" fill="url(#b)"/>
+<ellipse cx="1050" cy="5" rx="650" ry="610" fill="url(#g1)"/>
+<ellipse cx="145" cy="620" rx="640" ry="470" fill="url(#g2)"/>
+<path d="M-195 580 C155 320 340 210 555 355 C705 445 850 285 1205 135" fill="none" stroke="#D99A81" stroke-width="150" opacity=".33" filter="url(#haze)"/>
+<path d="M-105 730 C290 410 460 495 715 375 S1080 95 1355 -45" fill="none" stroke="#FFFFFF" stroke-width="115" opacity=".63" filter="url(#haze)"/>
+<path d="M-90 250 C200 50 385 -20 680 95 S1125 210 1375 -40" fill="none" stroke="#FFF5E8" stroke-width="120" opacity=".66" filter="url(#haze)"/>
+<ellipse cx="875" cy="505" rx="245" ry="115" fill="#FDE1D1" filter="url(#haze)" opacity=".39"/>
+</svg>
