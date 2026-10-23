@@ -13,7 +13,8 @@ export default async function handler(req,res) {
   const email=String(q.email||'').trim().toLowerCase();
   const expiry=Number(q.expiry), sig=String(q.signature||'');
   const secret=process.env.NEWSLETTER_SIGNING_SECRET;
-  const key=process.env.RESEND_API_KEY, segment=process.env.NEWSLETTER_SEGMENT_ID;
+  // Contact management requires Full access. Keep the existing sending-only key separate.
+  const key=process.env.RESEND_CONTACTS_API_KEY, segment=process.env.NEWSLETTER_SEGMENT_ID;
   if(!secret||secret.length<32||!key||!segment) {console.error('newsletter confirmation: configuration missing',{signing:!!secret,mail:!!key,segment:!!segment});return result(res,false,en);}
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)||email.length>160||!Number.isSafeInteger(expiry)||expiry<Date.now()||expiry>Date.now()+49*60*60*1000||!/^[a-f0-9]{64}$/.test(sig)) {console.warn('newsletter confirmation: token invalid or expired');return result(res,false,en);}
   const expected=createHmac('sha256',secret).update(email+':'+expiry).digest('hex');
@@ -23,7 +24,11 @@ export default async function handler(req,res) {
       headers:{Authorization:'Bearer '+key,'Content-Type':'application/json'},
       body:JSON.stringify({email,unsubscribed:false,segments:[{id:segment}]}),
       signal:AbortSignal.timeout(10000)});
-    if(!r.ok){console.error('newsletter confirmation: contact rejected',r.status);return result(res,false,en);}
+    if(!r.ok){
+      const detail=await r.json().catch(()=>({}));
+      console.error('newsletter confirmation: contact rejected',r.status,typeof detail.name==='string'?detail.name:'unknown');
+      return result(res,false,en);
+    }
     return result(res,true,en);
   }catch(e){console.error('newsletter confirmation: contact request failed',String(e.message));return result(res,false,en);}
 }
