@@ -554,3 +554,78 @@ body.site-blog .site-footer { border-top-color: rgba(78,59,46,.12); }
 body.site-blog .cta-band { background: #422D27; }
 body.site-blog .cta-band .label,
 body.site-blog .cta-band h2 em { color: #F4BDA4; }
+
+
+/* Projekti — temno modri poudarki ob nespremenjeni svetli postavitvi.
+   Velja le za /projekti/ in /en/projects/. */
+body.site-projects {
+  --project-navy: #162F46;
+  --project-navy-deep: #0D2337;
+  --project-sage: #B8CDBB;
+  --project-sage-hover: #D1E0D2;
+  --ink: #1B2731;
+  --text: #303A42;
+  --line: rgba(22,47,70,.13);
+  --line-strong: rgba(22,47,70,.24);
+  --green: #254B67;
+  --focus: #254B67;
+}
+body.site-projects .page-head { background: var(--paper); }
+body.site-projects .page-head h1,
+body.site-projects .project-body h2 { color: var(--project-navy); }
+body.site-projects .page-head .label { color: #254B67; }
+body.site-projects .site-nav a.nav-link[aria-current="page"] { border-bottom-color: var(--project-navy); }
+body.site-projects .project { border-top-color: rgba(22,47,70,.18); }
+body.site-projects .project-body .lead { color: #1B2731; }
+body.site-projects .project-body .ticks li::before { background: #254B67; opacity: .8; }
+body.site-projects .project .stamp { color: #254B67; border-color: rgba(37,75,103,.45); }
+body.site-projects .project .stamp-mvp { color: #9B674F; border-color: rgba(155,103,79,.4); }
+body.site-projects .project-visual {
+  background: #162F46;
+  border: 1px solid #162F46;
+  padding: clamp(16px,2vw,28px);
+  box-shadow: 0 18px 44px rgba(13,35,55,.10);
+}
+body.site-projects .project-visual .ui,
+body.site-projects .project-visual .phone {
+  --paper: #F9FBFA;
+  --paper-2: #EAF1EE;
+  --card: #FFFFFF;
+  --ink: #1B332E;
+  --text: #303D38;
+  --muted: #597066;
+  --line: rgba(17,58,45,.14);
+  --line-strong: rgba(17,58,45,.25);
+  --green: #1C7055;
+  --brand: #168267;
+}
+body.site-projects .project-visual figcaption {
+  color: #E7F0F3;
+  opacity: .88;
+  margin-top: 1.05rem;
+}
+body.site-projects .project .btn-ghost {
+  color: #162F46;
+  background: #FFFFFF;
+  border-color: #254B67;
+}
+body.site-projects .project .btn-ghost:hover {
+  background: #162F46;
+  color: #FFFFFF;
+}
+/* Samo spodnji CTA je polno temno moder; gumb je žajbljevo zelen. */
+body.site-projects .cta-band { background: #0D2337; color: #D9E4EA; }
+body.site-projects .cta-band h2 { color: #FFFFFF; }
+body.site-projects .cta-band h2 em,
+body.site-projects .cta-band .label { color: #C7DDCE; }
+body.site-projects .cta-band .btn-primary {
+  background: #B8CDBB;
+  color: #112C3A;
+  border: 1px solid #B8CDBB;
+}
+body.site-projects .cta-band .btn-primary:hover {
+  background: #D1E0D2;
+  border-color: #D1E0D2;
+  color: #112C3A;
+}
+body.site-projects .cta-band .btn-primary:focus-visible { outline: 3px solid #FFFFFF; outline-offset: 3px; }
