@@ -19,7 +19,7 @@ export default async function handler(req,res) {
     // Production and preview confirmation links must point to the same environment
     // that initiated signup. Avoid relying on untrusted request Host headers.
     const previewHost = process.env.VERCEL_BRANCH_URL || process.env.VERCEL_URL || '';
-    const safePreviewHost = /^[a-z0-9-]+\\.vercel\\.app$/.test(previewHost) ? previewHost : '';
+    const safePreviewHost = /^[a-z0-9-]+\.vercel\.app$/.test(previewHost) ? previewHost : '';
     const baseUrl = process.env.VERCEL_ENV === 'preview' && safePreviewHost
       ? 'https://' + safePreviewHost : 'https://doptiva.com';
     const link = baseUrl + '/api/newsletter-confirm?' + new URLSearchParams({
