@@ -700,6 +700,16 @@ ${pageHead(lang, p, crumbs, A.label, A.h1, A.lede)}
     <div class="stack">${A.story.map((x, i) => `<p${i === 0 ? ' class="lead"' : ''}>${esc(x)}</p>`).join('')}</div>
   </div>
 </section>
+<section class="section about-mission">
+  <div class="wrap split">
+    <div class="split-head"><h2>${esc(A.visionTitle)}</h2></div>
+    <div class="stack"><p class="lead">${esc(A.visionText)}</p></div>
+  </div>
+  <div class="wrap split about-mission-secondary">
+    <div class="split-head"><h2>${esc(A.missionTitle)}</h2></div>
+    <div class="stack"><p>${esc(A.missionText)}</p></div>
+  </div>
+</section>
 <section class="section section-alt">
   <div class="wrap split">
     <div class="split-head"><h2>${esc(A.principlesTitle)}</h2></div>
