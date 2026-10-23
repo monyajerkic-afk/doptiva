@@ -6,6 +6,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import config from './site.config.mjs';
+import { cacheEditorialPhotos } from './scripts/editorial-photos.mjs';
 import sl from './content/sl.mjs';
 import en from './content/en.mjs';
 
@@ -885,9 +886,10 @@ function copyDir(src, dst) {
   }
 }
 
-function build() {
+async function build() {
   fs.rmSync(OUT, { recursive: true, force: true });
   copyDir(path.join(ROOT, 'public'), OUT);
+  await cacheEditorialPhotos(OUT);
 
   // v predogledu pisave vgradimo v CSS (predogled ne nalaga ločenih datotek s pisavami)
   const cssPath = path.join(OUT, 'assets/css/site.css');
@@ -1000,4 +1002,4 @@ ${[...posts.sl, ...posts.en].map((x) => `- [${x.title}](${abs(x.path)}): ${x.des
   console.log(`Zgrajeno: ${pages.length + 1} strani -> ${path.relative(ROOT, OUT)}`);
 }
 
-build();
+build().catch((error) => { console.error(error); process.exitCode = 1; });
