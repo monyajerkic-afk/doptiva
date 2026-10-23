@@ -170,13 +170,17 @@ export default {
     description: 'Doptiva is a Slovenian company based in Ribnica that helps small and medium-sized businesses with digitalisation, automation and the use of artificial intelligence.',
     label: 'About Doptiva',
     h1: 'About',
-    lede: 'Doptiva helps small and medium-sized businesses make technology work for them. We are a small company, so we work transparently: you always know who is working on your project and why.',
+    lede: 'Doptiva connects business, technology and people. We help small and medium-sized businesses choose solutions their teams can understand and actually use. We work transparently, collaborating with external specialists where needed.',
     storyTitle: 'Why Doptiva',
     story: [
-      'Doptiva was founded by Monja Jerkič. She spent many years in sales, hospitality and tourism, so she knows everyday business from the inside: orders that get lost, spreadsheets nobody updates and tools that promised more than they delivered.',
-      'When she started building her own digital products, it became clear that most businesses do not need more technology. They need a better understanding of their own processes and someone who helps them choose the right steps. That is how Doptiva started.',
-      'Today she combines experience in sales and user experience design with application development supported by modern AI tools. Two results of that work are our own products, Refilo and Terto.',
+      'Doptiva grew out of the founder’s many years of experience in sales, hospitality and tourism. She knows everyday business beyond the screen: from orders and spreadsheets to decisions made while the work is happening.',
+      'Choosing software is often not the hardest part. Understanding what needs to change, bringing people and processes together, and helping everyone actually use the solution matters more.',
+      'Doptiva combines that experience with consulting, practical training and the development of digital solutions. The same approach shaped its own products, Refilo and Terto.',
     ],
+    visionTitle: 'Our vision',
+    visionText: 'A business world where technology makes people’s work easier instead of adding complexity. Where digital solutions are understandable, accessible and built for the people who use them every day.',
+    missionTitle: 'Our mission',
+    missionText: 'We help businesses understand their challenges, simplify processes, and choose or build technology that serves a real purpose. Just as importantly, we help people learn to use those tools confidently on their own.',
     principlesTitle: 'How we work',
     principles: [
       { title: 'Understanding first', text: 'Before we suggest a tool, we understand how the work happens today and where it gets stuck.' },
@@ -218,6 +222,18 @@ export default {
     reply: 'We reply within two working days. The enquiry and the proposal for a first step are free of obligation.',
     companyTitle: 'Company details',
     companyLink: 'Legal notice',
+  },
+
+  newsletter: {
+    footer: 'Newsletter', kicker: 'Doptiva · practical insights',
+    title: 'Useful ideas. No unnecessary noise.',
+    text: 'Occasionally, we share practical tips on digitalisation, AI and business processes, along with updates from our own projects.',
+    email: 'Email address', placeholder: 'you@company.com',
+    consentBefore: 'I would like to receive Doptiva’s newsletter. I can unsubscribe at any time. See our ',
+    consentLink: 'privacy policy', submit: 'Subscribe', dismiss: 'No thanks', close: 'Close newsletter signup',
+    invalid: 'Enter a valid email address and agree to receive the newsletter.', sending: 'Sending …',
+    success: 'Check your inbox. Click the confirmation link to complete your signup.',
+    failure: 'We could not send a confirmation email right now. Please try again later.'
   },
 
   blogPage: {
