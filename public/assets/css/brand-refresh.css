@@ -500,3 +500,57 @@ h3 { font-size: clamp(1.2rem, 1rem + .55vw, 1.6rem); }
 :root[data-theme="dark"] .adoption-feature { background: #F7F8F5; }
 :root[data-theme="dark"] .adoption-copy { background: #FFF; color: #2B3430; }
 :root[data-theme="dark"] .adoption-copy h2 { color: #192320; }
+
+
+/* Blog: le barve po uporabničini referenci Doptiva Academy.
+   Svetla kremna podlaga, skoraj črno besedilo, terakota kot poudarek.
+   Brez sprememb postavitve, karusela in drugih strani. */
+body.site-blog {
+  --paper: #FCFAF5;
+  --paper-2: #F6F0E9;
+  --card: #FFFFFF;
+  --ink: #242521;
+  --text: #373833;
+  --muted: #6B6A63;
+  --green: #A84C29;
+  --brand: #168267;
+  --mint: #F8E7DA;
+  --mint-ink: #8D432A;
+  --annot: #AF623F;
+  --annot-strong: #AF623F;
+  --line: rgba(78, 59, 46, .12);
+  --line-strong: rgba(78, 59, 46, .21);
+  --note-1: #FCF1E9;
+  --note-ink: #37332E;
+  --focus: #AF623F;
+  background: #FCFAF5;
+  color: #373833;
+}
+body.site-blog .site-header,
+body.site-blog .site-footer,
+body.site-blog .page-head,
+body.site-blog .article-head { background-color: #FCFAF5; }
+body.site-blog .page-head .label,
+body.site-blog .article-head .label,
+body.site-blog .post-item::before,
+body.site-blog .post-item .text-link,
+body.site-blog .post-item h2 a:hover,
+body.site-blog .prose a,
+body.site-blog .prose li::marker { color: #A84C29; }
+body.site-blog .page-head h1,
+body.site-blog .article-head h1,
+body.site-blog .post-item h2 a,
+body.site-blog .prose h2,
+body.site-blog .prose h3 { color: #242521; }
+body.site-blog .post-item { border-bottom-color: rgba(78,59,46,.17); }
+body.site-blog .posts { border-top-color: rgba(78,59,46,.17); }
+body.site-blog .btn-primary { background: #A84C29; color: #FFF; }
+body.site-blog .btn-primary:hover { background: #873C20; color: #FFF; }
+body.site-blog .site-nav a.nav-link[aria-current="page"] { border-bottom-color: #A84C29; }
+body.site-blog .article-cta { background: #FFF9F3; border-color: rgba(168,76,41,.2); }
+body.site-blog .prose blockquote { background: #FCF1E9; color: #37332E; }
+body.site-blog .prose .lead { color: #242521; }
+body.site-blog .site-footer { border-top-color: rgba(78,59,46,.12); }
+body.site-blog .cta-band { background: #422D27; }
+body.site-blog .cta-band .label,
+body.site-blog .cta-band h2 em { color: #F4BDA4; }
