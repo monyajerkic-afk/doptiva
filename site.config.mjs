@@ -7,15 +7,15 @@ export default {
 
   // Pravni podatki (Zakon o elektronskem poslovanju na trgu zahteva te podatke na spletni strani).
   legal: {
-    company: '[Polno ime s.p. kot v AJPES]',
+    company: 'Monja Jerkič s.p.',
     owner: 'Monja Jerkič',
-    street: '[Ulica in hišna številka]',
+    street: 'Opekarska cesta 58',
     postal: '1310',
     city: 'Ribnica',
     country: 'Slovenija',
     countryEn: 'Slovenia',
-    registrationNo: '[matična številka]',
-    taxNo: '[davčna številka]',
+    registrationNo: '9632310000',
+    taxNo: '10950150',
     vatRegistered: false,
     register: 'Poslovni register Slovenije (AJPES)',
     registerEn: 'Slovenian Business Register (AJPES)',
@@ -40,7 +40,7 @@ export default {
   analytics: process.env.ANALYTICS === '1',
 
   // Datum zadnje posodobitve pravnih besedil.
-  legalUpdated: '2026-10-21',
+  legalUpdated: '2026-10-23',
   // Datum zadnje vsebinske posodobitve strani (za sitemap.xml).
-  siteUpdated: '2026-10-21',
+  siteUpdated: '2026-10-23',
 };
