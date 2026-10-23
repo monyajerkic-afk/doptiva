@@ -16,7 +16,15 @@ export default async function handler(req,res) {
   try{
     const expiry=Date.now()+48*60*60*1000;
     const signature=createHmac('sha256',secret).update(email+':'+expiry).digest('hex');
-    const link='https://doptiva.com/api/newsletter-confirm?'+new URLSearchParams({email,expiry:String(expiry),signature,lang:b.lang==='en'?'en':'sl'});
+    // Production and preview confirmation links must point to the same environment
+    // that initiated signup. Avoid relying on untrusted request Host headers.
+    const previewHost = process.env.VERCEL_BRANCH_URL || process.env.VERCEL_URL || '';
+    const safePreviewHost = /^[a-z0-9-]+\\.vercel\\.app$/.test(previewHost) ? previewHost : '';
+    const baseUrl = process.env.VERCEL_ENV === 'preview' && safePreviewHost
+      ? 'https://' + safePreviewHost : 'https://doptiva.com';
+    const link = baseUrl + '/api/newsletter-confirm?' + new URLSearchParams({
+      email, expiry: String(expiry), signature, lang: b.lang === 'en' ? 'en' : 'sl'
+    });
     const en=b.lang==='en';
     const r=await fetch('https://api.resend.com/emails',{method:'POST',
       headers:{Authorization:'Bearer '+key,'Content-Type':'application/json'},
