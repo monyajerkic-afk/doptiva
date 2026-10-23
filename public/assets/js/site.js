@@ -87,8 +87,8 @@
       var viewport = window.innerHeight || document.documentElement.clientHeight;
       if (rect.top > viewport || rect.bottom < 0) return;
       var progress = Math.max(0, Math.min(1, (viewport - rect.top) / (viewport + rect.height)));
-      // Meja +/- 36 px prepreči grobo premikanje ali razkritje robov.
-      image.style.setProperty('--parallax-y', ((progress - 0.5) * 72).toFixed(1) + 'px');
+      // Meja +/- 17 px: zelo nežno premikanje, brez razkritja robov.
+      image.style.setProperty('--parallax-y', ((progress - 0.5) * 34).toFixed(1) + 'px');
     }
     function schedule() {
       if (ticking) return;
