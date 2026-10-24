@@ -156,3 +156,222 @@ textarea { font-family: var(--display-sans); }
   .page-head h1 {font-size:clamp(2.45rem,11vw,3.1rem);}
   body.site-blog .post-item h2 {font-size:clamp(1.7rem,7.8vw,2.35rem);}
 }
+
+
+/* Shared site footer — same editorial typography as V4, without changing links. */
+.site-footer {
+  background: var(--paper);
+  border-top: 1px solid var(--line);
+  color: var(--text);
+}
+.site-footer .wrap {
+  padding-block: clamp(3.5rem, 5.5vw, 6rem) clamp(1.6rem, 3vw, 2.6rem);
+}
+.site-footer .footer-grid {
+  gap: clamp(1.5rem, 3.5vw, 4rem);
+  align-items: start;
+}
+.site-footer .footer-brand .logo { display: inline-flex; align-items: center; }
+.site-footer .footer-brand p {
+  font-family: var(--display-serif);
+  font-style: normal;
+  font-weight: 440;
+  font-size: clamp(1.3rem, 1.65vw, 1.8rem);
+  line-height: 1.3;
+  letter-spacing: -.024em;
+  max-width: 22ch;
+  color: var(--ink);
+  margin-top: clamp(1.3rem, 2vw, 1.9rem);
+}
+.site-footer .footer-col h2 {
+  font-family: var(--display-sans);
+  font-weight: 710;
+  font-size: .69rem;
+  line-height: 1.5;
+  text-transform: uppercase;
+  letter-spacing: .135em;
+  color: var(--muted);
+  margin-bottom: 1.4rem;
+}
+.site-footer .footer-col ul {
+  gap: .7rem;
+}
+.site-footer .footer-col li,
+.site-footer .footer-col li a {
+  font-family: var(--display-sans);
+  font-size: .9rem;
+  font-weight: 500;
+  line-height: 1.6;
+  color: var(--text);
+}
+.site-footer .footer-col a,
+.site-footer .newsletter-footer-link {
+  text-decoration: none;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+.site-footer .footer-col a:hover,
+.site-footer .newsletter-footer-link:hover {
+  color: var(--brand);
+  text-decoration: underline;
+}
+.site-footer .footer-bottom {
+  margin-top: clamp(3rem, 5vw, 5rem);
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--line);
+  font-family: var(--display-sans);
+  font-size: .75rem;
+  letter-spacing: .025em;
+}
+.site-footer .newsletter-footer-link {
+  font-family: var(--display-sans);
+  font-size: .76rem;
+  letter-spacing: .085em;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--green);
+  padding: .35rem 0;
+  border: 0;
+  background: transparent;
+}
+/* Newsletter signup is a modal dialog, styled as a restrained editorial invitation.
+   No changes to popup timing, consent, double opt-in, or submission handlers. */
+.newsletter-overlay {
+  background: rgba(10, 40, 30, .74);
+  padding: max(14px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) max(14px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left));
+}
+.newsletter-dialog {
+  position: relative;
+  width: min(100%, 540px);
+  max-height: min(94dvh, 850px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  gap: clamp(.75rem, 1.9vw, 1.1rem);
+  border: 1px solid rgba(19, 75, 51, .12);
+  border-top: 3px solid #126E51;
+  border-radius: 2px;
+  padding: clamp(1.8rem, 4.7vw, 3.2rem);
+  background: #FBFAF6;
+  box-shadow: 0 30px 90px rgba(3, 29, 17, .24);
+  color: #243A2C;
+}
+.newsletter-dialog > .label {
+  font-family: var(--display-sans);
+  color: #116C4B;
+  letter-spacing: .16em;
+  font-size: .68rem;
+  font-weight: 730;
+  text-transform: uppercase;
+  margin-top: .3rem;
+}
+.newsletter-dialog h2 {
+  font-family: var(--display-serif);
+  font-size: clamp(2.65rem, 5vw, 3.65rem);
+  font-weight: 430;
+  letter-spacing: -.047em;
+  line-height: 1.05;
+  text-wrap: balance;
+  color: #153729;
+  padding-right: .6rem;
+}
+.newsletter-dialog > p {
+  font-family: var(--display-sans);
+  color: #465D4E;
+  font-weight: 450;
+  font-size: .95rem;
+  line-height: 1.75;
+  max-width: 42ch;
+}
+.newsletter-dialog #newsletter-form { gap: .75rem; margin-top: .4rem; }
+.newsletter-dialog #newsletter-form > label:first-child {
+  font-family: var(--display-sans);
+  font-size: .77rem;
+  font-weight: 700;
+  letter-spacing: .035em;
+  color: #274739;
+}
+.newsletter-dialog input[type="email"] {
+  width: 100%;
+  min-height: 49px;
+  padding: 12px 14px;
+  font: 450 .95rem/1.5 var(--display-sans);
+  border: 1px solid #A5B6A9;
+  border-radius: 2px;
+  background: #fff;
+  color: #1E3529;
+}
+.newsletter-dialog input[type="email"]::placeholder { color: #738478; }
+.newsletter-dialog .newsletter-consent {
+  font-family: var(--display-sans);
+  font-size: .78rem;
+  font-weight: 450;
+  line-height: 1.65;
+  color: #4A5C50;
+  gap: 10px;
+  margin-block: .35rem .5rem;
+}
+.newsletter-dialog .newsletter-consent a {
+  color: #106A4C;
+  text-underline-offset: 3px;
+}
+.newsletter-dialog .newsletter-consent input { accent-color: #106A4C; }
+body .newsletter-dialog .btn-primary {
+  font-family: var(--display-sans);
+  font-size: .85rem;
+  font-weight: 700;
+  background: #126B4F;
+  border: 1px solid #126B4F;
+  color: #fff;
+  border-radius: 2px;
+  padding: 14px 25px;
+  min-height: 49px;
+  justify-self: start;
+}
+body .newsletter-dialog .btn-primary:hover {
+  background: #0A4F37;
+  border-color: #0A4F37;
+  color: #fff;
+}
+.newsletter-dialog .newsletter-close {
+  top: 12px;
+  right: 12px;
+  width: 44px;
+  height: 44px;
+  color: #28503D;
+  background: transparent;
+  font: 400 30px/1 var(--display-sans);
+}
+.newsletter-dialog .newsletter-close:hover { color: #A96143; }
+.newsletter-dialog .newsletter-dismiss {
+  font-family: var(--display-sans);
+  color: #5B6B5E;
+  font-size: .76rem;
+  font-weight: 520;
+  text-underline-offset: 3px;
+  padding-block: .4rem;
+}
+.newsletter-dialog #newsletter-status {
+  font-family: var(--display-sans);
+  font-size: .84rem;
+  line-height: 1.55;
+  border-left: 3px solid #13694C;
+  background: #EAF1E8;
+  color: #213D2F;
+  padding: 12px 14px;
+}
+.newsletter-dialog :is(a,button,input):focus-visible,
+.site-footer :is(a,button):focus-visible {
+  outline: 3px solid #B86C4A;
+  outline-offset: 3px;
+}
+@media (max-width: 640px) {
+  .site-footer .footer-grid { gap: 2rem 1.5rem; }
+  .site-footer .footer-brand { grid-column: 1 / -1; }
+  .site-footer .footer-brand p { font-size: clamp(1.3rem, 5vw, 1.55rem); }
+  .newsletter-dialog { padding: 1.7rem 1.35rem; }
+  .newsletter-dialog h2 { font-size: clamp(2.35rem, 9vw, 3.1rem); }
+}
+@media (max-width: 390px) {
+  .site-footer .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .newsletter-dialog h2 { font-size: 2.3rem; }
+}
