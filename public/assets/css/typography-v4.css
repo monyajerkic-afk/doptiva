@@ -1,0 +1,158 @@
+/* Doptiva Design V4 — shared typography for the entire website.
+   Newsreader is the editorial display face, Montserrat stays for all controls,
+   reading text, branding, forms and meta labels. Layout and colours stay intact.
+   Loaded AFTER brand-refresh.css and BEFORE the homepage-only design-v4.css. */
+:root {
+  --display-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --display-sans: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+}
+/* Consistent heading hierarchy on inner pages — no homepage layout overrides. */
+.page-head h1,
+.article-head h1,
+.notfound h1 {
+  font-family: var(--display-serif);
+  font-weight: 430;
+  line-height: 1.075;
+  letter-spacing: -.043em;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+.page-head h1 {
+  font-size: clamp(3.05rem, 5.3vw, 6rem);
+  max-width: 19ch;
+}
+.page-head .wrap { row-gap: clamp(.9rem, 1.4vw, 1.4rem); }
+.page-head .lede {
+  font-family: var(--display-sans);
+  font-size: clamp(1rem, 1.17vw, 1.16rem);
+  font-weight: 430;
+  line-height: 1.8;
+  max-width: 44rem;
+}
+.page-head .label,
+.article-head .label {
+  font-family: var(--display-sans);
+  font-size: .7rem;
+  font-weight: 710;
+  letter-spacing: .14em;
+}
+/* About: coherent serif display headings, sans-serif explanatory text. */
+.split-head h2 {
+  font-family: var(--display-serif);
+  font-size: clamp(2.45rem, 4vw, 4.6rem);
+  line-height: 1.1;
+  letter-spacing: -.039em;
+  font-weight: 430;
+  max-width: 19ch;
+  text-wrap: balance;
+}
+.principles h3 {
+  font-family: var(--display-sans);
+  font-weight: 650;
+  font-size: clamp(1.19rem, 1.45vw, 1.42rem);
+  line-height: 1.35;
+}
+.stack .lead {
+  font-family: var(--display-sans);
+  font-size: clamp(1.18rem, 1.65vw, 1.5rem);
+  font-weight: 440;
+  line-height: 1.68;
+}
+.stack p { line-height: 1.84; }
+/* Projects: maintain established navy imagery and palette. */
+body.site-projects .project-body h2 {
+  font-family: var(--display-serif);
+  font-size: clamp(2.9rem, 4.3vw, 5rem);
+  letter-spacing: -.042em;
+  font-weight: 430;
+  line-height: 1.07;
+}
+body.site-projects .project-body .lead {
+  font-family: var(--display-sans);
+  font-size: clamp(1.12rem, 1.55vw, 1.38rem);
+  font-weight: 470;
+  line-height: 1.65;
+  letter-spacing: -.017em;
+}
+body.site-projects .project-body > p {line-height:1.83;}
+/* Blog listing and article headings: keep warm cream/terracotta styling. */
+body.site-blog .post-item h2 {
+  font-family: var(--display-serif);
+  font-size: clamp(2rem, 2.6vw, 3.15rem);
+  font-weight: 460;
+  letter-spacing: -.033em;
+  line-height: 1.14;
+  max-width: 29ch;
+  text-wrap: balance;
+}
+body.site-blog .article-head h1 {
+  font-size: clamp(2.8rem, 4.9vw, 5.55rem);
+  line-height: 1.09;
+  max-width: 24ch;
+}
+.prose h2 {
+  font-family: var(--display-serif);
+  font-weight: 490;
+  font-size: clamp(2rem, 2.7vw, 3rem);
+  line-height: 1.17;
+  letter-spacing: -.026em;
+  text-wrap: balance;
+}
+.prose h3 {
+  font-family: var(--display-sans);
+  font-weight: 660;
+  font-size: clamp(1.25rem, 1.75vw, 1.53rem);
+  line-height: 1.35;
+}
+.prose .lead {
+  font-family: var(--display-sans);
+  font-size: clamp(1.18rem, 1.8vw, 1.5rem);
+  font-weight: 450;
+  line-height: 1.68;
+}
+.prose, .post-item p { line-height: 1.82; }
+/* Legal/utility articles should remain compact and easily scannable. */
+.legal .prose h2 { font-size:clamp(1.7rem,2.2vw,2.35rem); }
+.legal .prose h3 { font-size:clamp(1.15rem,1.5vw,1.4rem); }
+/* Keep transactional copy and UI labels in Montserrat rather than editorial serif. */
+.contact-aside h2,
+.form-card label,
+.form-field label,
+.breadcrumbs,
+.meta,
+.post-meta,
+.facts dt,
+.facts dd,
+.site-nav,
+.footer-col h2,
+button,
+input,
+select,
+textarea { font-family: var(--display-sans); }
+.contact-aside h2 { font-weight:700; }
+/* Same editorial closing statement on every page, not just home. */
+.cta-band h2 {
+  font-family: var(--display-serif);
+  font-weight: 430;
+  letter-spacing: -.04em;
+  font-size: clamp(3rem, 4.4vw, 5.2rem);
+  line-height: 1.09;
+  max-width: 21ch;
+  text-wrap: balance;
+}
+.cta-band h2 em {
+  font-family: var(--display-serif);
+  font-weight: 420;
+  font-style: italic;
+}
+/* Blog and projects retain their own CTA colour treatments from brand-refresh. */
+@media(max-width:760px) {
+  .page-head h1 { font-size:clamp(2.85rem,8.2vw,4.5rem); max-width:21ch; }
+  .article-head h1,body.site-blog .article-head h1 {font-size:clamp(2.5rem,7vw,4rem);}
+  .split-head h2 {font-size:clamp(2.2rem,6.5vw,3.5rem);}
+  .cta-band h2 {font-size:clamp(2.65rem,7.6vw,4.2rem);}
+}
+@media(max-width:420px) {
+  .page-head h1 {font-size:clamp(2.45rem,11vw,3.1rem);}
+  body.site-blog .post-item h2 {font-size:clamp(1.7rem,7.8vw,2.35rem);}
+}
