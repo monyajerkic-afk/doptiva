@@ -41,7 +41,7 @@ export default {
   },
 
   home: {
-    title: 'Understand the problem. Simplify the process. Build the solution. | Doptiva',
+    title: 'Doptiva | Digital consulting, automation and websites',
     description: 'Doptiva helps small and medium-sized businesses simplify their work, improve business processes and use digital tools and AI sensibly.',
     kicker: 'Consulting · digitalisation · development',
     h1a: 'Understand the problem.',
