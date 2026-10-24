@@ -274,7 +274,7 @@ function jsonld(nodes) {
 }
 
 // ---------- predloge ----------
-let CSS_V = '', BRAND_V = '', JS_V = '';
+let CSS_V = '', BRAND_V = '', TYPO_V = '', DARK_V = '', JS_V = '';
 
 function head(page) {
   const t = C[page.lang];
@@ -294,8 +294,7 @@ function head(page) {
 <meta name="description" content="${esc(page.description)}">
 ${page.noindex ? '<meta name="robots" content="noindex, follow">' : `<link rel="canonical" href="${abs(p)}">\n<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">`}
 ${hreflang}
-<meta name="theme-color" content="#F4F6F3" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#131816" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="${page.section === 'blog' ? '#24201C' : page.section === 'projects' ? '#172B37' : '#142B21'}" data-dark-color="${page.section === 'blog' ? '#24201C' : page.section === 'projects' ? '#172B37' : '#142B21'}" data-light-color="${page.section === 'blog' ? '#FCFAF5' : '#F4F6F3'}">
 <meta name="author" content="Doptiva">
 <meta property="og:site_name" content="Doptiva">
 <meta property="og:type" content="${page.type || 'website'}">
@@ -317,6 +316,9 @@ ${page.article ? `<meta property="article:published_time" content="${page.articl
 ${PREVIEW ? '' : '<link rel="preload" href="/assets/fonts/newsreader-display.woff2" as="font" type="font/woff2" crossorigin>\n<link rel="preload" href="/assets/fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>'}
 <link rel="stylesheet" href="${href(p, '/assets/css/site.css')}?v=${CSS_V}">
 <link rel="stylesheet" href="${href(p, '/assets/css/brand-refresh.css')}?v=${BRAND_V}">
+<link rel="stylesheet" href="${href(p, '/assets/css/typography-v4.css')}?v=${TYPO_V}">
+${page.section === 'home' ? '<link rel="stylesheet" href="/assets/css/design-v4.css?v=1">' : ''}
+<link rel="stylesheet" href="${href(p, '/assets/css/dark-v4.css')}?v=${DARK_V}">
 <script src="${href(p, '/assets/js/theme-init.js')}"></script>
 <script src="${href(p, '/assets/js/site.js')}?v=${JS_V}" defer></script>
 ${config.analytics && !PREVIEW ? '<script src="/_vercel/insights/script.js" defer></script>' : ''}
@@ -460,16 +462,16 @@ function breadcrumbsHtml(lang, p, items) {
 
 // ---------- slike drsnika ----------
 function slideImage(key) {
-  // Four original soft pastel glass motifs, distributed among six challenge cards.
-  const pastel = {
-    narocila: 'pastel-sage-glass.svg',
-    excel: 'pastel-teal-glass.svg',
-    teren: 'pastel-peach-mist.svg',
-    ponudbe: 'pastel-mauve-haze.svg',
-    orodja: 'pastel-sage-glass.svg',
-    ai: 'pastel-teal-glass.svg',
+  // Photographic editorial series cached at build time. If unavailable, use original illustrations.
+  const editorial = {
+    narocila: 'challenge-orders.jpg',
+    excel: 'challenge-spreadsheets.jpg',
+    teren: 'challenge-field.jpg',
+    ponudbe: 'challenge-paperwork.jpg',
+    orodja: 'challenge-training.jpg',
+    ai: 'challenge-ai.jpg',
   };
-  if (pastel[key]) return '/assets/img/slides/' + pastel[key];
+  if (editorial[key]) return '/assets/img/editorial/' + editorial[key];
   const dir = path.join(ROOT, 'public/assets/img/slides');
   for (const ext of ['webp', 'jpg', 'jpeg', 'png']) {
     if (fs.existsSync(path.join(dir, `${key}.${ext}`))) return `/assets/img/slides/${key}.${ext}`;
@@ -491,7 +493,7 @@ function renderHome(lang, posts) {
   ];
   const tiles = h.slides.map((s, i) => `
         <figure class="tile">
-          <div class="tile-media"><img src="${href(p, slideImage(s.img))}" alt="${esc(s.alt)}" width="720" height="540" loading="${i < 4 ? 'eager' : 'lazy'}" decoding="async"></div>
+          <div class="tile-media"><img src="${href(p, slideImage(s.img))}" alt="${esc(s.alt)}" width="720" height="540" loading="${i < 4 ? 'eager' : 'lazy'}" decoding="async" onerror="this.onerror=null;this.src='/assets/img/slides/${({ narocila:'pastel-sage-glass.svg',excel:'pastel-teal-glass.svg',teren:'pastel-peach-mist.svg',ponudbe:'pastel-mauve-haze.svg',orodja:'pastel-sage-glass.svg',ai:'pastel-teal-glass.svg' })[s.img]}'"></div>
           <figcaption>
             <h3>${esc(s.title)}</h3>
             <p>${esc(s.text)}</p>
@@ -540,6 +542,7 @@ function renderHome(lang, posts) {
         <a class="text-link" href="#${servicesId}">${esc(h.cta2)} ${ICON.down}</a>
       </div>
     </div>
+    <figure class="v4-hero-media" aria-hidden="true"><div class="v4-hero-photo"></div><figcaption class="v4-image-mark">DOPTIVA <span>—</span> DIGITAL CONSULTANCY</figcaption></figure>
   </div>
 </section>
 
@@ -946,6 +949,8 @@ async function build() {
   }
   CSS_V = fileHash(cssPath);
   BRAND_V = fileHash(path.join(OUT, 'assets/css/brand-refresh.css'));
+  TYPO_V = fileHash(path.join(OUT, 'assets/css/typography-v4.css'));
+  DARK_V = fileHash(path.join(OUT, 'assets/css/dark-v4.css'));
   JS_V = fileHash(path.join(OUT, 'assets/js/site.js'));
 
   const posts = loadPosts();

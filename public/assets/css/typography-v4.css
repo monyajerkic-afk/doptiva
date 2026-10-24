@@ -1,0 +1,377 @@
+/* Doptiva Design V4 — shared typography for the entire website.
+   Newsreader is the editorial display face, Montserrat stays for all controls,
+   reading text, branding, forms and meta labels. Layout and colours stay intact.
+   Loaded AFTER brand-refresh.css and BEFORE the homepage-only design-v4.css. */
+:root {
+  --display-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --display-sans: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+}
+/* Consistent heading hierarchy on inner pages — no homepage layout overrides. */
+.page-head h1,
+.article-head h1,
+.notfound h1 {
+  font-family: var(--display-serif);
+  font-weight: 430;
+  line-height: 1.075;
+  letter-spacing: -.043em;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+.page-head h1 {
+  font-size: clamp(3.05rem, 5.3vw, 6rem);
+  max-width: 19ch;
+}
+.page-head .wrap { row-gap: clamp(.9rem, 1.4vw, 1.4rem); }
+.page-head .lede {
+  font-family: var(--display-sans);
+  font-size: clamp(1rem, 1.17vw, 1.16rem);
+  font-weight: 430;
+  line-height: 1.8;
+  max-width: 44rem;
+}
+.page-head .label,
+.article-head .label {
+  font-family: var(--display-sans);
+  font-size: .7rem;
+  font-weight: 710;
+  letter-spacing: .14em;
+}
+/* About: coherent serif display headings, sans-serif explanatory text. */
+.split-head h2 {
+  font-family: var(--display-serif);
+  font-size: clamp(2.45rem, 4vw, 4.6rem);
+  line-height: 1.1;
+  letter-spacing: -.039em;
+  font-weight: 430;
+  max-width: 19ch;
+  text-wrap: balance;
+}
+.principles h3 {
+  font-family: var(--display-sans);
+  font-weight: 650;
+  font-size: clamp(1.19rem, 1.45vw, 1.42rem);
+  line-height: 1.35;
+}
+.stack .lead {
+  font-family: var(--display-sans);
+  font-size: clamp(1.18rem, 1.65vw, 1.5rem);
+  font-weight: 440;
+  line-height: 1.68;
+}
+.stack p { line-height: 1.84; }
+/* Projects: maintain established navy imagery and palette. */
+body.site-projects .project-body h2 {
+  font-family: var(--display-serif);
+  font-size: clamp(2.9rem, 4.3vw, 5rem);
+  letter-spacing: -.042em;
+  font-weight: 430;
+  line-height: 1.07;
+}
+body.site-projects .project-body .lead {
+  font-family: var(--display-sans);
+  font-size: clamp(1.12rem, 1.55vw, 1.38rem);
+  font-weight: 470;
+  line-height: 1.65;
+  letter-spacing: -.017em;
+}
+body.site-projects .project-body > p {line-height:1.83;}
+/* Blog listing and article headings: keep warm cream/terracotta styling. */
+body.site-blog .post-item h2 {
+  font-family: var(--display-serif);
+  font-size: clamp(2rem, 2.6vw, 3.15rem);
+  font-weight: 460;
+  letter-spacing: -.033em;
+  line-height: 1.14;
+  max-width: 29ch;
+  text-wrap: balance;
+}
+body.site-blog .article-head h1 {
+  font-size: clamp(2.8rem, 4.9vw, 5.55rem);
+  line-height: 1.09;
+  max-width: 24ch;
+}
+.prose h2 {
+  font-family: var(--display-serif);
+  font-weight: 490;
+  font-size: clamp(2rem, 2.7vw, 3rem);
+  line-height: 1.17;
+  letter-spacing: -.026em;
+  text-wrap: balance;
+}
+.prose h3 {
+  font-family: var(--display-sans);
+  font-weight: 660;
+  font-size: clamp(1.25rem, 1.75vw, 1.53rem);
+  line-height: 1.35;
+}
+.prose .lead {
+  font-family: var(--display-sans);
+  font-size: clamp(1.18rem, 1.8vw, 1.5rem);
+  font-weight: 450;
+  line-height: 1.68;
+}
+.prose, .post-item p { line-height: 1.82; }
+/* Legal/utility articles should remain compact and easily scannable. */
+.legal .prose h2 { font-size:clamp(1.7rem,2.2vw,2.35rem); }
+.legal .prose h3 { font-size:clamp(1.15rem,1.5vw,1.4rem); }
+/* Keep transactional copy and UI labels in Montserrat rather than editorial serif. */
+.contact-aside h2,
+.form-card label,
+.form-field label,
+.breadcrumbs,
+.meta,
+.post-meta,
+.facts dt,
+.facts dd,
+.site-nav,
+.footer-col h2,
+button,
+input,
+select,
+textarea { font-family: var(--display-sans); }
+.contact-aside h2 { font-weight:700; }
+/* Same editorial closing statement on every page, not just home. */
+.cta-band h2 {
+  font-family: var(--display-serif);
+  font-weight: 430;
+  letter-spacing: -.04em;
+  font-size: clamp(3rem, 4.4vw, 5.2rem);
+  line-height: 1.09;
+  max-width: 21ch;
+  text-wrap: balance;
+}
+.cta-band h2 em {
+  font-family: var(--display-serif);
+  font-weight: 420;
+  font-style: italic;
+}
+/* Blog and projects retain their own CTA colour treatments from brand-refresh. */
+@media(max-width:760px) {
+  .page-head h1 { font-size:clamp(2.85rem,8.2vw,4.5rem); max-width:21ch; }
+  .article-head h1,body.site-blog .article-head h1 {font-size:clamp(2.5rem,7vw,4rem);}
+  .split-head h2 {font-size:clamp(2.2rem,6.5vw,3.5rem);}
+  .cta-band h2 {font-size:clamp(2.65rem,7.6vw,4.2rem);}
+}
+@media(max-width:420px) {
+  .page-head h1 {font-size:clamp(2.45rem,11vw,3.1rem);}
+  body.site-blog .post-item h2 {font-size:clamp(1.7rem,7.8vw,2.35rem);}
+}
+
+
+/* Shared site footer — same editorial typography as V4, without changing links. */
+.site-footer {
+  background: var(--paper);
+  border-top: 1px solid var(--line);
+  color: var(--text);
+}
+.site-footer .wrap {
+  padding-block: clamp(3.5rem, 5.5vw, 6rem) clamp(1.6rem, 3vw, 2.6rem);
+}
+.site-footer .footer-grid {
+  gap: clamp(1.5rem, 3.5vw, 4rem);
+  align-items: start;
+}
+.site-footer .footer-brand .logo { display: inline-flex; align-items: center; }
+.site-footer .footer-brand p {
+  font-family: var(--display-serif);
+  font-style: normal;
+  font-weight: 440;
+  font-size: clamp(1.3rem, 1.65vw, 1.8rem);
+  line-height: 1.3;
+  letter-spacing: -.024em;
+  max-width: 22ch;
+  color: var(--ink);
+  margin-top: clamp(1.3rem, 2vw, 1.9rem);
+}
+.site-footer .footer-col h2 {
+  font-family: var(--display-sans);
+  font-weight: 710;
+  font-size: .69rem;
+  line-height: 1.5;
+  text-transform: uppercase;
+  letter-spacing: .135em;
+  color: var(--muted);
+  margin-bottom: 1.4rem;
+}
+.site-footer .footer-col ul {
+  gap: .7rem;
+}
+.site-footer .footer-col li,
+.site-footer .footer-col li a {
+  font-family: var(--display-sans);
+  font-size: .9rem;
+  font-weight: 500;
+  line-height: 1.6;
+  color: var(--text);
+}
+.site-footer .footer-col a,
+.site-footer .newsletter-footer-link {
+  text-decoration: none;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+.site-footer .footer-col a:hover,
+.site-footer .newsletter-footer-link:hover {
+  color: var(--brand);
+  text-decoration: underline;
+}
+.site-footer .footer-bottom {
+  margin-top: clamp(3rem, 5vw, 5rem);
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--line);
+  font-family: var(--display-sans);
+  font-size: .75rem;
+  letter-spacing: .025em;
+}
+.site-footer .newsletter-footer-link {
+  font-family: var(--display-sans);
+  font-size: .76rem;
+  letter-spacing: .085em;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--green);
+  padding: .35rem 0;
+  border: 0;
+  background: transparent;
+}
+/* Newsletter signup is a modal dialog, styled as a restrained editorial invitation.
+   No changes to popup timing, consent, double opt-in, or submission handlers. */
+.newsletter-overlay {
+  background: rgba(10, 40, 30, .74);
+  padding: max(14px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) max(14px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left));
+}
+.newsletter-dialog {
+  position: relative;
+  width: min(100%, 540px);
+  max-height: min(94dvh, 850px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  gap: clamp(.75rem, 1.9vw, 1.1rem);
+  border: 1px solid rgba(19, 75, 51, .12);
+  border-top: 3px solid #126E51;
+  border-radius: 2px;
+  padding: clamp(1.8rem, 4.7vw, 3.2rem);
+  background: #FBFAF6;
+  box-shadow: 0 30px 90px rgba(3, 29, 17, .24);
+  color: #243A2C;
+}
+.newsletter-dialog > .label {
+  font-family: var(--display-sans);
+  color: #116C4B;
+  letter-spacing: .16em;
+  font-size: .68rem;
+  font-weight: 730;
+  text-transform: uppercase;
+  margin-top: .3rem;
+}
+.newsletter-dialog h2 {
+  font-family: var(--display-serif);
+  font-size: clamp(2.65rem, 5vw, 3.65rem);
+  font-weight: 430;
+  letter-spacing: -.047em;
+  line-height: 1.05;
+  text-wrap: balance;
+  color: #153729;
+  padding-right: .6rem;
+}
+.newsletter-dialog > p {
+  font-family: var(--display-sans);
+  color: #465D4E;
+  font-weight: 450;
+  font-size: .95rem;
+  line-height: 1.75;
+  max-width: 42ch;
+}
+.newsletter-dialog #newsletter-form { gap: .75rem; margin-top: .4rem; }
+.newsletter-dialog #newsletter-form > label:first-child {
+  font-family: var(--display-sans);
+  font-size: .77rem;
+  font-weight: 700;
+  letter-spacing: .035em;
+  color: #274739;
+}
+.newsletter-dialog input[type="email"] {
+  width: 100%;
+  min-height: 49px;
+  padding: 12px 14px;
+  font: 450 .95rem/1.5 var(--display-sans);
+  border: 1px solid #A5B6A9;
+  border-radius: 2px;
+  background: #fff;
+  color: #1E3529;
+}
+.newsletter-dialog input[type="email"]::placeholder { color: #738478; }
+.newsletter-dialog .newsletter-consent {
+  font-family: var(--display-sans);
+  font-size: .78rem;
+  font-weight: 450;
+  line-height: 1.65;
+  color: #4A5C50;
+  gap: 10px;
+  margin-block: .35rem .5rem;
+}
+.newsletter-dialog .newsletter-consent a {
+  color: #106A4C;
+  text-underline-offset: 3px;
+}
+.newsletter-dialog .newsletter-consent input { accent-color: #106A4C; }
+body .newsletter-dialog .btn-primary {
+  font-family: var(--display-sans);
+  font-size: .85rem;
+  font-weight: 700;
+  background: #126B4F;
+  border: 1px solid #126B4F;
+  color: #fff;
+  border-radius: 2px;
+  padding: 14px 25px;
+  min-height: 49px;
+  justify-self: start;
+}
+body .newsletter-dialog .btn-primary:hover {
+  background: #0A4F37;
+  border-color: #0A4F37;
+  color: #fff;
+}
+.newsletter-dialog .newsletter-close {
+  top: 12px;
+  right: 12px;
+  width: 44px;
+  height: 44px;
+  color: #28503D;
+  background: transparent;
+  font: 400 30px/1 var(--display-sans);
+}
+.newsletter-dialog .newsletter-close:hover { color: #A96143; }
+.newsletter-dialog .newsletter-dismiss {
+  font-family: var(--display-sans);
+  color: #5B6B5E;
+  font-size: .76rem;
+  font-weight: 520;
+  text-underline-offset: 3px;
+  padding-block: .4rem;
+}
+.newsletter-dialog #newsletter-status {
+  font-family: var(--display-sans);
+  font-size: .84rem;
+  line-height: 1.55;
+  border-left: 3px solid #13694C;
+  background: #EAF1E8;
+  color: #213D2F;
+  padding: 12px 14px;
+}
+.newsletter-dialog :is(a,button,input):focus-visible,
+.site-footer :is(a,button):focus-visible {
+  outline: 3px solid #B86C4A;
+  outline-offset: 3px;
+}
+@media (max-width: 640px) {
+  .site-footer .footer-grid { gap: 2rem 1.5rem; }
+  .site-footer .footer-brand { grid-column: 1 / -1; }
+  .site-footer .footer-brand p { font-size: clamp(1.3rem, 5vw, 1.55rem); }
+  .newsletter-dialog { padding: 1.7rem 1.35rem; }
+  .newsletter-dialog h2 { font-size: clamp(2.35rem, 9vw, 3.1rem); }
+}
+@media (max-width: 390px) {
+  .site-footer .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .newsletter-dialog h2 { font-size: 2.3rem; }
+}

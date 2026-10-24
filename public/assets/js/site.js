@@ -54,14 +54,19 @@
   if (themeBtn) {
     var current = function () {
       var t = root.getAttribute('data-theme');
-      if (t) return t;
-      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      if (t === 'light' || t === 'dark') return t;
+      return 'dark';
     };
     var sync = function () { themeBtn.setAttribute('aria-pressed', String(current() === 'dark')); };
     sync();
     themeBtn.addEventListener('click', function () {
       var next = current() === 'dark' ? 'light' : 'dark';
       root.setAttribute('data-theme', next);
+      var themeColor = document.querySelector('meta[name="theme-color"]');
+      if (themeColor) {
+        var color = themeColor.getAttribute(next === 'dark' ? 'data-dark-color' : 'data-light-color');
+        if (color) themeColor.setAttribute('content', color);
+      }
       try { localStorage.setItem('doptiva-theme', next); } catch (e) {}
       sync();
     });

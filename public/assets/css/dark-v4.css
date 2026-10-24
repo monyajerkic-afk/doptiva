@@ -1,0 +1,536 @@
+/* Doptiva Design V4 — dark palette and contrast fixes.
+   Scoped to all non-blog pages. Doptiva Academy's cream/terracotta blog is
+   deliberately unchanged in either mode. Loaded after all V4 styles. */
+
+/* A single resolved data-theme is set by theme-init.js before paint.
+   System dark + manual dark both use this exact style, and manual light never does. */
+html[data-theme="dark"] body:not(.site-blog) {
+  --paper: #101F1A;
+  --paper-2: #182D23;
+  --card: #21362C;
+  --ink: #F2F6F0;
+  --text: #D9E5DC;
+  --muted: #ABC4B4;
+  --rule: transparent;
+  --line: rgba(204,232,212,.18);
+  --line-strong: rgba(204,232,212,.29);
+  --green: #91DEB5;
+  --brand: #8AD6AE;
+  --mint: #294D3C;
+  --mint-ink: #E5F6EA;
+  --annot: #E7A084;
+  --annot-strong: #E7A084;
+  --note-1: #213B2D;
+  --note-2: #2D3B2F;
+  --note-3: #20372E;
+  --note-4: #34372E;
+  --note-ink: #ECF6EE;
+  --navy: #0D2920;
+  --navy-ink: #F7F8F3;
+  --navy-text: #D3E5D8;
+  --shadow-hard: 0 12px 34px rgba(0,0,0,.14);
+  --focus: #B4EBC5;
+  background: #101F1A;
+  color: #D9E5DC;
+  color-scheme: dark;
+}
+/* Header and footer must be readable rather than black-on-black. */
+html[data-theme="dark"] body:not(.site-blog) .site-header {
+  background: #142B21;
+  border-bottom-color: rgba(202,234,216,.17);
+}
+html[data-theme="dark"] body:not(.site-blog) .logo {
+  color: #F1F6EF;
+}
+html[data-theme="dark"] body:not(.site-blog) .logo .logo-o {
+  fill: #8AD6AE;
+}
+html[data-theme="dark"] body:not(.site-blog) .site-nav a.nav-link,
+html[data-theme="dark"] body:not(.site-blog) .header-tools .icon-btn,
+html[data-theme="dark"] body:not(.site-blog) .header-tools .lang-switch {
+  color: #EDF4ED;
+}
+html[data-theme="dark"] body:not(.site-blog) .site-nav a.nav-link[aria-current="page"] {
+  border-bottom-color: #92E1B8;
+}
+html[data-theme="dark"] body:not(.site-blog) .btn-primary,
+html[data-theme="dark"] body:not(.site-blog) .hero .btn-primary {
+  background: #187551;
+  color: #fff;
+  border-color: #187551;
+}
+html[data-theme="dark"] body:not(.site-blog) .btn-primary:hover,
+html[data-theme="dark"] body:not(.site-blog) .hero .btn-primary:hover {
+  background: #218461;
+  color: #fff;
+}
+html[data-theme="dark"] body:not(.site-blog) .site-footer {
+  background: #142B21;
+  border-top-color: rgba(202,234,216,.2);
+  color: #D5E8DB;
+}
+html[data-theme="dark"] body:not(.site-blog) .site-footer .footer-brand p,
+html[data-theme="dark"] body:not(.site-blog) .site-footer .footer-col li,
+html[data-theme="dark"] body:not(.site-blog) .site-footer .footer-col li a {
+  color: #E3EEE5;
+}
+html[data-theme="dark"] body:not(.site-blog) .site-footer .footer-col h2,
+html[data-theme="dark"] body:not(.site-blog) .site-footer .footer-bottom {
+  color: #BED2C4;
+}
+html[data-theme="dark"] body:not(.site-blog) .site-footer .newsletter-footer-link {
+  color: #A3E5C4;
+}
+html[data-theme="dark"] body:not(.site-blog) .site-footer .footer-col a:hover,
+html[data-theme="dark"] body:not(.site-blog) .site-footer .newsletter-footer-link:hover {
+  color: #C4F1D8;
+}
+/* Common content on About, Contact, Legal and other inner pages. */
+html[data-theme="dark"] body:not(.site-blog) .page-head,
+html[data-theme="dark"] body:not(.site-blog) .section:not(.section-alt),
+html[data-theme="dark"] body:not(.site-blog) .article-head {
+  background-color: #101F1A;
+  border-color: rgba(204,232,212,.16);
+}
+html[data-theme="dark"] body:not(.site-blog) .section.section-alt {
+  background: #182D23;
+}
+html[data-theme="dark"] body:not(.site-blog) .page-head h1,
+html[data-theme="dark"] body:not(.site-blog) .page-head .lede,
+html[data-theme="dark"] body:not(.site-blog) .split-head h2,
+html[data-theme="dark"] body:not(.site-blog) .stack p,
+html[data-theme="dark"] body:not(.site-blog) .stack .lead,
+html[data-theme="dark"] body:not(.site-blog) .principles h3,
+html[data-theme="dark"] body:not(.site-blog) .principles p {
+  color: #F0F5EF;
+}
+html[data-theme="dark"] body:not(.site-blog) .breadcrumbs,
+html[data-theme="dark"] body:not(.site-blog) .breadcrumbs a,
+html[data-theme="dark"] body:not(.site-blog) .meta {
+  color: #B6D0BE;
+}
+html[data-theme="dark"] body:not(.site-blog) .page-head .label,
+html[data-theme="dark"] body:not(.site-blog) .label {
+  color: #9BE6BF;
+}
+html[data-theme="dark"] body:not(.site-blog) .index-card,
+html[data-theme="dark"] body:not(.site-blog) .form-card {
+  background: #1E3429;
+  color: #DFE9DF;
+  border-color: rgba(204,232,212,.19);
+  box-shadow: 0 15px 35px rgba(0,0,0,.10);
+}
+html[data-theme="dark"] body:not(.site-blog) .facts dt,
+html[data-theme="dark"] body:not(.site-blog) .facts dd {
+  color: #D9E7DD;
+}
+html[data-theme="dark"] body:not(.site-blog) .contact-aside,
+html[data-theme="dark"] body:not(.site-blog) .contact-aside a,
+html[data-theme="dark"] body:not(.site-blog) .contact-aside h2,
+html[data-theme="dark"] body:not(.site-blog) .contact-aside p {
+  color: #E1EFE5;
+}
+html[data-theme="dark"] body:not(.site-blog) .contact-aside .sticky-note {
+  background: #2B4D3B;
+  color: #E6F2E8;
+}
+html[data-theme="dark"] body:not(.site-blog) .form-field label,
+html[data-theme="dark"] body:not(.site-blog) .form-field .hint,
+html[data-theme="dark"] body:not(.site-blog) .check {
+  color: #DCEADF;
+}
+html[data-theme="dark"] body:not(.site-blog) .form-field :is(input,select,textarea) {
+  background: #12271D;
+  color: #F1F6EF;
+  border-color: rgba(206,233,216,.38);
+}
+html[data-theme="dark"] body:not(.site-blog) .form-field :is(input,select,textarea)::placeholder {
+  color: #B4C8B9;
+}
+/* Home hero: light backgrounds and dark text came from V4 fixed colours. */
+html[data-theme="dark"] body:not(.site-blog) .hero {
+  background: #101F1A;
+}
+html[data-theme="dark"] body:not(.site-blog) .hero h1,
+html[data-theme="dark"] body:not(.site-blog) .hero-lede {
+  color: #F2F7F0;
+}
+html[data-theme="dark"] body:not(.site-blog) .hero h1 .hero-emphasis,
+html[data-theme="dark"] body:not(.site-blog) .hero .label {
+  color: #9FE4BF;
+}
+html[data-theme="dark"] body:not(.site-blog) .hero .text-link {
+  color: #DCEDE0;
+}
+html[data-theme="dark"] body:not(.site-blog) .photo-divider {
+  background: #243B30;
+}
+html[data-theme="dark"] body:not(.site-blog) .photo-divider::after {
+  background: linear-gradient(90deg,rgba(13,39,28,.34),rgba(13,39,28,.12));
+}
+html[data-theme="dark"] body:not(.site-blog) .band {
+  background: #092B21;
+  color: #D8ECE0;
+}
+html[data-theme="dark"] body:not(.site-blog) .band .meta {
+  color: #A9E1C0;
+}
+/* Carousel: always maintain light-on-dark contrast in dark mode. */
+html[data-theme="dark"] body:not(.site-blog) .section-marquee {
+  background: #142B22 !important;
+  border: 0;
+  color: #EAF5ED;
+}
+html[data-theme="dark"] body:not(.site-blog) .section-marquee .slider-head h2,
+html[data-theme="dark"] body:not(.site-blog) .section-marquee .label {
+  color: #EEF6EF;
+}
+html[data-theme="dark"] body:not(.site-blog) .section-marquee .tile {
+  background: #213B30;
+  color: #D7E8DB;
+  border: 1px solid rgba(201,232,209,.13) !important;
+}
+html[data-theme="dark"] body:not(.site-blog) .section-marquee .tile h3 {
+  color: #F3F7F1;
+}
+html[data-theme="dark"] body:not(.site-blog) .section-marquee .tile p {
+  color: #D7E8DB;
+}
+html[data-theme="dark"] body:not(.site-blog) .section-marquee .tile .text-link {
+  color: #B3E8CA;
+}
+html[data-theme="dark"] body:not(.site-blog) .section-marquee .tile-media {
+  background: #294236;
+  border-color: rgba(207,237,217,.15);
+}
+html[data-theme="dark"] body:not(.site-blog) .marquee-toggle {
+  color: #EAF5ED;
+  border-color: rgba(203,232,214,.32);
+}
+/* V4 six services: use a genuine dark palette in all hardcoded card types. */
+html[data-theme="dark"] body:not(.site-blog) #storitve,
+html[data-theme="dark"] body:not(.site-blog) #services {
+  background: #101F1A;
+  color: #D9E9DB;
+}
+html[data-theme="dark"] body:not(.site-blog) :is(#storitve,#services) .split-head h2 {
+  color: #F1F6F0;
+}
+html[data-theme="dark"] body:not(.site-blog) :is(#storitve,#services) .split-head > p {
+  color: #CBDDCF;
+}
+html[data-theme="dark"] body:not(.site-blog) :is(#storitve,#services) .notes > .note:nth-child(n) {
+  background: #22392D;
+  color: #E7F2E9;
+  border-top-color: rgba(211,236,217,.27);
+}
+html[data-theme="dark"] body:not(.site-blog) :is(#storitve,#services) .notes > .note:nth-child(2),
+html[data-theme="dark"] body:not(.site-blog) :is(#storitve,#services) .notes > .note:nth-child(5) {
+  background: #2A4031;
+}
+html[data-theme="dark"] body:not(.site-blog) :is(#storitve,#services) .notes > .note:nth-child(3),
+html[data-theme="dark"] body:not(.site-blog) :is(#storitve,#services) .notes > .note:nth-child(6) {
+  background: #313A30;
+}
+html[data-theme="dark"] body:not(.site-blog) :is(#storitve,#services) .note h3,
+html[data-theme="dark"] body:not(.site-blog) :is(#storitve,#services) .note p,
+html[data-theme="dark"] body:not(.site-blog) :is(#storitve,#services) .ticks li {
+  color: #F1F5EC;
+}
+html[data-theme="dark"] body:not(.site-blog) :is(#storitve,#services) .note-num {
+  color: #A3E4C2;
+}
+html[data-theme="dark"] body:not(.site-blog) :is(#storitve,#services) .note .annot {
+  color: #F1BA9A;
+}
+html[data-theme="dark"] body:not(.site-blog) :is(#storitve,#services) .notes > .note:hover {
+  background: #304C3D;
+}
+html[data-theme="dark"] body:not(.site-blog) :is(#storitve,#services) .partner-note {
+  color: #CDDDD0;
+  border-color: rgba(215,236,218,.19);
+}
+/* Process: avoid mint text disappearing into pale fixed V4 surfaces. */
+html[data-theme="dark"] body:not(.site-blog) .section.section-alt {
+  background: #192C23;
+  color: #E1EAE1;
+}
+html[data-theme="dark"] body:not(.site-blog) .section-alt .split-head h2,
+html[data-theme="dark"] body:not(.site-blog) .section-alt .split-head p,
+html[data-theme="dark"] body:not(.site-blog) .section-alt .step h3,
+html[data-theme="dark"] body:not(.site-blog) .section-alt .step p {
+  color: #E6F0E7;
+}
+html[data-theme="dark"] body:not(.site-blog) .section-alt .step {
+  border-color: rgba(209,235,216,.21);
+}
+html[data-theme="dark"] body:not(.site-blog) .section-alt .step::before {
+  color: #F0AE8C;
+}
+html[data-theme="dark"] body:not(.site-blog) .section-alt .step.is-active h3 {
+  color: #B0E8C4;
+}
+/* Photo-led section, portfolio cards, questions and conversion call. */
+html[data-theme="dark"] body:not(.site-blog) .adoption-feature {
+  background: #101F1A;
+}
+html[data-theme="dark"] body:not(.site-blog) .adoption-copy {
+  background: #20382B;
+  color: #E8F1E7;
+  border-color: rgba(209,237,215,.15);
+}
+html[data-theme="dark"] body:not(.site-blog) .adoption-copy h2,
+html[data-theme="dark"] body:not(.site-blog) .adoption-copy p {
+  color: #EDF4EA;
+}
+html[data-theme="dark"] body:not(.site-blog) .section[aria-labelledby="projects-title"] {
+  background: #13281E;
+}
+html[data-theme="dark"] body:not(.site-blog) .section[aria-labelledby="projects-title"] .section-head h2,
+html[data-theme="dark"] body:not(.site-blog) .section[aria-labelledby="projects-title"] .section-head p {
+  color: #E7F2E9;
+}
+html[data-theme="dark"] body:not(.site-blog) .projects-editorial .project-teaser {
+  background: #1D3629;
+  color: #DAE5DB;
+}
+html[data-theme="dark"] body:not(.site-blog) .projects-editorial .project-teaser h3,
+html[data-theme="dark"] body:not(.site-blog) .projects-editorial .project-teaser p {
+  color: #E7F2E8;
+}
+html[data-theme="dark"] body:not(.site-blog) .projects-editorial .project-media {
+  background: #2A4638;
+}
+html[data-theme="dark"] body:not(.site-blog) .projects-editorial .project-teaser-terto .project-media {
+  background: #3D4035;
+}
+html[data-theme="dark"] body:not(.site-blog) .section[aria-labelledby="faq-title"] {
+  background: #182D23;
+}
+html[data-theme="dark"] body:not(.site-blog) .section[aria-labelledby="faq-title"] .split-head h2,
+html[data-theme="dark"] body:not(.site-blog) .section[aria-labelledby="faq-title"] .faq summary,
+html[data-theme="dark"] body:not(.site-blog) .section[aria-labelledby="faq-title"] .faq p {
+  color: #F1F4ED;
+}
+html[data-theme="dark"] body:not(.site-blog) .section[aria-labelledby="faq-title"] .faq summary::before {
+  color: #EDB298;
+}
+html[data-theme="dark"] body:not(.site-blog) .cta-band {
+  background: #092C20;
+  color: #D5E6D7;
+}
+html[data-theme="dark"] body:not(.site-blog) .cta-band h2 {
+  color: #F5F7F1;
+}
+html[data-theme="dark"] body:not(.site-blog) .cta-band h2 em {
+  color: #BCE6CC;
+}
+html[data-theme="dark"] body:not(.site-blog) .cta-band .btn-primary {
+  background: #E5F3E7;
+  color: #12452C;
+  border-color: #E5F3E7;
+}
+html[data-theme="dark"] body:not(.site-blog) .cta-band .btn-primary:hover {
+  background: #CDE8D3;
+  color: #12452C;
+}
+/* Projects have a navy identity: invert navy headings for dark-background readability. */
+html[data-theme="dark"] body.site-projects {
+  --paper: #111F29;
+  --paper-2: #1A2E39;
+  --card: #223541;
+  --ink: #F0F5F6;
+  --text: #D7E5EA;
+  --muted: #B2C5CD;
+  --green: #BDDBE9;
+  --line: rgba(216,233,239,.18);
+  --line-strong: rgba(216,233,239,.27);
+  --project-navy: #DEEAF3;
+  --focus: #B4D8EA;
+  background: #111F29;
+  color: #D7E5EA;
+}
+html[data-theme="dark"] body.site-projects .site-header,
+html[data-theme="dark"] body.site-projects .site-footer {
+  background: #172B37;
+}
+html[data-theme="dark"] body.site-projects .page-head {
+  background: #111F29;
+}
+html[data-theme="dark"] body.site-projects .page-head h1,
+html[data-theme="dark"] body.site-projects .project-body h2,
+html[data-theme="dark"] body.site-projects .project-body .lead {
+  color: #E9F1F5;
+}
+html[data-theme="dark"] body.site-projects .page-head .label,
+html[data-theme="dark"] body.site-projects .project .stamp,
+html[data-theme="dark"] body.site-projects .project .stamp-mvp {
+  color: #C0DCE9;
+}
+html[data-theme="dark"] body.site-projects .project-body > p,
+html[data-theme="dark"] body.site-projects .project-body li,
+html[data-theme="dark"] body.site-projects .project-body .meta {
+  color: #D8E5EA;
+}
+html[data-theme="dark"] body.site-projects .project,
+html[data-theme="dark"] body.site-projects .page-head {
+  border-color: rgba(205,224,237,.23);
+}
+html[data-theme="dark"] body.site-projects .project .btn-ghost {
+  color: #172B37;
+  background: #D9E8ED;
+  border-color: #C7DCE6;
+}
+html[data-theme="dark"] body.site-projects .project .btn-ghost:hover {
+  color: #0D2736;
+  background: #AFD2E1;
+}
+/* Keep device and application mockups legible: their internal light UI is intentional. */
+html[data-theme="dark"] body.site-projects .project-visual .ui,
+html[data-theme="dark"] body.site-projects .project-visual .phone {
+  color-scheme: light;
+}
+html[data-theme="dark"] body.site-projects .cta-band {
+  background: #0D2337;
+}
+html[data-theme="dark"] body.site-projects .cta-band .btn-primary {
+  background: #B8CDBB;
+  color: #112C3A;
+  border-color: #B8CDBB;
+}
+/* Doptiva Academy: coherent DARK variant for blog listings and article pages.
+   Light mode retains its existing cream + terracotta treatment untouched.
+   Use rich warm-charcoal surfaces and copper accents, not emerald throughout. */
+html[data-theme="dark"] body.site-blog {
+  --paper: #201E1B;
+  --paper-2: #29241F;
+  --card: #2E2924;
+  --ink: #F5EEE6;
+  --text: #E6DBCE;
+  --muted: #BFB0A0;
+  --green: #E9A887;
+  --brand: #76D2AD;
+  --mint: #4A352B;
+  --mint-ink: #FFF0DE;
+  --annot: #E6A282;
+  --annot-strong: #E6A282;
+  --line: rgba(239,217,196,.18);
+  --line-strong: rgba(239,217,196,.28);
+  --note-1: #3B302A;
+  --note-ink: #F4E7D9;
+  --focus: #F0B196;
+  background: #201E1B;
+  color: #E6DBCE;
+  color-scheme: dark;
+}
+html[data-theme="dark"] body.site-blog .site-header,
+html[data-theme="dark"] body.site-blog .site-footer,
+html[data-theme="dark"] body.site-blog .page-head,
+html[data-theme="dark"] body.site-blog .article-head {
+  background-color: #24201C;
+  border-color: rgba(239,217,196,.20);
+}
+html[data-theme="dark"] body.site-blog .logo {
+  color: #FFF1E4;
+}
+html[data-theme="dark"] body.site-blog .logo .logo-o { fill: #76D2AD; }
+html[data-theme="dark"] body.site-blog .site-nav a.nav-link,
+html[data-theme="dark"] body.site-blog .header-tools :is(button,a) {
+  color: #F6ECE0;
+}
+html[data-theme="dark"] body.site-blog .site-nav a.nav-link[aria-current="page"] {
+  border-bottom-color: #E6A282;
+}
+html[data-theme="dark"] body.site-blog .page-head h1,
+html[data-theme="dark"] body.site-blog .article-head h1,
+html[data-theme="dark"] body.site-blog .post-item h2 a,
+html[data-theme="dark"] body.site-blog .prose h2,
+html[data-theme="dark"] body.site-blog .prose h3,
+html[data-theme="dark"] body.site-blog .prose .lead {
+  color: #F5EEE6;
+}
+html[data-theme="dark"] body.site-blog .page-head .lede,
+html[data-theme="dark"] body.site-blog .post-item p,
+html[data-theme="dark"] body.site-blog .prose,
+html[data-theme="dark"] body.site-blog .prose p,
+html[data-theme="dark"] body.site-blog .prose li,
+html[data-theme="dark"] body.site-blog .article-cta p {
+  color: #E6DBCE;
+}
+html[data-theme="dark"] body.site-blog .breadcrumbs,
+html[data-theme="dark"] body.site-blog .breadcrumbs a,
+html[data-theme="dark"] body.site-blog .post-meta,
+html[data-theme="dark"] body.site-blog .post-item time,
+html[data-theme="dark"] body.site-blog .author-box,
+html[data-theme="dark"] body.site-blog .meta {
+  color: #C6B8A9;
+}
+html[data-theme="dark"] body.site-blog .page-head .label,
+html[data-theme="dark"] body.site-blog .article-head .label,
+html[data-theme="dark"] body.site-blog .post-item::before,
+html[data-theme="dark"] body.site-blog .post-item .text-link,
+html[data-theme="dark"] body.site-blog .post-item h2 a:hover,
+html[data-theme="dark"] body.site-blog .prose a,
+html[data-theme="dark"] body.site-blog .prose li::marker {
+  color: #F0B294;
+}
+html[data-theme="dark"] body.site-blog .post-item,
+html[data-theme="dark"] body.site-blog .posts,
+html[data-theme="dark"] body.site-blog .author-box {
+  border-color: rgba(239,217,196,.22);
+}
+html[data-theme="dark"] body.site-blog .prose blockquote {
+  background: #392C26;
+  color: #F3E7DB;
+  box-shadow: none;
+}
+html[data-theme="dark"] body.site-blog .prose :is(th,td) {
+  border-color: rgba(239,217,196,.25);
+  color: #E5DAD0;
+}
+html[data-theme="dark"] body.site-blog .article-cta {
+  background: #352A23;
+  border-color: rgba(242,180,145,.28);
+  color: #F6EADF;
+}
+html[data-theme="dark"] body.site-blog .article-cta h2,
+html[data-theme="dark"] body.site-blog .author-box strong {
+  color: #F5EEE6;
+}
+html[data-theme="dark"] body.site-blog .btn-primary {
+  background: #BE6D4D;
+  color: #FFFFFF;
+  border-color: #BE6D4D;
+}
+html[data-theme="dark"] body.site-blog .btn-primary:hover {
+  background: #D38360;
+  color: #1C1511;
+  border-color: #D38360;
+}
+html[data-theme="dark"] body.site-blog .cta-band {
+  background: #35241F;
+  color: #EFE3D7;
+}
+html[data-theme="dark"] body.site-blog .cta-band h2 { color: #FFF3E7; }
+html[data-theme="dark"] body.site-blog .cta-band h2 em,
+html[data-theme="dark"] body.site-blog .cta-band .label {
+  color: #F2BEA5;
+}
+html[data-theme="dark"] body.site-blog .site-footer .footer-brand p,
+html[data-theme="dark"] body.site-blog .site-footer .footer-col li,
+html[data-theme="dark"] body.site-blog .site-footer .footer-col li a {
+  color: #E9DDCF;
+}
+html[data-theme="dark"] body.site-blog .site-footer .footer-col h2,
+html[data-theme="dark"] body.site-blog .site-footer .footer-bottom {
+  color: #C9B5A3;
+}
+html[data-theme="dark"] body.site-blog .site-footer .footer-col a:hover,
+html[data-theme="dark"] body.site-blog .site-footer .newsletter-footer-link {
+  color: #F3B99D;
+}
+html[data-theme="dark"] body.site-blog .site-footer .footer-bottom {
+  border-top-color: rgba(239,217,196,.2);
+}
+/* Keep the subscription dialog warm-white on both modes, as a focused form
+   with its own explicitly defined contrasting text and controls. */
