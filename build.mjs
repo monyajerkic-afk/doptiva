@@ -274,7 +274,7 @@ function jsonld(nodes) {
 }
 
 // ---------- predloge ----------
-let CSS_V = '', BRAND_V = '', JS_V = '';
+let CSS_V = '', BRAND_V = '', TYPO_V = '', JS_V = '';
 
 function head(page) {
   const t = C[page.lang];
@@ -317,6 +317,7 @@ ${page.article ? `<meta property="article:published_time" content="${page.articl
 ${PREVIEW ? '' : '<link rel="preload" href="/assets/fonts/newsreader-display.woff2" as="font" type="font/woff2" crossorigin>\n<link rel="preload" href="/assets/fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>'}
 <link rel="stylesheet" href="${href(p, '/assets/css/site.css')}?v=${CSS_V}">
 <link rel="stylesheet" href="${href(p, '/assets/css/brand-refresh.css')}?v=${BRAND_V}">
+<link rel="stylesheet" href="${href(p, '/assets/css/typography-v4.css')}?v=${TYPO_V}">
 ${page.section === 'home' ? '<link rel="stylesheet" href="/assets/css/design-v4.css?v=1">' : ''}
 <script src="${href(p, '/assets/js/theme-init.js')}"></script>
 <script src="${href(p, '/assets/js/site.js')}?v=${JS_V}" defer></script>
@@ -948,6 +949,7 @@ async function build() {
   }
   CSS_V = fileHash(cssPath);
   BRAND_V = fileHash(path.join(OUT, 'assets/css/brand-refresh.css'));
+  TYPO_V = fileHash(path.join(OUT, 'assets/css/typography-v4.css'));
   JS_V = fileHash(path.join(OUT, 'assets/js/site.js'));
 
   const posts = loadPosts();
