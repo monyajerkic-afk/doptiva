@@ -492,7 +492,7 @@ function renderHome(lang, posts) {
   ];
   const tiles = h.slides.map((s, i) => `
         <figure class="tile">
-          <div class="tile-media"><img src="${href(p, slideImage(s.img))}" alt="${esc(s.alt)}" width="720" height="540" loading="${i < 4 ? 'eager' : 'lazy'}" decoding="async"></div>
+          <div class="tile-media"><img src="${href(p, slideImage(s.img))}" alt="${esc(s.alt)}" width="720" height="540" loading="${i < 4 ? 'eager' : 'lazy'}" decoding="async" onerror="this.onerror=null;this.src='/assets/img/slides/${({ narocila:'pastel-sage-glass.svg',excel:'pastel-teal-glass.svg',teren:'pastel-peach-mist.svg',ponudbe:'pastel-mauve-haze.svg',orodja:'pastel-sage-glass.svg',ai:'pastel-teal-glass.svg' })[s.img]}'"></div>
           <figcaption>
             <h3>${esc(s.title)}</h3>
             <p>${esc(s.text)}</p>
