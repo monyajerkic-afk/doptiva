@@ -398,4 +398,139 @@ html[data-theme="dark"] body.site-projects .cta-band .btn-primary {
   color: #112C3A;
   border-color: #B8CDBB;
 }
-/* Blog / academy untouched by this stylesheet, including its header/footer. */
+/* Doptiva Academy: coherent DARK variant for blog listings and article pages.
+   Light mode retains its existing cream + terracotta treatment untouched.
+   Use rich warm-charcoal surfaces and copper accents, not emerald throughout. */
+html[data-theme="dark"] body.site-blog {
+  --paper: #201E1B;
+  --paper-2: #29241F;
+  --card: #2E2924;
+  --ink: #F5EEE6;
+  --text: #E6DBCE;
+  --muted: #BFB0A0;
+  --green: #E9A887;
+  --brand: #76D2AD;
+  --mint: #4A352B;
+  --mint-ink: #FFF0DE;
+  --annot: #E6A282;
+  --annot-strong: #E6A282;
+  --line: rgba(239,217,196,.18);
+  --line-strong: rgba(239,217,196,.28);
+  --note-1: #3B302A;
+  --note-ink: #F4E7D9;
+  --focus: #F0B196;
+  background: #201E1B;
+  color: #E6DBCE;
+  color-scheme: dark;
+}
+html[data-theme="dark"] body.site-blog .site-header,
+html[data-theme="dark"] body.site-blog .site-footer,
+html[data-theme="dark"] body.site-blog .page-head,
+html[data-theme="dark"] body.site-blog .article-head {
+  background-color: #24201C;
+  border-color: rgba(239,217,196,.20);
+}
+html[data-theme="dark"] body.site-blog .logo {
+  color: #FFF1E4;
+}
+html[data-theme="dark"] body.site-blog .logo .logo-o { fill: #76D2AD; }
+html[data-theme="dark"] body.site-blog .site-nav a.nav-link,
+html[data-theme="dark"] body.site-blog .header-tools :is(button,a) {
+  color: #F6ECE0;
+}
+html[data-theme="dark"] body.site-blog .site-nav a.nav-link[aria-current="page"] {
+  border-bottom-color: #E6A282;
+}
+html[data-theme="dark"] body.site-blog .page-head h1,
+html[data-theme="dark"] body.site-blog .article-head h1,
+html[data-theme="dark"] body.site-blog .post-item h2 a,
+html[data-theme="dark"] body.site-blog .prose h2,
+html[data-theme="dark"] body.site-blog .prose h3,
+html[data-theme="dark"] body.site-blog .prose .lead {
+  color: #F5EEE6;
+}
+html[data-theme="dark"] body.site-blog .page-head .lede,
+html[data-theme="dark"] body.site-blog .post-item p,
+html[data-theme="dark"] body.site-blog .prose,
+html[data-theme="dark"] body.site-blog .prose p,
+html[data-theme="dark"] body.site-blog .prose li,
+html[data-theme="dark"] body.site-blog .article-cta p {
+  color: #E6DBCE;
+}
+html[data-theme="dark"] body.site-blog .breadcrumbs,
+html[data-theme="dark"] body.site-blog .breadcrumbs a,
+html[data-theme="dark"] body.site-blog .post-meta,
+html[data-theme="dark"] body.site-blog .post-item time,
+html[data-theme="dark"] body.site-blog .author-box,
+html[data-theme="dark"] body.site-blog .meta {
+  color: #C6B8A9;
+}
+html[data-theme="dark"] body.site-blog .page-head .label,
+html[data-theme="dark"] body.site-blog .article-head .label,
+html[data-theme="dark"] body.site-blog .post-item::before,
+html[data-theme="dark"] body.site-blog .post-item .text-link,
+html[data-theme="dark"] body.site-blog .post-item h2 a:hover,
+html[data-theme="dark"] body.site-blog .prose a,
+html[data-theme="dark"] body.site-blog .prose li::marker {
+  color: #F0B294;
+}
+html[data-theme="dark"] body.site-blog .post-item,
+html[data-theme="dark"] body.site-blog .posts,
+html[data-theme="dark"] body.site-blog .author-box {
+  border-color: rgba(239,217,196,.22);
+}
+html[data-theme="dark"] body.site-blog .prose blockquote {
+  background: #392C26;
+  color: #F3E7DB;
+  box-shadow: none;
+}
+html[data-theme="dark"] body.site-blog .prose :is(th,td) {
+  border-color: rgba(239,217,196,.25);
+  color: #E5DAD0;
+}
+html[data-theme="dark"] body.site-blog .article-cta {
+  background: #352A23;
+  border-color: rgba(242,180,145,.28);
+  color: #F6EADF;
+}
+html[data-theme="dark"] body.site-blog .article-cta h2,
+html[data-theme="dark"] body.site-blog .author-box strong {
+  color: #F5EEE6;
+}
+html[data-theme="dark"] body.site-blog .btn-primary {
+  background: #BE6D4D;
+  color: #FFFFFF;
+  border-color: #BE6D4D;
+}
+html[data-theme="dark"] body.site-blog .btn-primary:hover {
+  background: #D38360;
+  color: #1C1511;
+  border-color: #D38360;
+}
+html[data-theme="dark"] body.site-blog .cta-band {
+  background: #35241F;
+  color: #EFE3D7;
+}
+html[data-theme="dark"] body.site-blog .cta-band h2 { color: #FFF3E7; }
+html[data-theme="dark"] body.site-blog .cta-band h2 em,
+html[data-theme="dark"] body.site-blog .cta-band .label {
+  color: #F2BEA5;
+}
+html[data-theme="dark"] body.site-blog .site-footer .footer-brand p,
+html[data-theme="dark"] body.site-blog .site-footer .footer-col li,
+html[data-theme="dark"] body.site-blog .site-footer .footer-col li a {
+  color: #E9DDCF;
+}
+html[data-theme="dark"] body.site-blog .site-footer .footer-col h2,
+html[data-theme="dark"] body.site-blog .site-footer .footer-bottom {
+  color: #C9B5A3;
+}
+html[data-theme="dark"] body.site-blog .site-footer .footer-col a:hover,
+html[data-theme="dark"] body.site-blog .site-footer .newsletter-footer-link {
+  color: #F3B99D;
+}
+html[data-theme="dark"] body.site-blog .site-footer .footer-bottom {
+  border-top-color: rgba(239,217,196,.2);
+}
+/* Keep the subscription dialog warm-white on both modes, as a focused form
+   with its own explicitly defined contrasting text and controls. */
