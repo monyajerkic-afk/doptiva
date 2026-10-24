@@ -655,9 +655,10 @@ body.newsletter-open {overflow:hidden}
 /* Six service cards: keep the existing editorial layout in three balanced rows. */
 @media (min-width: 901px) {
   .notes > .note:nth-child(n) { grid-column: span 3; }
-  .notes > .note:nth-child(3n + 1) { grid-column: span 4; }
-  .notes > .note:nth-child(3n + 2) { grid-column: span 2; }
-  .notes > .note:nth-child(3n) { grid-column: span 6; }
+  .notes > .note:nth-child(4n + 1),
+  .notes > .note:nth-child(4n + 4) { grid-column: span 4; }
+  .notes > .note:nth-child(4n + 2),
+  .notes > .note:nth-child(4n + 3) { grid-column: span 2; }
 }
 @media (max-width: 900px) and (min-width: 641px) {
   .notes > .note:nth-child(n) { grid-column: span 1; }
