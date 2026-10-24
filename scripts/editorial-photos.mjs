@@ -6,6 +6,32 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const PHOTOS = [
+  // Six real-life images for the challenges slider in Design V4.
+  // Each photograph is marked "Free to use under the Unsplash License".
+  {
+    name: 'challenge-orders.jpg',
+    url: 'https://images.unsplash.com/photo-1721937127582-ed331de95a04?auto=format&fit=crop&w=1100&h=720&q=76',
+  },
+  {
+    name: 'challenge-spreadsheets.jpg',
+    url: 'https://images.unsplash.com/photo-1759752393975-7ca7b302fcc6?auto=format&fit=crop&w=1100&h=720&q=76',
+  },
+  {
+    name: 'challenge-field.jpg',
+    url: 'https://images.unsplash.com/photo-1764795850513-fa8a469a4600?auto=format&fit=crop&w=1100&h=720&q=76',
+  },
+  {
+    name: 'challenge-paperwork.jpg',
+    url: 'https://images.unsplash.com/photo-1743796055651-41c743ff2465?auto=format&fit=crop&w=1100&h=720&q=76',
+  },
+  {
+    name: 'challenge-training.jpg',
+    url: 'https://images.unsplash.com/photo-1579389083046-e3df9c2b3325?auto=format&fit=crop&w=1100&h=720&q=76',
+  },
+  {
+    name: 'challenge-ai.jpg',
+    url: 'https://images.unsplash.com/photo-1588750099599-09efbe4377ad?auto=format&fit=crop&w=1100&h=720&q=76',
+  },
   {
     name: 'glass-corridor.jpg',
     url: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=78',
