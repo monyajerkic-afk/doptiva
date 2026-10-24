@@ -41,7 +41,7 @@ export default {
   },
 
   home: {
-    title: 'Razumemo problem. Poenostavimo proces. Razvijemo rešitev. | Doptiva',
+    title: 'Doptiva | Digitalno svetovanje, avtomatizacija in spletne strani',
     description: 'Doptiva pomaga malim in srednjim podjetjem poenostaviti delo, urediti poslovne procese ter smiselno uporabljati digitalna orodja in umetno inteligenco.',
     kicker: 'Svetovanje · digitalizacija · razvoj',
     h1a: 'Razumemo problem.',
