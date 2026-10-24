@@ -71,11 +71,13 @@ export default {
     ],
     servicesLabel: 'What we do',
     servicesTitle: 'How can we help?',
-    servicesIntro: 'You do not need a complete plan. We can start with the problem that takes up the most time today.',
+    servicesIntro: 'You do not need a complete plan. We can help simplify work, improve a user experience or create a clear, useful website.',
     services: [
       { id: 'consulting', icon: 'compass', title: 'Consulting', text: 'Understanding business needs, reviewing existing processes and choosing improvements that make sense.', tag: 'clarity before tools', ticks: ['Review of processes, tools and data', 'Prioritised list of improvements with expected impact', 'Independent advice when choosing software'] },
       { id: 'digitalisation', icon: 'flow', title: 'Digitalisation and automation', text: 'Simplifying repetitive work and helping you introduce the right tools.', tag: 'less retyping', ticks: ['Digital forms instead of paper and retyping', 'Connected tools, so data is never entered twice', 'Automatic reports, notifications and approvals'] },
       { id: 'solutions', icon: 'build', title: 'Digital solutions', text: 'Design, prototyping and development of solutions within our expertise or with partners.', tag: 'prototype first', ticks: ['Design and prototype before you commit to development', 'Smaller web applications and internal tools', 'Larger builds delivered with trusted partners'] },
+      { id: 'websites', icon: 'build', title: 'Website design & development', text: 'Clear, responsive websites that explain what your business offers and make it easy for visitors to get in touch.', tag: 'clear from the first click', ticks: ['Business and company websites', 'Landing pages for campaigns and offers', 'Redesigns with clearer structure and better usability'] },
+      { id: 'ui-ux', icon: 'compass', title: 'UI/UX design', text: 'Intuitive interfaces and straightforward user journeys for websites and business applications.', tag: 'designed around people', ticks: ['Reviewing and improving the user experience', 'Screen structure, user flows and prototypes', 'Designing forms and user interfaces'] },
       { id: 'training', icon: 'learn', title: 'Training and support', text: 'Practical help for employees and business owners using digital tools and AI.', tag: 'know-how stays in-house', ticks: ['Workshops built on your own cases', 'Rules for safe use of AI in your company', 'Support after roll-out, when questions come up'] },
     ],
     servicesNote: 'We choose solutions based on your needs, not on tools we would like to sell. Where larger development is needed, we bring in external specialists and tell you so up front.',
@@ -191,7 +193,7 @@ export default {
     factsTitle: 'Key facts',
     facts: [
       ['Name', 'Doptiva'],
-      ['Services', 'Consulting, digitalisation and automation of business processes, use of artificial intelligence, digital solution development, training'],
+      ['Services', 'Consulting, digitalisation and automation, AI, website design and development, UI/UX design, digital solutions and training'],
       ['For', 'Small and medium-sized businesses and entrepreneurs'],
       ['Based in', 'Ribnica, Slovenia'],
       ['Area', 'All of Slovenia, remote collaboration'],
@@ -209,7 +211,7 @@ export default {
     form: {
       name: 'Full name', company: 'Company', email: 'Email', phone: 'Phone', optional: '(optional)',
       topic: 'What are you interested in?',
-      topics: ['Not sure yet, I need advice', 'Consulting', 'Digitalisation and automation', 'Digital solutions', 'Training and support', 'Refilo', 'Terto'],
+      topics: ['Not sure yet, I need advice', 'Consulting', 'Digitalisation and automation', 'Digital solutions', 'Website design & development', 'UI/UX design', 'Training and support', 'Refilo', 'Terto'],
       message: 'What is holding you back?',
       messageHint: 'For example: “We collect orders for three locations by phone and in Excel.” A few sentences are enough.',
       consentBefore: 'I agree that Doptiva may use my details to reply to this enquiry. More in the ',
