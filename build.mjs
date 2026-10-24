@@ -274,7 +274,7 @@ function jsonld(nodes) {
 }
 
 // ---------- predloge ----------
-let CSS_V = '', BRAND_V = '', TYPO_V = '', DARK_V = '', JS_V = '';
+let CSS_V = '', BRAND_V = '', TYPO_V = '', DARK_V = '', JS_V = '', THEME_V = '';
 
 function head(page) {
   const t = C[page.lang];
@@ -319,7 +319,7 @@ ${PREVIEW ? '' : '<link rel="preload" href="/assets/fonts/newsreader-display.wof
 <link rel="stylesheet" href="${href(p, '/assets/css/typography-v4.css')}?v=${TYPO_V}">
 ${page.section === 'home' ? '<link rel="stylesheet" href="/assets/css/design-v4.css?v=1">' : ''}
 <link rel="stylesheet" href="${href(p, '/assets/css/dark-v4.css')}?v=${DARK_V}">
-<script src="${href(p, '/assets/js/theme-init.js')}"></script>
+<script src="${href(p, '/assets/js/theme-init.js')}?v=${THEME_V}"></script>
 <script src="${href(p, '/assets/js/site.js')}?v=${JS_V}" defer></script>
 ${config.analytics && !PREVIEW ? '<script src="/_vercel/insights/script.js" defer></script>' : ''}
 <link rel="alternate" type="application/rss+xml" title="Doptiva blog (${page.lang})" href="${href(p, rss)}">
@@ -952,6 +952,7 @@ async function build() {
   TYPO_V = fileHash(path.join(OUT, 'assets/css/typography-v4.css'));
   DARK_V = fileHash(path.join(OUT, 'assets/css/dark-v4.css'));
   JS_V = fileHash(path.join(OUT, 'assets/js/site.js'));
+  THEME_V = fileHash(path.join(OUT, 'assets/js/theme-init.js'));
 
   const posts = loadPosts();
   const pages = [];
