@@ -71,11 +71,13 @@ export default {
     ],
     servicesLabel: 'Kaj delamo',
     servicesTitle: 'Kaj lahko naredimo za vas?',
-    servicesIntro: 'Ne potrebujete popolnega načrta. Začnemo lahko pri težavi, ki vam danes jemlje največ časa.',
+    servicesIntro: 'Ne potrebujete popolnega načrta. Pomagamo vam lahko pri poenostavitvi poslovanja, zasnovi uporabniške izkušnje ali novi spletni strani.',
     services: [
       { id: 'svetovanje', icon: 'compass', title: 'Svetovanje', text: 'Razumevanje poslovnih potreb, pregled obstoječih procesov in izbira smiselnih izboljšav.', tag: 'jasnost pred orodjem', ticks: ['Pregled procesov, orodij in podatkov', 'Prednostni seznam izboljšav z oceno učinka', 'Neodvisno mnenje pri izbiri programske opreme'] },
       { id: 'digitalizacija', icon: 'flow', title: 'Digitalizacija in avtomatizacija', text: 'Poenostavitev ponavljajočega dela in pomoč pri uvajanju ustreznih orodij.', tag: 'manj prepisovanja', ticks: ['Digitalni obrazci namesto papirja in prepisovanja', 'Povezana orodja, da se podatki ne vnašajo dvakrat', 'Samodejna poročila, obvestila in potrjevanja'] },
       { id: 'resitve', icon: 'build', title: 'Digitalne rešitve', text: 'Zasnova, prototipiranje in razvoj rešitev v okviru naših kompetenc ali s partnerji.', tag: 'najprej prototip', ticks: ['Zasnova in prototip, preden se odločite za razvoj', 'Manjše spletne aplikacije in notranja orodja', 'Pri obsežnejšem razvoju sodelujemo s preverjenimi partnerji'] },
+      { id: 'spletne-strani', icon: 'build', title: 'Izdelava spletnih strani', text: 'Pregledne, odzivne spletne strani, ki jasno predstavijo vaše podjetje in obiskovalcem olajšajo pot do vas.', tag: 'jasno od prvega klika', ticks: ['Poslovne in predstavitvene spletne strani', 'Pristajalne strani za ponudbe in kampanje', 'Prenove obstoječih strani z boljšo strukturo in uporabnostjo'] },
+      { id: 'ui-ux', icon: 'compass', title: 'UI/UX oblikovanje', text: 'Razumljivi vmesniki in preprosti uporabniški tokovi za spletne strani in poslovne aplikacije.', tag: 'oblikovano za ljudi', ticks: ['Pregled in izboljšanje obstoječe uporabniške izkušnje', 'Struktura zaslonov, uporabniški tokovi in prototipi', 'Oblikovanje obrazcev in uporabniških vmesnikov'] },
       { id: 'izobrazevanje', icon: 'learn', title: 'Izobraževanje in podpora', text: 'Praktična pomoč zaposlenim in podjetnikom pri uporabi digitalnih orodij in umetne inteligence.', tag: 'znanje ostane v hiši', ticks: ['Delavnice na vaših primerih, ne na splošnih', 'Pravila za varno uporabo AI v podjetju', 'Podpora po uvedbi, ko se pojavijo vprašanja'] },
     ],
     servicesNote: 'Rešitve izberemo glede na vaše potrebe, ne glede na orodja, ki bi jih želeli prodati. Kjer je potreben obsežnejši razvoj, k projektu povabimo zunanje strokovnjake in vam to povemo vnaprej.',
@@ -191,7 +193,7 @@ export default {
     factsTitle: 'Osnovni podatki',
     facts: [
       ['Ime', 'Doptiva'],
-      ['Dejavnost', 'Svetovanje, digitalizacija in avtomatizacija poslovnih procesov, uporaba umetne inteligence, razvoj digitalnih rešitev, izobraževanje'],
+      ['Dejavnost', 'Svetovanje, digitalizacija in avtomatizacija poslovnih procesov, umetna inteligenca, izdelava spletnih strani, UI/UX oblikovanje, razvoj digitalnih rešitev in izobraževanje'],
       ['Za koga', 'Mala in srednja podjetja ter podjetniki'],
       ['Sedež', 'Ribnica, Slovenija'],
       ['Območje', 'Vsa Slovenija, sodelovanje na daljavo'],
@@ -209,7 +211,7 @@ export default {
     form: {
       name: 'Ime in priimek', company: 'Podjetje', email: 'E-pošta', phone: 'Telefon', optional: '(neobvezno)',
       topic: 'Kaj vas zanima?',
-      topics: ['Še ne vem, potrebujem nasvet', 'Svetovanje', 'Digitalizacija in avtomatizacija', 'Digitalne rešitve', 'Izobraževanje in podpora', 'Refilo', 'Terto'],
+      topics: ['Še ne vem, potrebujem nasvet', 'Svetovanje', 'Digitalizacija in avtomatizacija', 'Digitalne rešitve', 'Izdelava spletnih strani', 'UI/UX oblikovanje', 'Izobraževanje in podpora', 'Refilo', 'Terto'],
       message: 'Kaj vas ovira?',
       messageHint: 'Na primer: »Naročila za tri lokacije zbiramo po telefonu in v Excelu.« Dovolj je nekaj stavkov.',
       consentBefore: 'Strinjam se, da Doptiva moje podatke uporabi za odgovor na povpraševanje. Več v ',
