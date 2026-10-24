@@ -317,6 +317,7 @@ ${page.article ? `<meta property="article:published_time" content="${page.articl
 ${PREVIEW ? '' : '<link rel="preload" href="/assets/fonts/newsreader-display.woff2" as="font" type="font/woff2" crossorigin>\n<link rel="preload" href="/assets/fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>'}
 <link rel="stylesheet" href="${href(p, '/assets/css/site.css')}?v=${CSS_V}">
 <link rel="stylesheet" href="${href(p, '/assets/css/brand-refresh.css')}?v=${BRAND_V}">
+${page.section === 'home' ? '<link rel="stylesheet" href="/assets/css/design-v4.css?v=1">' : ''}
 <script src="${href(p, '/assets/js/theme-init.js')}"></script>
 <script src="${href(p, '/assets/js/site.js')}?v=${JS_V}" defer></script>
 ${config.analytics && !PREVIEW ? '<script src="/_vercel/insights/script.js" defer></script>' : ''}
@@ -540,6 +541,7 @@ function renderHome(lang, posts) {
         <a class="text-link" href="#${servicesId}">${esc(h.cta2)} ${ICON.down}</a>
       </div>
     </div>
+    <figure class="v4-hero-media" aria-hidden="true"><div class="v4-hero-photo"></div><figcaption class="v4-image-mark">DOPTIVA <span>—</span> DIGITAL CONSULTANCY</figcaption></figure>
   </div>
 </section>
 
