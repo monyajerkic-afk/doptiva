@@ -650,3 +650,18 @@ body.newsletter-open {overflow:hidden}
 .newsletter-dialog :is(button,input,a):focus-visible {outline:3px solid #168267;outline-offset:3px}
 #newsletter-status {padding:10px;background:#EDF3E9}
 .about-mission .about-mission-secondary {margin-top:clamp(2rem,4vw,4rem)}
+
+
+/* Six service cards: keep the existing editorial layout in three balanced rows. */
+@media (min-width: 901px) {
+  .notes > .note:nth-child(n) { grid-column: span 3; }
+  .notes > .note:nth-child(3n + 1) { grid-column: span 4; }
+  .notes > .note:nth-child(3n + 2) { grid-column: span 2; }
+  .notes > .note:nth-child(3n) { grid-column: span 6; }
+}
+@media (max-width: 900px) and (min-width: 641px) {
+  .notes > .note:nth-child(n) { grid-column: span 1; }
+}
+@media (max-width: 640px) {
+  .notes > .note:nth-child(n) { grid-column: auto; }
+}
