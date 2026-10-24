@@ -294,8 +294,7 @@ function head(page) {
 <meta name="description" content="${esc(page.description)}">
 ${page.noindex ? '<meta name="robots" content="noindex, follow">' : `<link rel="canonical" href="${abs(p)}">\n<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">`}
 ${hreflang}
-<meta name="theme-color" content="#F4F6F3" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#131816" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="${page.section === 'blog' ? '#24201C' : page.section === 'projects' ? '#172B37' : '#142B21'}" data-dark-color="${page.section === 'blog' ? '#24201C' : page.section === 'projects' ? '#172B37' : '#142B21'}" data-light-color="${page.section === 'blog' ? '#FCFAF5' : '#F4F6F3'}">
 <meta name="author" content="Doptiva">
 <meta property="og:site_name" content="Doptiva">
 <meta property="og:type" content="${page.type || 'website'}">
