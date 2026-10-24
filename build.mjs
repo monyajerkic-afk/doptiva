@@ -6,6 +6,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import config from './site.config.mjs';
+import { cacheEditorialPhotos } from './scripts/editorial-photos.mjs';
 import sl from './content/sl.mjs';
 import en from './content/en.mjs';
 
@@ -273,7 +274,7 @@ function jsonld(nodes) {
 }
 
 // ---------- predloge ----------
-let CSS_V = '', JS_V = '';
+let CSS_V = '', BRAND_V = '', JS_V = '';
 
 function head(page) {
   const t = C[page.lang];
@@ -315,6 +316,7 @@ ${page.article ? `<meta property="article:published_time" content="${page.articl
 <link rel="manifest" href="${href(p, '/site.webmanifest')}">
 ${PREVIEW ? '' : '<link rel="preload" href="/assets/fonts/newsreader-display.woff2" as="font" type="font/woff2" crossorigin>\n<link rel="preload" href="/assets/fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>'}
 <link rel="stylesheet" href="${href(p, '/assets/css/site.css')}?v=${CSS_V}">
+<link rel="stylesheet" href="${href(p, '/assets/css/brand-refresh.css')}?v=${BRAND_V}">
 <script src="${href(p, '/assets/js/theme-init.js')}"></script>
 <script src="${href(p, '/assets/js/site.js')}?v=${JS_V}" defer></script>
 ${config.analytics && !PREVIEW ? '<script src="/_vercel/insights/script.js" defer></script>' : ''}
@@ -336,7 +338,7 @@ function header(page) {
     const active = page.section === k;
     return `<a class="nav-link" href="${href(p, R(k))}"${active ? ' aria-current="page"' : ''}>${label}</a>`;
   }).join('\n      ');
-  return `<body>
+  return `<body${page.section === 'blog' ? ' class="site-blog"' : page.section === 'projects' ? ' class="site-projects"' : ''}>
 <a class="skip-link" href="#main">${t.skip}</a>
 <header class="site-header">
   <div class="wrap header-inner">
@@ -352,6 +354,27 @@ function header(page) {
     </div>
   </div>
 </header>`;
+}
+
+function newsletterSignup(page) {
+  const n = C[page.lang].newsletter;
+  const privacy = href(page.path, ROUTES.privacy[page.lang]);
+  return `<div id="newsletter-overlay" class="newsletter-overlay" hidden>
+    <section class="newsletter-dialog" role="dialog" aria-modal="true" aria-labelledby="newsletter-heading">
+      <button type="button" class="newsletter-close" data-newsletter-close aria-label="${esc(n.close)}">×</button>
+      <span class="label">${esc(n.kicker)}</span>
+      <h2 id="newsletter-heading">${esc(n.title)}</h2>
+      <p>${esc(n.text)}</p>
+      <form id="newsletter-form" novalidate>
+        <label for="newsletter-email">${esc(n.email)}</label>
+        <input id="newsletter-email" name="email" type="email" required maxlength="160" autocomplete="email" placeholder="${esc(n.placeholder)}">
+        <label class="newsletter-consent"><input type="checkbox" name="consent" value="yes" required><span>${esc(n.consentBefore)}<a href="${privacy}">${esc(n.consentLink)}</a>.</span></label>
+        <button type="submit" class="btn btn-primary">${esc(n.submit)}</button>
+        <p id="newsletter-status" role="status" hidden></p>
+      </form>
+      <button type="button" class="newsletter-dismiss" data-newsletter-close>${esc(n.dismiss)}</button>
+    </section>
+  </div>`;
 }
 
 function footer(page) {
@@ -387,16 +410,17 @@ function footer(page) {
         <h2>${t.footer.contact}</h2>
         <ul>
           <li><a href="mailto:${config.email}">${config.email}</a></li>
-          <li>${t.footer.location}</li>
           <li>${t.footer.remote}</li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
+      <button type="button" class="newsletter-footer-link" data-newsletter-open>${esc(C[page.lang].newsletter.footer)}</button>
       <span>© ${YEAR} Doptiva. ${t.footer.rights}</span>
     </div>
   </div>
 </footer>
+${newsletterSignup(page)}
 </body>
 </html>`;
 }
@@ -436,6 +460,16 @@ function breadcrumbsHtml(lang, p, items) {
 
 // ---------- slike drsnika ----------
 function slideImage(key) {
+  // Four original soft pastel glass motifs, distributed among six challenge cards.
+  const pastel = {
+    narocila: 'pastel-sage-glass.svg',
+    excel: 'pastel-teal-glass.svg',
+    teren: 'pastel-peach-mist.svg',
+    ponudbe: 'pastel-mauve-haze.svg',
+    orodja: 'pastel-sage-glass.svg',
+    ai: 'pastel-teal-glass.svg',
+  };
+  if (pastel[key]) return '/assets/img/slides/' + pastel[key];
   const dir = path.join(ROOT, 'public/assets/img/slides');
   for (const ext of ['webp', 'jpg', 'jpeg', 'png']) {
     if (fs.existsSync(path.join(dir, `${key}.${ext}`))) return `/assets/img/slides/${key}.${ext}`;
@@ -466,7 +500,7 @@ function renderHome(lang, posts) {
         </figure>`).join('');
 
   const notes = h.services.map((s, i) => `
-        <article class="note" id="${s.id}">
+        <article class="note note-${s.id}" id="${s.id}">
           <span class="note-num">${String(i + 1).padStart(2, '0')}</span>
           <h3>${esc(s.title)}</h3>
           <p>${esc(s.text)}</p>
@@ -477,11 +511,14 @@ function renderHome(lang, posts) {
   const steps = h.steps.map((s) => `<li class="step"><h3>${esc(s.title)}</h3><p>${esc(s.text)}</p></li>`).join('\n          ');
 
   const pr = t.projectsPage.items.map((it) => `
-      <article class="project-teaser">
+      <article class="project-teaser project-teaser-${it.id}">
+        <div class="project-media" aria-hidden="true"><div class="project-media-inner"><span class="project-monogram">${esc(it.name)}</span><span class="project-deco"><span></span><span></span><span></span></span></div></div>
+        <div class="project-teaser-body">
         <div class="project-head"><h3>${esc(it.name)}</h3><span class="stamp${it.statusType === 'mvp' ? ' stamp-mvp' : ''}">${esc(it.status)}</span></div>
         <p class="meta">${esc(it.meta)}</p>
         <p>${esc(it.summary)}</p>
         <p><a class="text-link" href="${href(p, ROUTES.projects[lang] + '#' + it.id)}">${lang === 'sl' ? 'Več o projektu' : 'More about'} ${esc(it.name)} ${ICON.ne}</a></p>
+        </div>
       </article>`).join('');
 
   const faq = h.faq.map((f) => `
@@ -492,27 +529,23 @@ function renderHome(lang, posts) {
 
   const servicesId = lang === 'sl' ? 'storitve' : 'services';
   const main = `
-<section class="hero ruled">
+<section class="hero">
   <div class="wrap hero-grid">
     <div class="hero-main">
       <div><span class="label">${esc(h.kicker)}</span></div>
-      <h1>${esc(h.h1a)} <em class="scribble">${esc(h.h1b)}</em></h1>
+      <h1><span>${esc(h.h1a)}</span><span>${esc(h.h1b)}</span><span class="hero-emphasis">${esc(h.h1c)}</span></h1>
       <p class="hero-lede">${esc(h.lede)} ${esc(h.lede2)}</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="${href(p, ROUTES.contact[lang])}">${esc(h.cta1)} ${ICON.ne}</a>
         <a class="text-link" href="#${servicesId}">${esc(h.cta2)} ${ICON.down}</a>
-        <span class="meta">${esc(h.heroMeta)}</span>
-      </div>
-    </div>
-    <div class="hero-aside" aria-hidden="true">
-      <p class="sticky-note">${esc(h.heroNote)}</p>
-      <div class="sketch-wrap">
-        ${SKETCH.hero}
-        <span class="annot sketch-note n1">${esc(h.heroAnnot1)}</span>
-        <span class="annot sketch-note n2">${esc(h.heroAnnot2)}</span>
       </div>
     </div>
   </div>
+</section>
+
+<!-- Fotografski prehod prek celotne širine, namenoma brez marketinškega besedila. -->
+<section class="photo-divider" aria-hidden="true">
+  <div class="photo-divider-image"></div>
 </section>
 
 <section class="band" aria-label="${esc(h.bandLabel)}">
@@ -564,10 +597,19 @@ function renderHome(lang, posts) {
   </div>
 </section>
 
+<section class="adoption-feature" aria-labelledby="adoption-title">
+  <div class="adoption-visual" aria-hidden="true"></div>
+  <div class="adoption-copy">
+    <span class="label">${esc(h.adoptionLabel)}</span>
+    <h2 id="adoption-title">${esc(h.adoptionTitle)}</h2>
+    <p>${esc(h.adoptionText)}</p>
+  </div>
+</section>
+
 <section class="section" aria-labelledby="projects-title">
   <div class="wrap">
     <div class="section-head"><div><span class="label">${esc(h.projectsLabel)}</span></div><h2 id="projects-title">${esc(h.projectsTitle)}</h2><p>${esc(h.projectsIntro)}</p></div>
-    <div class="projects-row">${pr}
+    <div class="projects-row projects-editorial">${pr}
     </div>
   </div>
 </section>
@@ -679,6 +721,16 @@ ${pageHead(lang, p, crumbs, A.label, A.h1, A.lede)}
   <div class="wrap split">
     <div class="split-head"><h2>${esc(A.storyTitle)}</h2></div>
     <div class="stack">${A.story.map((x, i) => `<p${i === 0 ? ' class="lead"' : ''}>${esc(x)}</p>`).join('')}</div>
+  </div>
+</section>
+<section class="section about-mission">
+  <div class="wrap split">
+    <div class="split-head"><h2>${esc(A.visionTitle)}</h2></div>
+    <div class="stack"><p class="lead">${esc(A.visionText)}</p></div>
+  </div>
+  <div class="wrap split about-mission-secondary">
+    <div class="split-head"><h2>${esc(A.missionTitle)}</h2></div>
+    <div class="stack"><p>${esc(A.missionText)}</p></div>
   </div>
 </section>
 <section class="section section-alt">
@@ -877,9 +929,10 @@ function copyDir(src, dst) {
   }
 }
 
-function build() {
+async function build() {
   fs.rmSync(OUT, { recursive: true, force: true });
   copyDir(path.join(ROOT, 'public'), OUT);
+  await cacheEditorialPhotos(OUT);
 
   // v predogledu pisave vgradimo v CSS (predogled ne nalaga ločenih datotek s pisavami)
   const cssPath = path.join(OUT, 'assets/css/site.css');
@@ -892,6 +945,7 @@ function build() {
     fs.writeFileSync(cssPath, css);
   }
   CSS_V = fileHash(cssPath);
+  BRAND_V = fileHash(path.join(OUT, 'assets/css/brand-refresh.css'));
   JS_V = fileHash(path.join(OUT, 'assets/js/site.js'));
 
   const posts = loadPosts();
@@ -991,4 +1045,4 @@ ${[...posts.sl, ...posts.en].map((x) => `- [${x.title}](${abs(x.path)}): ${x.des
   console.log(`Zgrajeno: ${pages.length + 1} strani -> ${path.relative(ROOT, OUT)}`);
 }
 
-build();
+build().catch((error) => { console.error(error); process.exitCode = 1; });

@@ -69,6 +69,38 @@
 
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // Parallax široke fotografije: neodvisen od CSS scroll-timeline podpore.
+  // Na ozkih zaslonih in pri reduced motion ostane fotografija statična.
+  (function () {
+    var photo = document.querySelector('.photo-divider');
+    var image = photo && photo.querySelector('.photo-divider-image');
+    if (!photo || !image || reduce || !window.requestAnimationFrame) return;
+    var desktop = window.matchMedia('(min-width: 821px)');
+    var ticking = false;
+    function updatePhoto() {
+      ticking = false;
+      if (!desktop.matches || document.hidden) {
+        image.style.setProperty('--parallax-y', '0px');
+        return;
+      }
+      var rect = photo.getBoundingClientRect();
+      var viewport = window.innerHeight || document.documentElement.clientHeight;
+      if (rect.top > viewport || rect.bottom < 0) return;
+      var progress = Math.max(0, Math.min(1, (viewport - rect.top) / (viewport + rect.height)));
+      // Meja +/- 17 px: zelo nežno premikanje, brez razkritja robov.
+      image.style.setProperty('--parallax-y', ((progress - 0.5) * 34).toFixed(1) + 'px');
+    }
+    function schedule() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(updatePhoto);
+    }
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    if (desktop.addEventListener) desktop.addEventListener('change', schedule);
+    schedule();
+  }());
+
   // opazovanje vidnosti: animacije tečejo le, ko je element na zaslonu
   function watch(el, onChange) {
     if (!('IntersectionObserver' in window)) { onChange(true); return; }
@@ -239,4 +271,75 @@
       });
     });
   }
+  // Newsletter: opens once after a quiet delay, or manually from the footer.
+  (function () {
+    var overlay = document.getElementById('newsletter-overlay');
+    if (!overlay) return;
+    var form = document.getElementById('newsletter-form');
+    var status = document.getElementById('newsletter-status');
+    var email = document.getElementById('newsletter-email');
+    var privacyLink = overlay.querySelector('.newsletter-consent a');
+    var openers = document.querySelectorAll('[data-newsletter-open]');
+    var closers = overlay.querySelectorAll('[data-newsletter-close]');
+    var storageKey = 'doptiva-newsletter-dismissed';
+    var lastFocus = null;
+    var closed = function () {
+      overlay.hidden = true;
+      document.body.classList.remove('newsletter-open');
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    };
+    var open = function () {
+      lastFocus = document.activeElement;
+      overlay.hidden = false;
+      document.body.classList.add('newsletter-open');
+      email.focus();
+    };
+    var dismissed = function () {
+      try { sessionStorage.setItem(storageKey, '1'); } catch (_) {}
+      closed();
+    };
+    openers.forEach(function (el) { el.addEventListener('click', open); });
+    closers.forEach(function (el) { el.addEventListener('click', dismissed); });
+    overlay.addEventListener('click', function (event) { if (event.target === overlay) dismissed(); });
+    document.addEventListener('keydown', function (event) {
+      if (overlay.hidden) return;
+      if (event.key === 'Escape') { dismissed(); return; }
+      if (event.key === 'Tab') {
+        var focusables = Array.from(overlay.querySelectorAll('button:not([disabled]),input:not([disabled]),a[href]'));
+        var first = focusables[0], last = focusables[focusables.length - 1];
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+      }
+    });
+    window.setTimeout(function () {
+      try { if (sessionStorage.getItem(storageKey)) return; } catch (_) {}
+      if (!document.hidden && overlay.hidden) open();
+    }, 45000);
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      if (!email.checkValidity() || !form.elements.consent.checked) {
+        status.textContent = lang === 'en' ? 'Enter a valid email and agree to receive the newsletter.' : 'Vpišite veljaven e-naslov in potrdite prijavo na novice.';
+        status.hidden = false; email.focus(); return;
+      }
+      if (root.hasAttribute('data-preview')) {
+        status.textContent = lang === 'en' ? 'Preview only. No email has been registered.' : 'To je predogled. E-naslov ni bil shranjen.';
+        status.hidden = false; return;
+      }
+      var button = form.querySelector('[type="submit"]');
+      button.disabled = true;
+      fetch('/api/newsletter', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.value.trim(), consent: 'yes', lang: lang }) })
+      .then(function (r) { if (!r.ok) throw Error('newsletter'); return r.json(); })
+      .then(function () {
+        status.textContent = lang === 'en' ? 'Check your inbox to confirm your subscription.' : 'Za potrditev prijave preverite svoj e-poštni predal.';
+        status.hidden = false;
+        try { sessionStorage.setItem(storageKey,'1'); } catch (_) {}
+        form.reset();
+      }).catch(function () {
+        status.textContent = lang === 'en' ? 'Signup is temporarily unavailable. Please try again.' : 'Prijava trenutno ne deluje. Poskusite pozneje.';
+        status.hidden = false;
+      }).finally(function () { button.disabled = false; });
+    });
+  })();
+
 })();

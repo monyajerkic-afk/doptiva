@@ -45,6 +45,11 @@ Podatke obdelujejo ponudniki, ki za nas opravljajo tehnične storitve (obdeloval
 
 Podatkov drugim osebam ne posredujemo, razen če to od nas zahteva zakon.
 
+
+## E-novice
+
+Na novice se lahko prijavite prostovoljno z e-poštnim naslovom in ločenim, izrecnim soglasjem (GDPR, člen 6(1)(a)). Pošljemo vam potrditveno sporočilo. Šele ko kliknete povezavo (dvojna prijava), naslov dodamo v namenski seznam za občasne nasvete in novosti Doptive. Podatek hranimo do odjave ali preklica soglasja. Odjavite se lahko s povezavo v vsakem trženjskem sporočilu ali s sporočilom na {{email}}. Za pošiljanje in upravljanje prijav uporabljamo Resend, ki obdeluje podatke v ZDA ob uporabi ustreznih pogodbenih zaščit. Kontaktnega obrazca ne uporabljamo za samodejno prijavo na novice.
+
 ## Vaše pravice
 
 Kadar koli lahko zahtevate dostop do svojih podatkov, njihov popravek ali izbris, omejitev obdelave in prenos podatkov. Obdelavi na podlagi zakonitega interesa lahko ugovarjate. Zahtevo pošljite na {{email}}. Odgovorimo najpozneje v enem mesecu.

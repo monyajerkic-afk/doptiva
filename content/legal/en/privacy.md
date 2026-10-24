@@ -45,6 +45,11 @@ Data is processed by providers that deliver technical services for us (processor
 
 We do not pass data to anyone else unless required by law.
 
+
+## Email newsletter
+
+You can voluntarily subscribe with your email address and separate, explicit consent (GDPR Article 6(1)(a)). We send a confirmation email and add your address to our newsletter list only after you click the confirmation link (double opt-in). We use this list for occasional practical advice and Doptiva updates. We keep your email until you unsubscribe or withdraw consent. You can unsubscribe using the link in each marketing email or by writing to {{email}}. Resend delivers newsletters and manages subscriptions, processing data in the US under appropriate contractual safeguards. Sending an enquiry does not automatically subscribe you.
+
 ## Your rights
 
 You may at any time request access to your data, its correction or erasure, restriction of processing and data portability. You may object to processing based on legitimate interest. Send your request to {{email}}. We reply within one month at the latest.

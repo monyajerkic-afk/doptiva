@@ -10,6 +10,7 @@ Spletna stran doptiva.com ne uporablja piškotkov za oglaševanje, profiliranje 
 | Ime | Namen | Trajanje | Kje |
 | --- | --- | --- | --- |
 | doptiva-theme | zapomni si, ali ste izbrali svetlo ali temno temo | dokler ga ne izbrišete | lokalni pomnilnik brskalnika (localStorage) |
+| doptiva-newsletter-dismissed | med posamezno sejo si zapomni, da ste zaprli prijavo na novice | do konca seje | sejni pomnilnik brskalnika (sessionStorage) |
 
 Podatek se shrani le, če temo sami preklopite. Ostane samo v vašem brskalniku, k nam se ne pošilja in ga lahko kadar koli izbrišete v nastavitvah brskalnika. Ker gre za shranjevanje, ki ga izrecno zahtevate s klikom, zanj po Zakonu o elektronskih komunikacijah (ZEKom-2) ni potrebna privolitev.
 

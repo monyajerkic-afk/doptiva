@@ -1,0 +1,668 @@
+/*
+ Doptiva — čist poslovni vizual po prvi idejni zasnovi.
+ Sloj nad site.css: ohrani obstoječe komponente, vedenje, tipografijo logotipa in dostopnost.
+*/
+:root {
+  --paper: #FAFBF8;
+  --paper-2: #F1F5F0;
+  --card: #FFFFFF;
+  --ink: #103A30;
+  --text: #263D36;
+  --muted: #597168;
+  --rule: transparent;
+  --line: rgba(16, 58, 48, .13);
+  --line-strong: rgba(16, 58, 48, .2);
+  --green: #0F674C;
+  --brand: #168267;
+  --mint: #E1F1E9;
+  --mint-ink: #145340;
+  --terracotta: #AF623F;
+  --terracotta-hover: #985339;
+  --on-terracotta: #FFF;
+  --annot: #AD6241;
+  --annot-strong: #AD6241;
+  --navy: #0C2822;
+  --navy-ink: #F8FBF8;
+  --navy-text: #D5E6DB;
+  --note-1: #F8FBF9;
+  --note-2: #F8F9F6;
+  --note-3: #F9FBF8;
+  --note-4: #F8F9F6;
+  --note-ink: #163A30;
+  --shadow-hard: 0 14px 32px rgba(7, 40, 30, .055);
+  --focus: #168267;
+  --serif: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  --section: clamp(4rem, 3rem + 4vw, 6.5rem);
+  --wrap: 1220px;
+}
+
+:root[data-theme="dark"] {
+  --paper: #0D1B18; --paper-2: #10231D; --card: #172B25;
+  --ink: #E8F5EB; --text: #D6E5DC; --muted: #ADC1B5;
+  --rule: transparent; --line: rgba(225,245,233,.14); --line-strong: rgba(225,245,233,.22);
+  --green: #A6E6C4; --brand: #84DABC; --mint: #24493A; --mint-ink: #E1F5E8;
+  --note-1: #172D27; --note-2: #182D28; --note-3: #172D27; --note-4: #182D28;
+  --note-ink: #E8F5EB; --navy: #071913; --navy-ink: #F4FCF6; --navy-text: #D0E3D6;
+  --shadow-hard: 0 14px 32px rgba(0,0,0,.2);
+}
+@media (prefers-color-scheme: dark) {
+ :root:not([data-theme="light"]) {
+  --paper: #0D1B18; --paper-2: #10231D; --card: #172B25;
+  --ink: #E8F5EB; --text: #D6E5DC; --muted: #ADC1B5;
+  --rule: transparent; --line: rgba(225,245,233,.14); --line-strong: rgba(225,245,233,.22);
+  --green: #A6E6C4; --brand: #84DABC; --mint: #24493A; --mint-ink: #E1F5E8;
+  --note-1: #172D27; --note-2: #182D28; --note-3: #172D27; --note-4: #182D28;
+  --note-ink: #E8F5EB; --navy: #071913; --navy-ink: #F4FCF6; --navy-text: #D0E3D6;
+  --shadow-hard: 0 14px 32px rgba(0,0,0,.2);
+ }
+}
+
+/* Ravne poslovne površine namesto listkov, črt in markerjev. */
+body { line-height: 1.65; }
+h1,h2,h3,h4 { font-weight: 680; line-height: 1.16; letter-spacing: -.035em; }
+h2 { font-size: clamp(2rem, 1.5rem + 2.2vw, 3.25rem); }
+h3 { font-size: clamp(1.2rem, 1rem + .55vw, 1.6rem); }
+.ruled { background-image: none !important; }
+.label { background: transparent; color: var(--green); padding: 0; font-weight: 750; font-size: .7rem; letter-spacing: .12em; }
+.label + h1, .label + h2 { margin-top: .65rem; }
+.meta { letter-spacing: .065em; }
+.section + .section:not(.section-alt):not(.band):not(.ruled) { border-color: var(--line); }
+.section-head { max-width: 53rem; }
+.btn { border-radius: 3px; letter-spacing: .015em; font-size: .83rem; text-transform: none; font-weight: 700; padding: 15px 22px; }
+.btn-primary { background: #14593E; color: #FFF; }
+.btn-primary:hover { background: #0D4430; color: #FFF; }
+.btn-sm { padding: 12px 17px; }
+.btn-ghost { border-color: var(--line-strong); }
+.text-link { letter-spacing: .02em; text-transform: none; font-size: .85rem; font-weight: 650; padding-bottom: 2px; }
+
+/* Nav ostane funkcionalna, z bolj zadržanimi poudarki. */
+.site-header { background: var(--paper); border-bottom-color: var(--line); }
+.site-nav a.nav-link { letter-spacing: 0; text-transform: none; font-size: .82rem; }
+.site-nav a.nav-link[aria-current="page"] { border-bottom-color: var(--green); }
+.site-nav { gap: clamp(1rem, 2vw, 2rem); }
+.header-inner { gap: 1.4rem; }
+.logo svg { height: 28px; }
+
+/* Home hero: tri kratke izjave, desno prikaz prave zasnove produkta. */
+.hero { background: var(--paper); border-color: var(--line); }
+.hero-grid { grid-template-columns: minmax(0, 1.04fr) minmax(0, .96fr); align-items: stretch; }
+.hero-main { padding: clamp(4rem, 6vw, 6.3rem) clamp(1rem, 3vw, 3rem) clamp(4rem, 5vw, 5.5rem) 0; gap: 1.7rem; align-content: center; }
+.hero h1 { font-size: clamp(2.05rem, 3.1vw, 3.65rem); line-height: 1.21; letter-spacing: -.052em; max-width: 17ch; }
+.hero h1 span { display: block; }
+.hero .hero-emphasis { color: #0D7856; }
+.hero-lede { font-size: clamp(1rem, 1vw + .62rem, 1.17rem); line-height: 1.78; max-width: 36rem; }
+.hero-actions .meta { display: none; }
+.hero-aside { border: 0; display: flex; align-items: center; justify-content: center; padding: 2.5rem 0 2.5rem 2rem; }
+.hero-demo { display: grid; gap: 1.2rem; width: 100%; padding: clamp(1.25rem, 2.5vw, 2.5rem); background: linear-gradient(145deg,#EAF2EC 0%,#DDECE2 100%); border: 1px solid rgba(10,67,47,.12); min-height: 360px; align-content: center; }
+.hero-demo-eyebrow { font-size: .67rem; font-weight: 750; color: #2A7055; letter-spacing: .14em; text-transform: uppercase; }
+.hero-demo .ui { --card: #FFF; --paper: #F8FAF8; --paper-2: #EEF4F0; --ink: #12392F; --text: #253E34; --muted: #65796D; --note-1: #E5F4E8; --note-2: #FAEDE3; --note-3: #E8F0F8; --note-ink: #183A30; --line: rgba(16,58,48,.13); --line-strong: rgba(16,58,48,.21); background: #FFF; border: 1px solid rgba(15,70,50,.18); box-shadow: 0 22px 35px rgba(10,49,33,.15); transform: perspective(1300px) rotateY(-3deg) rotateX(2deg); }
+.hero-demo .ui-top { background: #F0F6F1; }
+.hero-demo .ui-body { background: #FFF; }
+.hero-demo-caption { font-size: .76rem; color: #476B59; }
+@media (max-width: 1000px) {
+  .hero h1 { font-size: clamp(2.05rem, 3.6vw, 3.35rem); }
+}
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-main { padding: 3.7rem 0 1.2rem; }
+  .hero h1 { max-width: 22ch; font-size: clamp(2.15rem, 5.5vw, 3.55rem); }
+  .hero-aside { padding: 0 0 3rem; }
+  .hero-demo { min-height: auto; }
+}
+@media (max-width: 520px) {
+  .hero-main { padding-block: 2.8rem 1.1rem; gap: 1.2rem; }
+  .hero h1 { font-size: clamp(1.9rem, 7.3vw, 2.65rem); }
+  .hero-demo { padding: 1rem; }
+  .hero-aside { padding-bottom: 2.25rem; }
+  .hero-demo .ui { transform: none; font-size: 11px; }
+}
+
+/* Zeleni pas kot pri prvi zasnovi: močan kontrast, brez ilustrativnih dodatkov. */
+.band { background: #0C2822; }
+.band .wrap { padding-block: clamp(3.3rem, 5vw, 5.4rem); }
+.band blockquote { font-family: var(--sans); font-size: clamp(1.7rem,2.1vw,2.7rem); font-weight: 650; max-width: 27ch; line-height: 1.3; }
+.band-side { font-size: .95rem; line-height: 1.7; }
+.band-side .meta { color: #89CEAC; }
+.band-grid { grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr); align-items: center; }
+
+/* Kompaktnejši, še vedno samodejno gibljiv karusel. */
+.section-marquee { background: var(--card); padding-block: clamp(3.5rem, 5vw, 5.5rem); }
+.slider-head { margin-bottom: 1.4rem; }
+.slider-head h2 { margin-top: .65rem; font-size: clamp(1.8rem, 2vw + .7rem, 2.75rem); }
+.marquee { --gap: 15px; }
+.tile { width: clamp(245px, 22vw, 290px); border-color: var(--line); box-shadow: none; }
+.tile-media { aspect-ratio: 16/9; border-color: var(--line); }
+.tile figcaption { padding: 15px 17px 18px; gap: .5rem; }
+.tile h3 { font-size: 1.08rem; line-height: 1.25; }
+.tile p { font-size: .8rem; }
+.tile:hover, .tile:focus-within { outline-color: var(--green); }
+.marquee-toggle { border-color: var(--line-strong); border-radius: 3px; font-size: .7rem; text-transform: none; letter-spacing: 0; }
+
+/* Storitve: čiste, enako poravnane kartice brez zasukanih listkov. */
+.notes { gap: 1rem; padding: 0; }
+.note,.note:nth-child(1),.note:nth-child(2),.note:nth-child(3),.note:nth-child(4) {
+  transform: none; margin-top: 0; background: var(--card); color: var(--text);
+  border: 1px solid var(--line); box-shadow: none; padding: 1.65rem 1.6rem;
+  gap: .75rem; transition: border-color .2s ease, background .2s ease;
+}
+.note:hover { border-color: var(--brand); background: var(--paper-2); }
+.note::before { display: none; }
+.note-num { color: var(--green); font-weight: 750; opacity: 1; }
+.note h3 { color: var(--ink); font-size: 1.32rem; }
+.note p,.ticks li { font-size: .85rem; }
+.note .annot { color: var(--green); font-family: var(--sans); font-style: normal; font-size: .75rem; font-weight: 700; transform: none; letter-spacing: .01em; }
+.partner-note { border-color: var(--line); }
+.section .arrow-sketch { display: none; }
+
+/* Koraki, projekti, kontakt, FAQ: jasne poslovne površine. */
+.step { grid-template-columns: 44px minmax(0,1fr); gap: 0 1rem; }
+.step::before { width: 34px; height: 34px; border-radius: 2px; border-color: var(--green); color: var(--green); font-family: var(--sans); font-size: .9rem; font-weight: 700; }
+.step h3 { font-size: 1.24rem; }
+.project-teaser { background: var(--card); border-color: var(--line); box-shadow: none; padding: clamp(1.5rem, 2.6vw, 2.25rem); }
+.project-teaser h3 { font-size: 2rem; }
+.stamp,.stamp-mvp { transform: none; font-size: .62rem; border: 1px solid var(--line-strong); padding: 5px 8px; }
+.faq summary { font-family: var(--sans); font-weight: 650; font-size: 1.13rem; line-height: 1.5; }
+.faq summary::before { font-weight: 750; }
+.faq .annot { font-family: var(--sans); font-style: normal; font-size: .9rem; font-weight: 600; }
+.page-head { background: var(--paper); border-color: var(--line); }
+.page-head h1 { max-width: 25ch; }
+.index-card,.form-card,.ui { box-shadow: 0 8px 22px rgba(10,49,33,.045); border-color: var(--line); }
+.form-field input,.form-field textarea,.form-field select { border-color: var(--line-strong); }
+.form-field .hint { font-family: var(--sans); font-style: normal; font-size: .88rem; }
+.check input { accent-color: var(--green); }
+.footer-brand p { font-family: var(--sans); font-style: normal; font-size: .95rem; font-weight: 500; color: var(--muted); }
+.site-footer { background: var(--paper); border-color: var(--line); }
+.cta-band { background: #0B2922; }
+.cta-band h2 { font-size: clamp(2.15rem,3vw,3.7rem); font-weight: 650; }
+.cta-band h2 em { color: #A5D8B7; font-style: normal; }
+.cta-band .label { color: #A5D8B7; background: transparent; }
+.cta-band .arrow-sketch,.cta-sketch { display: none; }
+@media (max-width: 640px) {
+  .notes { grid-template-columns: 1fr; }
+  .band-grid { grid-template-columns: 1fr; }
+  .project-teaser { padding: 1.5rem; }
+}
+/* Existing reduced-motion preference rules and controls remain in site.css. */
+
+/* Foto brez okvirja: nevtralna arhitektura, subtilen paralaks, brez napisov. */
+.hero-grid { display: block; }
+.hero-main { max-width: 980px; padding-block: clamp(4.5rem,8vw,8rem); padding-right: 0; }
+.hero h1 { max-width: 22ch; font-size: clamp(2.2rem,4vw,4.6rem); }
+.hero-lede { max-width: 47rem; }
+.photo-divider {
+  width: 100%; height: clamp(260px, 40vw, 490px);
+  background: #D5DFD9; overflow: hidden; position: relative; isolation: isolate;
+}
+.photo-divider-image {
+  position: absolute; inset: -16% 0;
+  background-image: linear-gradient(90deg, rgba(18,50,42,.15), rgba(240,244,237,.17)),
+    url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=2000&q=77");
+  background-size: cover; background-position: center center;
+  filter: blur(2.5px) saturate(.7);
+  transform: translate3d(0,0,0) scale(1.035);
+  will-change: transform;
+}
+@media (min-width: 821px) and (prefers-reduced-motion: no-preference) {
+ .photo-divider-image { animation: doptiva-photo-reveal linear both; animation-timeline: view(); animation-range: entry -15% exit 100%; }
+ @keyframes doptiva-photo-reveal {
+   from { transform: translate3d(0,-5%,0) scale(1.035); }
+   to { transform: translate3d(0,5%,0) scale(1.035); }
+ }
+}
+@media (prefers-reduced-motion: reduce) { .photo-divider-image { animation: none !important; will-change: auto; } }
+@media (max-width: 820px) {
+ .hero-main { padding-block: 4rem; }
+ .photo-divider { height: 280px; }
+ .photo-divider-image { inset: -7% 0; will-change: auto; }
+}
+
+/* Doptiva editorial depth — barvne spremenljivke ostanejo nespremenjene. */
+.section { position: relative; }
+.section-head { margin-bottom: clamp(2rem,4vw,3.8rem); }
+.section-head h2, .split-head h2 { max-width: 18ch; }
+.section-alt { background: var(--paper-2); }
+.section-marquee { position: relative; z-index: 1; }
+/* Fotografija je vizualno nadaljevanje drugega dela, ne novo sporočilo. */
+.photo-divider { z-index: 0; }
+.photo-divider::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg,rgba(10,45,34,.06),transparent 55%); pointer-events: none; }
+.photo-divider-image { filter: blur(2px) saturate(.62); }
+/* Naraven ritem velikosti brez rotacij, ikonografskega okrasja ali novih barv. */
+.notes { grid-template-columns: repeat(6,minmax(0,1fr)); align-items: stretch; }
+.note,.note:nth-child(1),.note:nth-child(2),.note:nth-child(3),.note:nth-child(4) { grid-column: span 3; padding: clamp(1.6rem,2.1vw,2.4rem); min-height: 270px; }
+.note:nth-child(1),.note:nth-child(4) { grid-column: span 4; }
+.note:nth-child(2),.note:nth-child(3) { grid-column: span 2; }
+.note h3 { max-width: 19ch; }
+.note::after { content: ""; position: absolute; width: 42px; height: 2px; background: var(--green); top: 0; left: clamp(1.6rem,2.1vw,2.4rem); opacity: .55; }
+.note .annot { justify-self: start; }
+/* Fotografija se dotakne robov vsebine, besedilo se rahlo prekriva z njo. */
+.adoption-feature { display: grid; grid-template-columns: minmax(0,1.15fr) minmax(0,.85fr); align-items: center; min-height: 480px; position: relative; padding: clamp(3.5rem,6vw,6.5rem) var(--gutter); background: var(--paper-2); overflow: hidden; isolation: isolate; }
+.adoption-visual { position: absolute; inset: 0 37% 0 0; background: linear-gradient(90deg,rgba(10,40,32,.05),rgba(10,40,32,.10)), url("https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1600&q=76") center / cover no-repeat; filter: saturate(.55) blur(1.5px); z-index: -1; }
+.adoption-copy { grid-column: 2; background: var(--card); border: 1px solid var(--line); box-shadow: 0 28px 60px rgba(11,39,30,.09); padding: clamp(2rem,4vw,4rem); transform: translateX(-9%); max-width: 580px; display: grid; gap: 1.3rem; }
+.adoption-copy h2 { max-width: 20ch; font-size: clamp(1.8rem,2.6vw,3.2rem); }
+.adoption-copy p { max-width: 33rem; font-size: 1rem; line-height: 1.8; }
+/* Projekti: vizualni motivi so namensko abstraktni, ne izmišljeni screenshoti. */
+.projects-editorial { gap: clamp(1.2rem,2vw,2.4rem); align-items: start; }
+.projects-editorial .project-teaser { overflow: hidden; padding: 0; display: grid; gap: 0; border: 1px solid var(--line); }
+.projects-editorial .project-teaser:nth-child(2) { margin-top: clamp(0px,4vw,70px); }
+.project-media { height: clamp(200px,20vw,325px); background: var(--paper-2); padding: clamp(1.2rem,3vw,2.4rem); display: grid; place-items: center; overflow: hidden; }
+.project-media-inner { width: 100%; height: 100%; position: relative; background: #0C2822; color: #F8FBF8; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.project-teaser-terto .project-media-inner { background: #1D5544; }
+.project-media-inner::before,.project-media-inner::after { content: ""; position: absolute; width: 72%; aspect-ratio: 1; border: 1px solid rgba(240,250,244,.22); border-radius: 50%; transform: translate(-28%,28%); }
+.project-media-inner::after { transform: translate(41%,-33%); }
+.project-monogram { font-family: var(--sans); font-size: clamp(2.4rem,5vw,5rem); font-weight: 700; letter-spacing: -.06em; z-index: 1; }
+.project-deco { position: absolute; inset: auto 9% 12% auto; display: flex; gap: 6px; }
+.project-deco span { width: 24px; height: 4px; background: rgba(244,255,250,.25); }
+.project-teaser-body { padding: clamp(1.5rem,2.5vw,2.3rem); display: grid; gap: 1rem; }
+.project-teaser-body .meta { margin: 0; }
+.project-teaser-body h3 { margin: 0; }
+/* Subtilno razkrivanje samo ob podpori, brez izginjanja vsebine ob odpovedi JS. */
+@media (hover:hover) and (prefers-reduced-motion:no-preference) {
+ .project-media-inner { transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+ .project-teaser:hover .project-media-inner { transform: scale(1.025); }
+ .project-teaser { transition: border-color .3s ease; }
+ .project-teaser:hover { border-color: var(--brand); }
+ .adoption-copy { transition: box-shadow .35s ease; }
+ .adoption-copy:hover { box-shadow: 0 30px 65px rgba(11,39,30,.12); }
+}
+@media(max-width:900px) {
+ .notes { grid-template-columns: 1fr 1fr; }
+ .note,.note:nth-child(1),.note:nth-child(2),.note:nth-child(3),.note:nth-child(4) { grid-column: span 1; min-height: 0; }
+ .adoption-feature { min-height: 0; grid-template-columns: 1fr; padding: 250px var(--gutter) 3rem; }
+ .adoption-visual { inset: 0 0 auto; height: 340px; }
+ .adoption-copy { grid-column: 1; transform: none; width: min(650px,100%); margin: 0 auto; z-index: 1; }
+ .projects-editorial .project-teaser:nth-child(2) { margin-top: 0; }
+}
+@media(max-width:640px) {
+ .notes,.projects-editorial { grid-template-columns: 1fr; }
+ .adoption-feature { padding-top: 205px; }
+ .adoption-visual { height: 265px; }
+ .adoption-copy { padding: 1.7rem; }
+ .project-media { height: 225px; }
+}
+@media(prefers-reduced-motion:reduce) {
+ .project-media-inner,.project-teaser,.adoption-copy { transition: none !important; }
+}
+
+/* V4: kontrast, zračnost, resničen parallax in manj zelenega po celotni strani.
+   Obstoječe barvne spremenljivke ostanejo nespremenjene. */
+:root:not([data-theme="dark"]) {
+ --ink: #192320; --text: #2B3430;
+}
+:root[data-theme="light"] {
+ --ink: #192320; --text: #2B3430;
+}
+@media (prefers-color-scheme: light) {
+ :root:not([data-theme="dark"]) { --ink: #192320; --text: #2B3430; }
+}
+.hero h1 { color: var(--ink); }
+.hero .hero-emphasis { color: #0D7856; }
+.section-marquee { background: #FFF; border-bottom: 1px solid var(--line); }
+.section-marquee .slider-head h2 { color: var(--ink); }
+.section-marquee .tile { background: #FFF; color: #2B3430; border-color: rgba(24,45,35,.12); }
+.section-marquee .tile h3 { color: #192320; }
+.section-marquee .marquee { --gap: 19px; padding-block: 10px 18px; }
+.section-marquee .tile-media { aspect-ratio: 1.85 / 1; }
+.section-marquee .tile p { line-height: 1.55; }
+.section-marquee .tile figcaption { min-height: 210px; }
+.section-marquee .tile { box-shadow: 0 4px 18px rgba(14,43,31,.035); }
+.section-marquee .tile:hover { box-shadow: 0 13px 30px rgba(14,43,31,.07); }
+.section-steps { background: #FFF; }
+.adoption-feature { background: #FAFBF8; }
+.adoption-copy { background: #FFF; }
+.projects-editorial .project-teaser { background: #FFF; }
+.photo-divider { height: clamp(310px,46vw,580px); background: linear-gradient(135deg,#CFD7D2,#E5E9E3); }
+.photo-divider-image {
+ inset: -85px 0;
+ filter: blur(1.2px) saturate(.68);
+ transform: translate3d(0,var(--parallax-y,0px),0) scale(1.025);
+ animation: none !important;
+ will-change: transform;
+ background-position: center;
+}
+@media (min-width:821px) and (prefers-reduced-motion:no-preference) {
+ .photo-divider-image { animation: none !important; }
+}
+@media (max-width:820px), (prefers-reduced-motion:reduce) {
+ .photo-divider-image { transform: none; will-change: auto; inset: 0; }
+}
+:root[data-theme="dark"] .section-marquee,
+:root[data-theme="dark"] .section-marquee .tile,
+:root[data-theme="dark"] .adoption-feature,
+:root[data-theme="dark"] .adoption-copy,
+:root[data-theme="dark"] .projects-editorial .project-teaser { background: var(--card); color: var(--text); }
+:root[data-theme="dark"] .section-marquee .tile h3 { color: var(--ink); }
+@media (prefers-color-scheme:dark) {
+ :root:not([data-theme="light"]) .section-marquee,
+ :root:not([data-theme="light"]) .section-marquee .tile,
+ :root:not([data-theme="light"]) .adoption-feature,
+ :root:not([data-theme="light"]) .adoption-copy,
+ :root:not([data-theme="light"]) .projects-editorial .project-teaser { background: var(--card); color: var(--text); }
+ :root:not([data-theme="light"]) .section-marquee .tile h3 { color: var(--ink); }
+}
+@media(max-width:640px){.section-marquee .tile figcaption{min-height:0}}
+
+/* V5 — fotografija v herotu 'skozi mlečno steklo', brez izgube kontrasta. */
+.hero { position: relative; isolation: isolate; overflow: hidden; }
+.hero::before {
+ content: ""; position: absolute; z-index: -2;
+ top: 0; right: 0; bottom: 0; width: 57%;
+ background: linear-gradient(90deg, var(--paper) 0%, rgba(250,251,248,.65) 28%, rgba(250,251,248,.2) 100%),
+   url('/assets/img/editorial/glass-corridor.jpg') center 48% / cover no-repeat;
+ opacity: .7; filter: saturate(.5) blur(3px);
+}
+.hero::after {
+ content:""; pointer-events:none; position:absolute; z-index:-1;
+ inset:0; background: linear-gradient(90deg,var(--paper) 18%,transparent 83%);
+}
+.hero-main { position:relative; z-index:1; }
+.hero-lede { max-width: 42rem; }
+.photo-divider-image {
+ background-image:
+   linear-gradient(90deg,rgba(18,50,42,.07),rgba(240,244,237,.05)),
+   url('/assets/img/editorial/glass-corridor.jpg');
+ background-color: #D5DFD9;
+}
+.adoption-visual {
+ background-image:
+   linear-gradient(90deg,rgba(10,40,32,.07),rgba(10,40,32,.12)),
+   url('/assets/img/slides/orodja.svg');
+ background-color: #D5DFD9;
+}
+@media(max-width:900px) {
+ .hero::before { width:100%; opacity:.2; }
+ .hero::after { background: linear-gradient(90deg,var(--paper) 5%,transparent 100%); }
+}
+@media(max-width:640px) {
+ .hero::before { opacity: .13; }
+}
+
+/* Abstraktni vizuali v karuselu so namenoma svetli in brez ilustrativnih ikon. */
+.section-marquee .tile-media { background: var(--paper-2); }
+.section-marquee .tile-media img { object-fit: cover; filter: none; }
+.adoption-visual { filter: saturate(.85) blur(.65px); }
+/* Zamegljena fotografija v herotu in širok fotografski parallax ostaneta nespremenjena. */
+
+/* Izbrana smer: človeška silhueta za steklom, sproščena sodelovalna fotografija. */
+.photo-divider-image {
+ background-image: linear-gradient(90deg,rgba(15,44,32,.08),rgba(243,241,231,.12)),
+   url('/assets/img/editorial/frosted-people.jpg');
+ background-color: #D1D5CC;
+ background-position: center 46%;
+ filter: saturate(.70) blur(.7px);
+}
+.adoption-visual {
+ background-image: linear-gradient(90deg,rgba(14,42,31,.08),rgba(241,242,231,.10)),
+   url('/assets/img/editorial/collaboration.jpg');
+ background-color: #D4D9D2;
+ background-position: center 43%;
+ filter: saturate(.63) blur(1.1px);
+}
+.photo-divider { background: linear-gradient(120deg,#D3D7CB,#E8E8DA); }
+.adoption-feature { background: var(--paper-2); }
+/* Bolj realen stekleni vtis in svetloba na šestih različnih abstraktnih podobah. */
+.section-marquee .tile-media { position:relative; overflow:hidden; }
+.section-marquee .tile-media::after {
+ content:""; position:absolute; inset:0; pointer-events:none;
+ background: linear-gradient(138deg,rgba(255,255,255,.38),transparent 34%,rgba(255,255,255,.08) 63%,rgba(235,241,234,.18));
+ mix-blend-mode: screen;
+}
+@media (prefers-reduced-motion:no-preference) and (hover:hover) {
+ .section-marquee .tile img { transition: transform .65s cubic-bezier(.2,.7,.3,1); }
+ .section-marquee .tile:hover img { transform:scale(1.05); }
+}
+
+/* V7: pastelni karusel namesto temnih ikon; delo z ljudmi namesto opreme. */
+.section-marquee .tile-media { background: #F3F5F0; }
+.section-marquee .tile-media img { width:100%;height:100%;object-fit:cover; filter:none; }
+.adoption-visual {
+ background-image: linear-gradient(90deg,rgba(16,51,39,.06),rgba(235,240,231,.13)),
+ url('/assets/img/editorial/human-centered-dashboard.jpg');
+ background-color: #DCE3DC;
+ background-size: cover;
+ background-position: center center;
+ filter: saturate(.67) blur(.45px);
+}
+
+/* Fix: adoption image was behind the section background (negative stacking).
+   Keep photograph visible with local visual fallback if remote download fails. */
+.adoption-feature { isolation:isolate; }
+.adoption-visual {
+ z-index:0;
+ background-color:#DBE6DA;
+ background-image:
+  linear-gradient(90deg,rgba(15,45,32,.11),rgba(241,245,237,.10)),
+  url('/assets/img/editorial/human-centered-dashboard.jpg'),
+  url('/assets/img/slides/pastel-sage-glass.svg');
+ background-size:cover,cover,cover;
+ background-position:center,center,center;
+}
+.adoption-copy { position:relative; z-index:1; }
+
+/* V8: umirjen prehod pod herotom; marelična izvedba razdelka o uporabi.
+   Šest kartic karusela in njihovi štirje pastelni vizuali ostanejo nedotaknjeni. */
+.photo-divider {
+  height: clamp(230px, 28vw, 365px);
+  background: linear-gradient(115deg, #E3E7DF, #F0F1EA);
+}
+.photo-divider-image {
+  opacity: .59;
+  filter: blur(2.4px) saturate(.48) brightness(1.12);
+  background-position: center 46%;
+}
+.photo-divider::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(90deg, rgba(245,247,241,.27), rgba(248,248,241,.16));
+  pointer-events: none;
+}
+
+/* V9: nevsiljiva terakotna črta ob nevtralnem razdelku za uporabo.
+   Karusel, hero in prehod pod herotom ostanejo nedotaknjeni. */
+.adoption-feature {
+  background: #F7F8F5;
+}
+.adoption-feature::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: clamp(22px, 2.6vw, 34px);
+  background: #B66B49;
+  z-index: 2;
+  pointer-events: none;
+}
+.adoption-visual {
+  background-color: #EDF0EB;
+  background-image:
+    linear-gradient(90deg, rgba(250,251,248,.30), rgba(242,245,240,.53)),
+    url('/assets/img/slides/pastel-sage-glass.svg');
+  background-size: cover, cover;
+  background-position: center, center;
+  filter: saturate(.2) brightness(1.08);
+  z-index: 0;
+}
+.adoption-copy {
+  background: #FFF;
+  color: #2B3430;
+  border-color: rgba(31,60,45,.12);
+}
+.adoption-copy h2 { color: #192320; }
+@media (max-width: 820px) {
+  .photo-divider { height: clamp(190px, 39vw, 270px); }
+  .photo-divider-image { opacity: .62; filter: blur(1.8px) saturate(.5) brightness(1.09); }
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .adoption-feature { background: #F7F8F5; }
+  :root:not([data-theme="light"]) .adoption-copy { background: #FFF; color: #2B3430; }
+  :root:not([data-theme="light"]) .adoption-copy h2 { color: #192320; }
+}
+:root[data-theme="dark"] .adoption-feature { background: #F7F8F5; }
+:root[data-theme="dark"] .adoption-copy { background: #FFF; color: #2B3430; }
+:root[data-theme="dark"] .adoption-copy h2 { color: #192320; }
+
+
+/* Blog: le barve po uporabničini referenci Doptiva Academy.
+   Svetla kremna podlaga, skoraj črno besedilo, terakota kot poudarek.
+   Brez sprememb postavitve, karusela in drugih strani. */
+body.site-blog {
+  --paper: #FCFAF5;
+  --paper-2: #F6F0E9;
+  --card: #FFFFFF;
+  --ink: #242521;
+  --text: #373833;
+  --muted: #6B6A63;
+  --green: #A84C29;
+  --brand: #168267;
+  --mint: #F8E7DA;
+  --mint-ink: #8D432A;
+  --annot: #AF623F;
+  --annot-strong: #AF623F;
+  --line: rgba(78, 59, 46, .12);
+  --line-strong: rgba(78, 59, 46, .21);
+  --note-1: #FCF1E9;
+  --note-ink: #37332E;
+  --focus: #AF623F;
+  background: #FCFAF5;
+  color: #373833;
+}
+body.site-blog .site-header,
+body.site-blog .site-footer,
+body.site-blog .page-head,
+body.site-blog .article-head { background-color: #FCFAF5; }
+body.site-blog .page-head .label,
+body.site-blog .article-head .label,
+body.site-blog .post-item::before,
+body.site-blog .post-item .text-link,
+body.site-blog .post-item h2 a:hover,
+body.site-blog .prose a,
+body.site-blog .prose li::marker { color: #A84C29; }
+body.site-blog .page-head h1,
+body.site-blog .article-head h1,
+body.site-blog .post-item h2 a,
+body.site-blog .prose h2,
+body.site-blog .prose h3 { color: #242521; }
+body.site-blog .post-item { border-bottom-color: rgba(78,59,46,.17); }
+body.site-blog .posts { border-top-color: rgba(78,59,46,.17); }
+body.site-blog .btn-primary { background: #A84C29; color: #FFF; }
+body.site-blog .btn-primary:hover { background: #873C20; color: #FFF; }
+body.site-blog .site-nav a.nav-link[aria-current="page"] { border-bottom-color: #A84C29; }
+body.site-blog .article-cta { background: #FFF9F3; border-color: rgba(168,76,41,.2); }
+body.site-blog .prose blockquote { background: #FCF1E9; color: #37332E; }
+body.site-blog .prose .lead { color: #242521; }
+body.site-blog .site-footer { border-top-color: rgba(78,59,46,.12); }
+body.site-blog .cta-band { background: #422D27; }
+body.site-blog .cta-band .label,
+body.site-blog .cta-band h2 em { color: #F4BDA4; }
+
+
+/* Projekti — temno modri poudarki ob nespremenjeni svetli postavitvi.
+   Velja le za /projekti/ in /en/projects/. */
+body.site-projects {
+  --project-navy: #162F46;
+  --project-navy-deep: #0D2337;
+  --project-sage: #B8CDBB;
+  --project-sage-hover: #D1E0D2;
+  --ink: #1B2731;
+  --text: #303A42;
+  --line: rgba(22,47,70,.13);
+  --line-strong: rgba(22,47,70,.24);
+  --green: #254B67;
+  --focus: #254B67;
+}
+body.site-projects .page-head { background: var(--paper); }
+body.site-projects .page-head h1,
+body.site-projects .project-body h2 { color: var(--project-navy); }
+body.site-projects .page-head .label { color: #254B67; }
+body.site-projects .site-nav a.nav-link[aria-current="page"] { border-bottom-color: var(--project-navy); }
+body.site-projects .project { border-top-color: rgba(22,47,70,.18); }
+body.site-projects .project-body .lead { color: #1B2731; }
+body.site-projects .project-body .ticks li::before { background: #254B67; opacity: .8; }
+body.site-projects .project .stamp { color: #254B67; border-color: rgba(37,75,103,.45); }
+body.site-projects .project .stamp-mvp { color: #9B674F; border-color: rgba(155,103,79,.4); }
+body.site-projects .project-visual {
+  background: #162F46;
+  border: 1px solid #162F46;
+  padding: clamp(16px,2vw,28px);
+  box-shadow: 0 18px 44px rgba(13,35,55,.10);
+}
+body.site-projects .project-visual .ui,
+body.site-projects .project-visual .phone {
+  --paper: #F9FBFA;
+  --paper-2: #EAF1EE;
+  --card: #FFFFFF;
+  --ink: #1B332E;
+  --text: #303D38;
+  --muted: #597066;
+  --line: rgba(17,58,45,.14);
+  --line-strong: rgba(17,58,45,.25);
+  --green: #1C7055;
+  --brand: #168267;
+}
+body.site-projects .project-visual figcaption {
+  color: #E7F0F3;
+  opacity: .88;
+  margin-top: 1.05rem;
+}
+body.site-projects .project .btn-ghost {
+  color: #162F46;
+  background: #FFFFFF;
+  border-color: #254B67;
+}
+body.site-projects .project .btn-ghost:hover {
+  background: #162F46;
+  color: #FFFFFF;
+}
+/* Samo spodnji CTA je polno temno moder; gumb je žajbljevo zelen. */
+body.site-projects .cta-band { background: #0D2337; color: #D9E4EA; }
+body.site-projects .cta-band h2 { color: #FFFFFF; }
+body.site-projects .cta-band h2 em,
+body.site-projects .cta-band .label { color: #C7DDCE; }
+body.site-projects .cta-band .btn-primary {
+  background: #B8CDBB;
+  color: #112C3A;
+  border: 1px solid #B8CDBB;
+}
+body.site-projects .cta-band .btn-primary:hover {
+  background: #D1E0D2;
+  border-color: #D1E0D2;
+  color: #112C3A;
+}
+body.site-projects .cta-band .btn-primary:focus-visible { outline: 3px solid #FFFFFF; outline-offset: 3px; }
+
+/* Newsletter: restrained modal, available in both languages. */
+.newsletter-overlay[hidden] {display:none!important}
+.newsletter-overlay {position:fixed;inset:0;z-index:10000;background:rgba(13,35,28,.68);display:grid;place-items:center;padding:16px}
+body.newsletter-open {overflow:hidden}
+.newsletter-dialog {position:relative;display:grid;gap:14px;width:min(100%,500px);max-height:95dvh;overflow:auto;padding:clamp(25px,4vw,45px);background:#FAFBF8;color:#192320;border-top:6px solid #AF623F;box-shadow:0 24px 80px rgba(0,0,0,.22)}
+.newsletter-dialog h2 {font-size:clamp(1.9rem,3vw,2.5rem);color:#192320}
+.newsletter-dialog p {font-size:.92rem;color:#48574D}
+.newsletter-dialog form {display:grid;gap:12px}
+.newsletter-dialog form>label {font-size:.82rem;font-weight:600}
+.newsletter-dialog input[type=email] {width:100%;padding:11px;min-height:46px;border:1px solid #AAB9AE;border-radius:3px;background:white;color:#192320;font:inherit}
+.newsletter-dialog .newsletter-consent {display:flex;gap:10px;align-items:flex-start;font-size:.8rem;line-height:1.55;font-weight:400}
+.newsletter-consent input {flex:none;margin-top:4px;accent-color:#0F674C}
+.newsletter-consent a {color:#0F674C;text-decoration:underline}
+.newsletter-close {position:absolute;top:10px;right:14px;width:42px;height:42px;border:0;background:transparent;color:#192320;font:30px system-ui;cursor:pointer}
+.newsletter-dismiss,.newsletter-footer-link {padding:5px 0;border:0;background:transparent;text-decoration:underline;cursor:pointer;font:inherit;color:var(--green)}
+.newsletter-dismiss {justify-self:start;color:#56675C;font-size:.82rem}
+.newsletter-dialog .btn-primary {justify-self:start}
+.newsletter-dialog :is(button,input,a):focus-visible {outline:3px solid #168267;outline-offset:3px}
+#newsletter-status {padding:10px;background:#EDF3E9}
+.about-mission .about-mission-secondary {margin-top:clamp(2rem,4vw,4rem)}
+
+
+/* Six service cards: keep the existing editorial layout in three balanced rows. */
+@media (min-width: 901px) {
+  .notes > .note:nth-child(n) { grid-column: span 3; }
+  .notes > .note:nth-child(4n + 1),
+  .notes > .note:nth-child(4n + 4) { grid-column: span 4; }
+  .notes > .note:nth-child(4n + 2),
+  .notes > .note:nth-child(4n + 3) { grid-column: span 2; }
+}
+@media (max-width: 900px) and (min-width: 641px) {
+  .notes > .note:nth-child(n) { grid-column: span 1; }
+}
+@media (max-width: 640px) {
+  .notes > .note:nth-child(n) { grid-column: auto; }
+}
